@@ -115,9 +115,13 @@ const NOME_ACAO: Record<AcaoTb, string> = {
 const ehAposta = (a: string) => a.startsWith("B") || a === "All-in"
 const ESTS = Object.keys(NOME_EST) as Est[]
 
-function contagem(arvores: Arvore[], e: Est): number {
-  return situacoesTb.filter((s) => s.est === e && arvores.includes(s.arvore))
-    .length
+function contagem(arvores: Arvore[], e: Est, soDificeis: boolean): number {
+  return situacoesTb.filter(
+    (s) =>
+      s.est === e &&
+      arvores.includes(s.arvore) &&
+      (!soDificeis || s.dificuldade === "dificil")
+  ).length
 }
 
 export default function Pratica3bet({ onTema }: { onTema: (t: Tema) => void }) {
@@ -125,6 +129,7 @@ export default function Pratica3bet({ onTema }: { onTema: (t: Tema) => void }) {
   const [escolha, setEscolha] = useState<Escolha>("os dois")
   const [grupos, setGrupos] = useState<Est[]>(ESTS)
   const [qty, setQty] = useState("10")
+  const [soDificeis, setSoDificeis] = useState(true)
   const [erro, setErro] = useState("")
   const [fila, setFila] = useState<SituacaoTb[]>([])
   const [i, setI] = useState(0)
@@ -189,7 +194,10 @@ export default function Pratica3bet({ onTema }: { onTema: (t: Tema) => void }) {
     const n = Number(qty)
     let pool = shuffle(
       situacoesTb.filter(
-        (s) => arvores.includes(s.arvore) && grupos.includes(s.est)
+        (s) =>
+          arvores.includes(s.arvore) &&
+          grupos.includes(s.est) &&
+          (!soDificeis || s.dificuldade === "dificil")
       )
     )
     if (n && pool.length > n) pool = pool.slice(0, n)
@@ -299,7 +307,7 @@ export default function Pratica3bet({ onTema }: { onTema: (t: Tema) => void }) {
               </legend>
               <div className="flex flex-wrap gap-2">
                 {ESTS.map((e) => {
-                  const n = contagem(arvores, e)
+                  const n = contagem(arvores, e, soDificeis)
                   const off = n === 0
                   return (
                     <Label
@@ -320,13 +328,33 @@ export default function Pratica3bet({ onTema }: { onTema: (t: Tema) => void }) {
                       />
                       {NOME_EST[e]} · {rotuloGrupo(e)}
                       <span className="text-muted-foreground">
-                        {off ? `só no ${ARVORE_DA[e]}` : n}
+                        {off
+                          ? soDificeis && e === "range"
+                            ? "todas fáceis"
+                            : `só no ${ARVORE_DA[e]}`
+                          : n}
                       </span>
                     </Label>
                   )
                 })}
               </div>
             </fieldset>
+
+            <Label className="flex cursor-pointer items-start gap-3 rounded-xl border bg-card px-4 py-3">
+              <Checkbox
+                checked={soDificeis}
+                onCheckedChange={(v) => setSoDificeis(v === true)}
+                className="mt-1"
+              />
+              <span className="grid gap-0.5">
+                <span>Só decisões difíceis</span>
+                <span className="text-sm font-normal text-muted-foreground">
+                  Tira o range bet de qualquer mão e o check-fold de mão sem
+                  nada. Mantém os pares de mãos iguais em que o naipe do board
+                  muda a jogada.
+                </span>
+              </span>
+            </Label>
 
             <fieldset className="grid gap-2.5">
               <legend className="mb-1 font-medium text-muted-foreground">
