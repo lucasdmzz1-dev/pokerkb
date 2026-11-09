@@ -242,6 +242,114 @@ Validação
 
 Decisão consolidada
 
+---
+
+# ATUALIZAÇÕES DE 09/11/2026
+
+Fonte: aula "3bet pot do BB — Postflop 1". As dúvidas abaixo são da aula e da leitura da transcrição automática.
+
+---
+
+# 05 — STACK DO DEEP
+
+A aula fala em "60 a 80bb" para o deep e dá um K-K em um replayer de ~43bb efetivos como exemplo deep. O short também varia (20 e poucos bb nos replayers, 30bb na fala).
+
+**Resolvida em parte (autor, 09/11/2026):** as faixas são até 30bb (short), de 30 a 60bb (middle, uma mistura entre as duas árvores, mais perto de 30 joga como short e mais perto de 60 joga como deep) e 60bb ou mais (deep). O instrutor segue o stack de cada exemplo.
+
+**Falta saber (coach):** a partir de que stack exato o middle passa a usar a lógica do deep.
+
+**Status:** aberta, só para o corte dentro do middle.
+
+---
+
+# 06 — OVERPAIR NO ALL-IN: BET OU CHECK-SHOVE
+
+No short com sequência, o guideline da aula diz "valor: primeiros overpairs" e também "check-raise: overpairs". Na prática da aula, o Q-Q no J-T-7 foi para o check-shove.
+
+**Falta saber (coach):** qual overpair aposta all-in e qual dá check-shove, e em qual frequência.
+
+**Status:** aberta.
+
+---
+
+# 07 — EXCEÇÃO DO 6-5-4 E DO 5-4-3
+
+O instrutor diz que, pela teoria, o 6-5-4 deveria ir all-in range, porque o rival quase não acerta par. Chama de "exceção da exceção" e não pede para treinar.
+
+**Falta saber (coach):** qual estratégia usar nesses dois boards.
+
+**Status:** aberta.
+
+---
+
+# 08 — SECO NO DEEP: B25 OU B40
+
+O deep usa "B25 a B40" no seco, e a aula cita K-8-2, Q-7-3, A-9-4 e 5-5-2 em B25 e K-9-7 em B40. O critério é "quando há mais interação, B40", sem regra de conectividade.
+
+**Falta saber (coach):** o critério objetivo entre B25 e B40 no seco deep.
+
+**Status:** aberta.
+
+---
+
+# 09 — "LOW SEM SEQUÊNCIA: B70" NO DEEP
+
+Em um trecho da aula, o instrutor responde "board low sem sequência, B70" no deep. Isso conflita com o seco em B25 e com o K-8-2 em B25. A transcrição deste trecho é confusa.
+
+**Falta saber (coach):** se há um grupo de boards low em B70 no deep.
+
+**Status:** aberta.
+
+---
+
+# 10 — MÃOS COM AÇÃO NÃO CLARA NA TRANSCRIÇÃO
+
+A transcrição não deixa clara a ação de algumas mãos citadas: Q-8 no J-T-7, K-6 sem o naipe, A-K e A-Q de naipes diferentes do board no deep, e as mãos do 9-8-6. Não entraram nas regras.
+
+**Falta saber (coach):** a ação dessas mãos. O vídeo traz a resposta, mas a transcrição troca nomes e naipes.
+
+**Status:** aberta.
+
+---
+
+# 11 — SOLVER
+
+O relatório do GTO Wizard mostrado na aula não está no KB com combos e frequências (Solver, "Relatório do GTO Wizard na aula do BB").
+
+**Status:** aberta.
+
+---
+
+# 12 — Ponte PÓS→PRÉ: faixas de stack do 3-bet do BB
+
+A aula resume o 3-bet do BB por faixa de stack (até 30bb, 30 a 60bb, 60bb ou mais), com exemplos de mãos. Esse conteúdo é de pré-flop e deveria entrar no chat PRÉ-FLOP (módulo 12 ou um módulo de 3-bet).
+
+**Status:** aberta, para o chat PRÉ-FLOP. Os ranges de 3-bet do BB contra o open do BTN, por stack, serão lidos do Poker Academy para a Prática.
+
+---
+
+# 13 — SB E IP NÃO COBERTOS
+
+A aula é só do BB. A árvore do SB (já na Teoria como "3Bet Pot OOP no SB") e a IP seguem sem aula.
+
+**Status:** aberta.
+
+---
+
+# 14 — TURN
+
+A aula não traz o turn. O guideline dá só o size por tipo de turn (blank B100, carta alta B40, flush B40, carta que conecta B70), sem dizer quais mãos apostam.
+
+**Status:** aberta.
+
+---
+
+# 15 — TRANSCRIÇÃO AUTOMÁTICA
+
+A transcrição é automática e confunde palavras (Ás, all-in, bet) e os naipes de várias mãos. Os boards e as mãos dos replayers foram lidos nos frames do vídeo (cores do replayer). Os naipes lidos podem precisar de conferência.
+
+**Status:** registrada.
+
 <!-- graphify-links:start -->
 
 ---

@@ -216,6 +216,10 @@ Referências:
 
 ---
 
+# FONTE DA AULA DO BB (09/11/2026)
+
+Aula "3bet pot do BB — Postflop 1": vídeo, transcrição automática (.txt e .srt) e os replayers mostrados na aula. Entra como videoaula e correção do instrutor (4 na hierarquia). A transcrição troca nomes e naipes, então o que ficou duvidoso está em `06-Pendencias.md` e a guideline que o instrutor recita no fim tem peso maior nos conflitos internos da aula.
+
 # REGRA DE DOCUMENTAÇÃO
 
 

@@ -7,7 +7,8 @@ tags:
 
 #flashcards/08-3bet-pot
 
-Fonte: [[theory/08-3BET-POT/05-Regras-Consolidadas|Regras Consolidadas]] · [[theory/08-3BET-POT/README|Módulo]] · [[theory/08-3BET-POT/08 - 3BET POT GUIDELINE|Guideline]]
+Fonte: [[theory/08-3BET-POT/05-Regras-Consolidadas|Regras Consolidadas]] · [[theory/08-3BET-POT/README|Módulo]]
+ · [[theory/08-3BET-POT/08 - 3BET POT GUIDELINE|Guideline]]
 
 3Bet Pot: quais as cinco classificações a fazer antes de analisar qualquer spot, e em que ordem?
 ?
@@ -132,3 +133,67 @@ Transformar qualquer blocker em blefe: avaliar equidade e potencial futuro.
 ?
 Posição → Stack → Board → Size → Split → Frequência Solver.
 (seção: Conclusão Final)
+
+3Bet Pot do BB (aula de 09/11/2026), short stack: qual a estratégia por tipo de board?
+?
+Seco, monotone e dobrado: B25 (range bet).
+Carregado sem sequência: B40 (split).
+Com sequência: all-in (split). Exceção: 6-5-4 e 5-4-3.
+(seção: Guideline da aula do BB)
+
+3Bet Pot do BB: por que não tratar BB e SB no mesmo bolo?
+?
+O range do SB é linear e o do BB é polarizado. Isso reduz a frequência média de aposta e a realização de equity do BB fora de posição.
+(seção: Aula do BB — Por que separar BB e SB)
+
+3Bet Pot do BB, short: quando usar B25, B40 e all-in?
+?
+B25: vantagem absoluta (range bet). B40: o range precisa de split e o valor não precisa de proteção. All-in: o valor precisa de proteção e o range não perde ao colocar tudo.
+(seção: Aula do BB — Os três pilares do size)
+
+3Bet Pot do BB, short, board com sequência (all-in): quem aposta, quem dá check-call e quem dá check-shove?
+?
+Valor: primeiros overpairs e top pairs. Bluff: flush draw e duas pontas.
+Check-call: trincas, sequências, pares e brocas com redraw.
+Check-shove: overpairs e combo draws.
+(seção: Guideline da aula do BB — Split all-in)
+
+3Bet Pot do BB, short, board carregado sem sequência (B40): como montar o bluff?
+?
+Só com BDFD + BDST, e só com o naipe do board (K5 e A6 sem o naipe dão check-fold).
+(seção: Guideline da aula do BB — Split B40)
+
+3Bet Pot do BB: por que as trincas vão para o check-call no short stack?
+?
+SPR baixo não pede acelerar a trinca, ela bloqueia quem paga e dá free card.
+(seção: Regras da aula do BB — Regra 6)
+
+3Bet Pot do BB, deep: qual a estratégia por tipo de board?
+?
+Seco: B25 (B40 quando interage mais). Com sequência: B40 (split). Tx e Jx conectados com flush draw, e 98x com flush draw: B70 (split).
+(seção: Guideline da aula do BB — Deep stack)
+
+3Bet Pot do BB, deep: por que o all-in deixa de servir no board com sequência?
+?
+O board muda muito para as próximas streets. Apostar alto isola o BB contra um range forte, restringe as mãos que apostam e o deixa sem ação quando vem 9, T ou o board pareia.
+(seção: Aula do BB — Parte 2)
+
+3Bet Pot do BB, deep, split B40: quais mãos apostam por valor?
+?
+Sequência sem o naipe do board, todos os overpairs, top pairs que conectam ou têm kicker extra, e a trinca de baixo.
+(seção: Guideline da aula do BB — Split B40 deep)
+
+3Bet Pot do BB, deep, split B70: quem aposta e quem guarda para o check?
+?
+Aposta: top pairs e primeiros overpairs. Os piores top pairs ficam no check.
+(seção: Guideline da aula do BB — Split B70 deep)
+
+3Bet Pot do BB: que trinca dá check-raise?
+?
+A que não bloqueia o top pair. O top set vai para o check-call.
+(seção: Regras da aula do BB — Regra 10)
+
+3Bet Pot do BB: por que o size alto pede mão mais forte?
+?
+O rival paga um preço pior e folda mais, então só as melhores mãos de valor e os bluffs com mais equity apostam. As mãos médias ficam no check.
+(seção: Regras da aula do BB — Regra 11)

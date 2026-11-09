@@ -599,6 +599,97 @@ B70
 
 ---
 
+# EXERCÍCIOS DA AULA DO BB (09/11/2026)
+
+Spot de todos: BB deu 3-bet contra o open do BTN, o BTN pagou e o BB age primeiro no flop. **Short:** 25bb, 3-bet de 6,5bb, pote de 14,5bb. **Deep:** 60bb ou mais. As mãos foram conferidas carta a carta com o board.
+
+---
+
+## Exercício 1 — Classifique o board (short)
+
+Responda com a estratégia e o size.
+
+| Board | Resposta |
+|---|---|
+| A♦ 8♠ 2♣ | B25, range bet (seco) |
+| K♠ 7♦ 2♣ | B25, range bet (seco) |
+| J♠ 5♦ 2♣ | B25, range bet (seco) |
+| J♣ 6♥ 4♠ | B25, range bet (seco, rival com pouca interação) |
+| A♠ T♠ 8♠ | B25, range bet (monotone) |
+| Q♠ 8♦ 6♣ | B40, split (carregado) |
+| J♣ 9♥ 4♥ | B40, split (carregado, sem sequência) |
+| J♠ T♦ 7♦ | All-in, split (sequência) |
+| 8♠ 7♦ 6♣ | All-in, split (sequência) |
+| 9♦ 8♠ 6♣ | All-in, split (sequência) |
+
+**Aprendizado:** a pergunta é se o valor perde ao ir all-in e se o range precisa de split. Referência: Regras 3 e 4 da aula do BB (`05-Regras-Consolidadas.md`).
+
+---
+
+## Exercício 2 — J♠ T♦ 7♦ no short stack
+
+Mão do BB, uma de cada vez. O board tem sequência (all-in, split).
+
+| Mão | Resposta | Motivo |
+|---|---|---|
+| A♣ J♣ | All-in | top pair sem o naipe do board, desbloqueia os draws |
+| A♦ J♦ | Check-shove | top pair com nut flush draw |
+| Q♣ Q♥ | Check-shove | overpair |
+| T♣ T♥ | Check-call | trinca que bloqueia os T que pagam |
+| A♠ 9♠ | All-in | broca, overcard e BDFD |
+
+---
+
+## Exercício 3 — J♣ 9♥ 4♥ no short stack
+
+Board carregado, B40, split. Mão do BB:
+
+| Mão | Resposta | Motivo |
+|---|---|---|
+| A♣ A♠ | Bet B40 | overpair, valor |
+| A♣ J♦ | Bet B40 | top pair, valor |
+| K♥ 5♣ | Bet B40 | só o K♥: BDFD e BDST |
+| K♣ 5♦ | Check-fold | sem o naipe do board |
+| J♠ J♦ | Check-call | trinca |
+| A♥ K♥ | Check-shove | combo draw (a aula também aceita check-call) |
+
+---
+
+## Exercício 4 — J♣ 6♥ 4♠ no short stack
+
+Mão do BB: A♠ K♠. **Resposta:** B25, range bet. O board é seco para o BB (pouca interação do rival), então não há split e toda mão aposta.
+
+---
+
+## Exercício 5 — Classifique o board (deep)
+
+| Board | Resposta |
+|---|---|
+| K♠ 8♦ 2♣ | B25 |
+| Q♣ 7♥ 3♦ | B25 |
+| A♠ 9♦ 4♣ | B25 |
+| 5♣ 5♥ 2♠ | B25, range |
+| K♠ 9♦ 7♣ | B40 (interage mais) |
+| T♠ 9♦ 8♣ | B40 (sequência) |
+| 8♠ 7♦ 6♣ | B40 (sequência) |
+| 9♠ 8♥ 2♠ | B70 (98x com flush draw) |
+| J♠ 7♦ 2♠ | B70 (Jx com flush draw) |
+
+**Regra de bolso:** com sequência, B40. Sem sequência e com flush draw em Tx, Jx ou 98x, B70. Seco, B25.
+
+---
+
+## Exercício 6 — K♦ K♠ no 2♠ 8♥ 9♠ (deep)
+
+**Resposta:** bet B70 (split). Quanto mais deep, mais B70. Quanto mais raso, mais B40.
+
+---
+
+## Exercício 7 — Quando passar do all-in para o size
+
+Pergunta: no short stack o all-in no J-T-7 é a melhor jogada. O que muda se o stack for deep (SPR 3)?
+
+**Resposta:** o all-in deixa de servir, porque o rival pode foldar mãos médias. O board com sequência vira B40, em split, e o B40 deixa o SPR em 1 no turn.
 
 # BANCO DE CORREÇÕES
 
