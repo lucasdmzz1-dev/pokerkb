@@ -701,5 +701,44 @@
   "call": 25.9,
   "raise": 8.4,
   "allin": 0.0
+ },
+ "#6751@HJ": {
+  "tipo": "PKO",
+  "fase": "Early",
+  "btn_bb": 60.1,
+  "opener_bb": 33.1,
+  "open_pct": 25.8,
+  "relacao": "cobre",
+  "rp": -4.3,
+  "fold": 67.7,
+  "call": 28.6,
+  "raise": 3.8,
+  "allin": 0.0
+ },
+ "#7569@HJ": {
+  "tipo": "PKO",
+  "fase": "Mid",
+  "btn_bb": 56.9,
+  "opener_bb": 30.8,
+  "open_pct": 25.1,
+  "relacao": "cobre",
+  "rp": -4.3,
+  "fold": 76.5,
+  "call": 14.8,
+  "raise": 8.7,
+  "allin": 0.0
+ },
+ "#7740@HJ": {
+  "tipo": "PKO",
+  "fase": "Early",
+  "btn_bb": 56.6,
+  "opener_bb": 29.0,
+  "open_pct": 26.7,
+  "relacao": "cobre",
+  "rp": -7.1,
+  "fold": 71.6,
+  "call": 20.2,
+  "raise": 8.2,
+  "allin": 0.0
  }
 }
