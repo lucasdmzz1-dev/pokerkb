@@ -65,16 +65,19 @@ with open(os.path.join(dados, "grades-raw.txt"), encoding="utf-8") as f:
         m = decodifica(cod)
         w = [6 if len(x) == 2 else 4 if x.endswith("s") else 12 for x in MAOS]
         calc = [round(sum(wi * mi[k] for wi, mi in zip(w, m)) / 1326, 1) for k in range(3)]
-        assert abs(calc[0] - c["call"]) <= 0.2 and abs(calc[1] - c["raise"]) <= 0.2, (id_, calc, c)
+        if c.get("raise_total"):  # árvore com mais de um size de 3bet: a grade separa só a primeira cor; comparo 3bet + all-in
+            assert abs(calc[0] - c["call"]) <= 0.3 and abs(calc[1] + calc[2] - c["raise"] - c["allin"]) <= 0.4, (id_, calc, c)
+        else:
+            assert abs(calc[0] - c["call"]) <= 0.2 and abs(calc[1] - c["raise"]) <= 0.2, (id_, calc, c)
         obs = None
         if abs(calc[2] - (c.get("allin", 0) or 0)) > 0.5:
-            obs = f"o resumo registra all-in {c.get('allin', 0) or 0}%, mas a grade tem {calc[2]}% (o cabeçalho do solver não fecha 100% sem ele); vale a grade"
+            obs = None if c.get("raise_total") else f"o resumo registra all-in {c.get('allin', 0) or 0}%, mas a grade tem {calc[2]}% (o cabeçalho do solver não fecha 100% sem ele); vale a grade"
         cenarios.append({
             "arvore": id_, "tipo": "PKO" if a["tipo"].startswith("Bounty") else "Vanilla", "fase": a["fase"],
             "faixa": "curto" if btn < 33 else "médio" if btn < 45 else "deep", "btn_bb": btn, "pct_left": pl,
             "opener": c["opener"], "opener_bb": c["opener_bb"], "open_pct": c["open_pct"],
             "relacao": c["relacao"], "rp": c["rp_btn_vs_opener"],
-            "resumo": {"fold": c["fold"], "call": c["call"], "raise": c["raise"], "allin": calc[2] if obs else (c.get("allin", 0) or 0)}, "obs": obs,
+            "resumo": {"fold": c["fold"], "call": c["call"], "raise": c["raise"], "allin": calc[2] if obs else (c.get("allin", 0) or 0)}, "obs": obs, "origem": c.get("origem"), "erro_treino": c.get("erro_treino"), "jogadores_bounty": c.get("jogadores_bounty"),
             "call": [x[0] for x in m], "raise": [x[1] for x in m], "allin": [x[2] for x in m],
         })
 

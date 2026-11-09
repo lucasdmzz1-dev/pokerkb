@@ -49,7 +49,7 @@ const M=D.maos,C=D.cenarios;
 const $=id=>document.getElementById(id);
 const COR={call:'#5fa365',raise:'#e74c3c',allin:'#4a0e02',fold:'#3a4a55'};
 const CATS=['Sempre','Quase sempre','Às vezes','Raro'];
-const f1=x=>(Math.round(x*10)/10).toString().replace('.',',');
+const f1=x=>x==null?'n/d':(Math.round(x*10)/10).toString().replace('.',',');
 function cls(c,r,a){const t=c+r+a;if(t<=0)return null;const cat=t>=90?0:t>=60?1:t>=20?2:3;const tr=r+a;const tp=Math.min(c,tr)/t>=.25?'flat+3bet':(c>=tr?'flat':'3bet');return{cat,tp,t}}
 // mão a mão para um "conjunto" (cenário ou média de cenários)
 function mk(cs){const n=cs.length;return M.map((_,i)=>{const g=k=>cs.reduce((s,c)=>s+c[k][i],0)/n;const c=g('call'),r=g('raise'),a=g('allin');return{c,r,a,k:cls(c,r,a)}})}
@@ -84,7 +84,7 @@ function render(){
   return`<div class="c${d?' d':''}" title="${tip}" style="background:${vis==='cat'?gradCat(h):grad(h)}">${M[i]}<i>${tag}</i></div>`}).join('');
  $('leg').innerHTML=vis==='freq'?'<span style="--k:#5fa365">call</span><span style="--k:#e74c3c">3bet</span><span style="--k:#4a0e02">all-in</span><span style="--k:#3a4a55">fold</span>':'<span style="--k:#5fa365">flat</span><span style="--k:#e74c3c">3bet</span><span style="--k:#3a4a55">fold</span><span>S sempre, Q quase sempre, A às vezes, R raro (cor mais forte = mais frequente)</span>'+(O?'<span style="--k:#e8c25a">contorno amarelo: categoria diferente do '+(aggT==='Vanilla'?'PKO':'Vanilla')+'</span>':'');
  // info
- if(modo==='cen'){const c=C[cen],r=c.resumo;$('info').innerHTML=`<b>${c.tipo==='PKO'?'PKO (Bounty 50%)':'Vanilla'}</b>, ${c.fase}, BTN ${f1(c.btn_bb)}bb (${c.faixa}), opener ${c.opener} ${f1(c.opener_bb)}bb abre ${f1(c.open_pct)}%, relação ${c.relacao}, RP ${c.rp>0?'+':''}${f1(c.rp)}% (árvore ${c.arvore}).${c.obs?' <span class="mut">Obs.: '+c.obs+'.</span>':''}<br>Total do BTN: <b>fold ${f1(r.fold)}%</b>, <b style="color:var(--call)">call ${f1(r.call)}%</b>, 3bet ${f1(r.raise)}%, all-in ${f1(r.allin)}%.`}
+ if(modo==='cen'){const c=C[cen],r=c.resumo;$('info').innerHTML=`<b>${c.tipo==='PKO'?'PKO (Bounty 50%)':'Vanilla'}</b>, ${c.fase}, BTN ${f1(c.btn_bb)}bb (${c.faixa}), opener ${c.opener} ${f1(c.opener_bb)}bb abre ${f1(c.open_pct)}%, relação ${c.relacao}, RP ${c.rp==null?'n/d':(c.rp>0?'+':'')+f1(c.rp)+'%'} (árvore ${c.arvore}).${c.obs?' <span class="mut">Obs.: '+c.obs+'.</span>':''}<br>Total do BTN: <b>fold ${f1(r.fold)}%</b>, <b style="color:var(--call)">call ${f1(r.call)}%</b>, 3bet ${f1(r.raise)}%, all-in ${f1(r.allin)}%.`}
  else{const cs=C.filter(c=>c.tipo===aggT&&pf(c));const m=k=>cs.reduce((s,c)=>s+c.resumo[k],0)/cs.length;$('info').innerHTML=`<b>${aggT==='PKO'?'PKO (Bounty 50%)':'Vanilla'}, BTN ${aggF}</b>, relação ${aggR}: média de ${cs.length} grades (${cs.map(c=>c.fase+' '+c.arvore+(c.opener!=='MP'?'@'+c.opener:'')).join(', ')}).<br>Média do BTN: fold ${f1(m('fold'))}%, <b style="color:var(--call)">call ${f1(m('call'))}%</b>, 3bet ${f1(m('raise'))}%, all-in ${f1(m('allin'))}%.`}
  // listas
  const L=CATS.map((n,ci)=>{const g={flat:[],'flat+3bet':[],'3bet':[]};S.forEach((h,i)=>{if(h.k&&h.k.cat===ci)g[h.k.tp].push(M[i])});if(!g.flat.length&&!g['flat+3bet'].length&&!g['3bet'].length)return'';

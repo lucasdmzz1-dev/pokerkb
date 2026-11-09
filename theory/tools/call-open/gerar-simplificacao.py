@@ -22,7 +22,7 @@ for pos, f_pos in (("i", lambda c: c["opener"] in ("UTG", "UTG1", "MP", "LJ")), 
             cs = [c for c in C if f_pos(c) and c["tipo"] == tn and c["faixa"] == fn]
             if cs:
                 G[pos + t + f] = cs
-        px = [c for c in G.get(pos + "Pf", []) if c["rp"] <= -2 or c["open_pct"] >= 35]
+        px = [c for c in G.get(pos + "Pf", []) if (c["rp"] is not None and c["rp"] <= -2) or (c["open_pct"] or 0) >= 35]
         if t == "P" and px:
             G[pos + "Px"] = px
 
