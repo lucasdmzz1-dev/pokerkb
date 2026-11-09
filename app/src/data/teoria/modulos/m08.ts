@@ -64,7 +64,7 @@ const m08: ModuloTeoria = {
         "Stack define a árvore: até 30bb é short, 60bb ou mais é deep. Entre 30 e 60bb é uma mistura, e o stack do exemplo decide.",
         "Ordem do size: primeiro o valor (qual size extrai o máximo), depois os bluffs que acompanham esse size, e por último o check.",
         "Short stack: seco, monotone e dobrado em B25 com o range. Carregado sem sequência em B40, split. Com sequência, all-in em split.",
-        "Deep stack: seco em B25. Com sequência, B40 em split. Tx, Jx e 98x com flush draw, B70 em split.",
+        "Deep stack: seco, monotone e dobrado em B25. Com sequência, B40 em split. Tx, Jx e 98x com flush draw, B70 em split.",
         "Check com plano: toda mão boa que dá check já sabe se vai para check-call ou check-shove. Par e draw direto não foldam.",
         "Size alto pede mão forte: quanto maior o size, mais restritos ficam o valor e o bluff.",
       ],
@@ -200,7 +200,7 @@ const m08: ModuloTeoria = {
       tipo: "boards",
       titulo: "Boards da aula: deep stack",
       intro:
-        "Exercício 5 da aula, com 60bb ou mais. Quanto mais deep, mais B70. Quanto mais raso, mais B40.",
+        "Exercício 5 da aula, com 60bb ou mais. Monotone e dobrado também vão em B25. Quanto mais deep, mais B70. Quanto mais raso, mais B40.",
       itens: [
         {
           cartas: ["Ks", "8d", "2c"],
@@ -398,15 +398,16 @@ const m08: ModuloTeoria = {
           },
           {
             texto:
-              "Duas pontas, brocas com redraw e BDFD + BDST. Sem backdoor, não aposta: o A♣5♥ não vira bluff.",
+              "Flush draws (as brocas com redraw da aula), duas pontas e BDFD + BDST. Sem backdoor, não aposta: o A♣5♥ não vira bluff.",
             maos: [
+              { nome: "Flush draw", cartas: ["As", "5s"] },
               { nome: "Duas pontas", cartas: ["Th", "7h"] },
               { nome: "BDFD + BDST", cartas: ["Ks", "Qc"] },
             ],
           },
           {
             texto:
-              "Os piores top pairs, qualquer par, trincas (bloqueiam quem paga), draws e valor de showdown.",
+              "Os piores top pairs, qualquer par, trincas (bloqueiam quem paga), os draws que não apostam e valor de showdown.",
             maos: [
               { nome: "Top pair fraco", cartas: ["9h", "6h"] },
               { nome: "Trinca", cartas: ["8d", "8c"] },
@@ -516,7 +517,7 @@ const m08: ModuloTeoria = {
         "Uma árvore por spot: nunca copie a estratégia de OOP para IP, de BB para SB, de short para deep ou de deep para short.",
         "Ordem do size: valor, bluff e por último o check.",
         "BB short: B25 em seco, monotone e dobrado. B40 em carregado sem sequência. All-in com sequência.",
-        "BB deep: B25 em seco (B40 quando interage mais). B40 com sequência. B70 em Tx, Jx e 98x com flush draw.",
+        "BB deep: B25 em seco, monotone e dobrado (B40 quando interage mais). B40 com sequência. B70 em Tx, Jx e 98x com flush draw.",
         "Bluff com equity: draws diretos e BDFD + BDST, só com o naipe do board. Sem backdoor, não aposta.",
         "Check com plano: check-call ou check-shove. Par e draw direto não foldam.",
         "Turn: blank em B100, carta alta em B40, flush em B40, carta que conecta em B70.",

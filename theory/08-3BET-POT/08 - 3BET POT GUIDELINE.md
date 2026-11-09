@@ -437,7 +437,7 @@ Todas as mãos apostam. O BB tem vantagem absoluta: o rival tem pouca interaçã
 
 | Board | Estratégia | Exemplos da aula |
 |---|---|---|
-| Seco | B25 (B40 quando o board interage mais) | K-8-2, Q-7-3, A-9-4, 5-5-2 em B25. K-9-7 em B40 |
+| Seco, monotone e dobrado | B25 (B40 quando o board interage mais) | K-8-2, Q-7-3, A-9-4, 5-5-2 em B25. K-9-7 em B40. Na parte deep, o instrutor lista em B25 A-8-2, A-7-2, K-8-2, K-7-4, dobrado e monotone (boards sem grande mudança de nuts do flop para o turn) |
 | Com sequência | B40, split | K-9-8, Q-9-8, 8-7-6, T-9-8 |
 | Tx ou Jx conectado com flush draw, e 98x com flush draw | B70, split | 9-8-2, J-7-2, T-8-4 |
 
@@ -454,8 +454,8 @@ Sem o flush draw, o Tx e o Jx podem ir para B40. O all-in deixa de servir: o boa
 ### Split B70 deep (Tx e Jx com flush draw)
 
 - **Valor (bet):** os top pairs (os piores ficam para o check) e os primeiros overpairs. O size alto exige um range de valor mais restrito.
-- **Bluff (bet):** duas pontas, brocas com redraw e BDFD + BDST. Sem backdoor não aposta (A♣5♥ no 9-8-2 não vira bluff).
-- **Check-call:** draws, qualquer par, trincas (bloqueiam o que paga) e valor de showdown.
+- **Bluff (bet):** duas pontas, flush draws (as "brocas com redraw" da aula, que o instrutor diz serem os flush draws) e BDFD + BDST. Sem backdoor não aposta (A♣5♥ no 9-8-2 não vira bluff).
+- **Check-call:** os draws que não apostam, qualquer par, trincas (bloqueiam o que paga) e valor de showdown.
 - **Check-raise:** overpairs e combo draws.
 
 ---
