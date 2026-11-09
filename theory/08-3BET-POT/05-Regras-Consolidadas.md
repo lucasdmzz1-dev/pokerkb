@@ -508,6 +508,10 @@ Fora de posição, dar check com mão que queria apostar custa EV (cobertor curt
 
 O field abre demais e folda muito, então 3-betar mais é lucrativo, até o meio do torneio. Na reta final e contra rival equilibrado, ajuste para menos.
 
+## Regra 14 — Middle stack (30 a 60bb): mistura entre short e deep
+
+As três faixas da aula são até 30bb (short), de 30 a 60bb (middle) e 60bb ou mais (deep). O middle não tem árvore própria: é uma mistura. Perto de 30bb, joga-se mais como short stack, e perto de 60bb, mais como deep. Na prática, o instrutor dá exemplos com stacks definidos e a estratégia segue o stack do exemplo. **[Autor, esclarecimento de 09/11/2026]**
+
 <!-- graphify-links:start -->
 
 ---
@@ -521,7 +525,3 @@ _Gerado a partir do grafo do graphify. Não editar à mão: é sobrescrito na pr
 **Mesma pasta:** [[theory/08-3BET-POT/08 - 3BET POT GUIDELINE|01-Guideline]] · [[theory/08-3BET-POT/02-VideoAulas|02-VideoAulas]] · [[theory/08-3BET-POT/03-Solver|03-Solver]] · [[theory/08-3BET-POT/04-Exercicios|04-Exercicios]] · [[theory/08-3BET-POT/06-Pendencias|06-Pendencias]] · [[theory/08-3BET-POT/07-Changelog|07-Changelog]] · [[theory/08-3BET-POT/08-Referencias|08-Referencias]] · [[theory/08-3BET-POT/09-Decisoes|09-Decisoes]]
 
 <!-- graphify-links:end -->
-
-## Regra 14 — Middle stack (30 a 60bb): mistura entre short e deep
-
-As três faixas da aula são até 30bb (short), de 30 a 60bb (middle) e 60bb ou mais (deep). O middle não tem árvore própria: é uma mistura. Perto de 30bb, joga-se mais como short stack, e perto de 60bb, mais como deep. Na prática, o instrutor dá exemplos com stacks definidos e a estratégia segue o stack do exemplo. **[Autor, esclarecimento de 09/11/2026]**
