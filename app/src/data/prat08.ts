@@ -437,13 +437,15 @@ export function decidir(
         return dec(
           "All-in",
           "Broca com duas overcards",
-          "Broca com duas overcards tem equity de sobra: é bluff do split e vai all-in."
+          "Broca com duas overcards tem equity de sobra: é bluff do split e vai all-in, e dar check para o check-shove também serve.",
+          ["Check-raise"]
         )
       if (L.acimaBoard && redrawFlush)
         return dec(
           "All-in",
           "Broca com overcard e BDFD",
-          "Broca com overcard e backdoor de flush tem equity para o all-in."
+          "Broca com overcard e backdoor de flush tem equity para o all-in, e o check-shove também serve.",
+          ["Check-raise"]
         )
       // Broca com um over e sem redraw: a ação está em aberto, fica fora do treino.
       if (L.acimaBoard) return null
