@@ -63,6 +63,7 @@ const COR_ACAO: Record<CorAcao, string> = {
 function corDaAcao(a: AcaoT): CorAcao {
   const n = a.nome.toLowerCase()
   if (/check-raise|^xr/.test(n)) return "vermelho"
+  if (/fold/.test(n)) return "vermelho"
   if (/bluff|blefe/.test(n)) return "amarelo"
   if (/^check|call|paga/.test(n)) return "branco"
   if (/valor|value|^bet|aposta|3bet|4bet|shove/.test(n)) return "verde"

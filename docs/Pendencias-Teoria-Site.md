@@ -10,4 +10,4 @@ Itens levantados pelo dono na revisão de 2026-11-02.
 
 ## Em aberto
 
-- Se o coach passar exemplos de mão para os módulos 02, 03, 08 e 10, trocar os ilustrativos pelos da aula.
+- Se o coach passar exemplos de mão para os módulos 02, 03 e 10, trocar os ilustrativos pelos da aula. O 08 já usa os boards e as mãos da aula do BB (09/11/2026); o turn e o IP seguem ilustrativos.
