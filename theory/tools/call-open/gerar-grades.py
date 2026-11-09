@@ -71,7 +71,7 @@ with open(os.path.join(dados, "grades-raw.txt"), encoding="utf-8") as f:
             obs = f"o resumo registra all-in {c.get('allin', 0) or 0}%, mas a grade tem {calc[2]}% (o cabeçalho do solver não fecha 100% sem ele); vale a grade"
         cenarios.append({
             "arvore": id_, "tipo": "PKO" if a["tipo"].startswith("Bounty") else "Vanilla", "fase": a["fase"],
-            "faixa": "médio" if btn < 45 else "deep", "btn_bb": btn, "pct_left": pl,
+            "faixa": "curto" if btn < 33 else "médio" if btn < 45 else "deep", "btn_bb": btn, "pct_left": pl,
             "opener": c["opener"], "opener_bb": c["opener_bb"], "open_pct": c["open_pct"],
             "relacao": c["relacao"], "rp": c["rp_btn_vs_opener"],
             "resumo": {"fold": c["fold"], "call": c["call"], "raise": c["raise"], "allin": calc[2] if obs else (c.get("allin", 0) or 0)}, "obs": obs,

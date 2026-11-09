@@ -50,13 +50,14 @@ const D=/*DADOS*/null;
 const $=id=>document.getElementById(id);
 let pos='i',t='V',f='m',x=false;
 const key=()=>pos+t+(t==='P'&&f==='f'&&x?'x':f);
+const SN={c:'curto (19 a 32bb)',m:'médio (33 a 44bb)',f:'deep (45bb ou mais)'};const SNs={c:'curto',m:'médio',f:'deep'};
 const NOMET={V:'Vanilla',P:'PKO (Bounty 50%)'};
 function cor(v){return v>=80?'#5fa365':v>=50?'rgba(95,163,101,.6)':v>=25?'rgba(95,163,101,.28)':'#2a3338'}
 function tag(h){return h[3]>=60?'3':h[3]>=30?'f+3':''}
 function ui(){
  $('b0').innerHTML=[['i','BTN contra posições iniciais (UTG a LJ)'],['c','BTN contra CO e HJ']].map(([k,n])=>`<button data-p="${k}" class="${k===pos?'on':''}">${n}</button>`).join('');
  $('b0').querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{pos=b.dataset.p;x=false;render()});
- $('b1').innerHTML=['V','P'].map(k=>`<button data-t="${k}" class="${k===t?'on':''}">${NOMET[k]}</button>`).join('')+['m','f'].map(k=>`<button data-f="${k}" class="${k===f?'on':''}">BTN ${k==='m'?'médio (30 a 40bb)':'deep (50bb ou mais)'}</button>`).join('');
+ $('b1').innerHTML=['V','P'].map(k=>`<button data-t="${k}" class="${k===t?'on':''}">${NOMET[k]}</button>`).join('')+['c','m','f'].map(k=>`<button data-f="${k}" class="${k===f?'on':''}">BTN ${SN[k]}</button>`).join('');
  $('b2').innerHTML=(t==='P'&&f==='f')?`<label style="cursor:pointer"><input type="checkbox" id="xx" ${x?'checked':''}> Só os spots mais largos: RP do BTN até -2% ou opener abrindo 35% ou mais (${(D.g[pos+'Px']||{n:0}).n} das ${(D.g[pos+'Pf']||{n:0}).n} árvores)</label>`:'';
  $('b1').querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{t=b.dataset.t;render()});
  $('b1').querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{f=b.dataset.f;render()});
@@ -65,7 +66,7 @@ function lista(g,lo,hi){const r={fl:[],r3:[],mx:[]};D.maos.forEach((n,i)=>{const
 function render(){
  ui();const g=D.g[key()];
  if(!g){$('info').innerHTML='<b>Sem grades para este spot ainda.</b>';$('grid').innerHTML='';$('leg').innerHTML='';$('txt').innerHTML='';$('dif').innerHTML='';return}
- $('info').innerHTML=`<b>${NOMET[t]}, BTN ${f==='m'?'médio':'deep'}${key().endsWith('x')?', spots largos':''}</b>: média de ${g.n} ${g.n===1?'árvore':'árvores'} (${g.arv.join(', ')}).${g.n<5?' <b style="color:var(--yel)">Amostra pequena: use com cautela.</b>':''} O BTN continua com <b style="color:var(--g)">${g.tot[1]}%</b> das mãos em média (de ${g.tot[0]}% a ${g.tot[2]}% entre as árvores).`;
+ $('info').innerHTML=`<b>${NOMET[t]}, BTN ${SNs[f]}${key().endsWith('x')?', spots largos':''}</b>: média de ${g.n} ${g.n===1?'árvore':'árvores'} (${g.arv.join(', ')}).${g.n<5?' <b style="color:var(--yel)">Amostra pequena: use com cautela.</b>':''} O BTN continua com <b style="color:var(--g)">${g.tot[1]}%</b> das mãos em média (de ${g.tot[0]}% a ${g.tot[2]}% entre as árvores).`;
  $('grid').innerHTML=D.maos.map((n,i)=>{const h=g.h[i];return`<div class="c" style="background:${cor(h[0])}" title="${n}: média ${h[0]}% (de ${h[1]}% a ${h[2]}%); 3bet ${h[3]}% do que continua">${n}<i>${tag(h)}</i></div>`}).join('');
  $('leg').innerHTML='<span style="--k:#5fa365">sempre (80% ou mais)</span><span style="--k:rgba(95,163,101,.6)">bastante (50 a 80%)</span><span style="--k:rgba(95,163,101,.28)">às vezes (25 a 50%)</span><span style="--k:#2a3338">fold</span>';
  const bloco=(n,lo,hi)=>{const r=lista(g,lo,hi);if(!r.fl.length&&!r.r3.length&&!r.mx.length)return'';return`<p><b>${n}</b></p>`+(r.fl.length?`<p><b class="v">Flat:</b> ${r.fl.join(' ')}</p>`:'')+(r.mx.length?`<p><b>Misto flat + 3bet:</b> ${r.mx.join(' ')}</p>`:'')+(r.r3.length?`<p><b style="color:var(--r)">3bet:</b> ${r.r3.join(' ')}</p>`:'')};
@@ -73,7 +74,7 @@ function render(){
  // diferenças no mesmo stack
  const a=D.g[pos+'V'+f],b=D.g[(t==='P'&&f==='f'&&x)?pos+'Px':pos+'P'+f];if(!a||!b){$('dif').innerHTML='<p class="mut">Falta Vanilla ou PKO neste spot para comparar.</p>';return}const mais=[],menos=[];
  D.maos.forEach((n,i)=>{const d=b.h[i][0]-a.h[i][0];if(d>=25)mais.push(`${n} (${a.h[i][0]}% para ${b.h[i][0]}%)`);else if(d<=-25)menos.push(`${n} (${a.h[i][0]}% para ${b.h[i][0]}%)`)});
- $('dif').innerHTML=`<p>BTN ${f==='m'?'médio':'deep'}: Vanilla continua com ${a.tot[1]}% e PKO${(t==='P'&&f==='f'&&x)?' (spots largos)':''} com ${b.tot[1]}%. Mãos com diferença de 25 pontos ou mais:</p><p><b class="v">Entram mais no PKO:</b> ${mais.join(', ')||'nenhuma'}</p><p><b>Entram mais no Vanilla:</b> ${menos.join(', ')||'nenhuma'}</p>`}
+ $('dif').innerHTML=`<p>BTN ${SNs[f]}: Vanilla continua com ${a.tot[1]}% e PKO${(t==='P'&&f==='f'&&x)?' (spots largos)':''} com ${b.tot[1]}%. Mãos com diferença de 25 pontos ou mais:</p><p><b class="v">Entram mais no PKO:</b> ${mais.join(', ')||'nenhuma'}</p><p><b>Entram mais no Vanilla:</b> ${menos.join(', ')||'nenhuma'}</p>`}
 render();
 </script>
 </body>
