@@ -394,10 +394,17 @@ export function decidir(
             "Ninguém folda par para o all-in no SPR baixo, então o top pair vai all-in por valor.",
             ["Check-raise"]
           )
-    if (PARES.includes(L.feita) || L.feita === "doisPares")
+    if (L.feita === "doisPares")
       return dec(
         "Check-call",
-        L.feita === "doisPares" ? "Dois pares" : "Par que não é top pair",
+        "Dois pares",
+        "Par não folda: dá check-call. Com sequência no board, dois pares também podem apostar.",
+        ["All-in"]
+      )
+    if (PARES.includes(L.feita))
+      return dec(
+        "Check-call",
+        "Par que não é top pair",
         "Par não folda: dá check-call."
       )
     if (L.feita !== "nada") return null
@@ -537,18 +544,15 @@ export function decidir(
         "BDFD + BDST",
         "O bluff do split B40 também sai de mãos com BDFD + BDST."
       )
-    if (sdValue)
-      return redrawFlush
-        ? dec(
-            "Check-call",
-            "Valor de showdown com redraw",
-            "Em board com sequência, A-K e A-Q só dão check-call com redraw."
-          )
-        : dec(
-            "Check-fold",
-            "Valor de showdown sem redraw",
-            "Em board com sequência, A-K e A-Q sem redraw não continuam."
-          )
+    if (sdValue) {
+      // A-K e A-Q sem redraw: a ação está em aberto (Pendência 10 do módulo 08).
+      if (!redrawFlush) return null
+      return dec(
+        "Check-call",
+        "Valor de showdown com redraw",
+        "Em board com sequência, A-K e A-Q só dão check-call com redraw."
+      )
+    }
     return dec(
       "Check-fold",
       "Sem par nem draw",
@@ -687,6 +691,16 @@ function semente(texto: string): () => number {
 
 const COTA: Record<Dificuldade, number> = { facil: 1, media: 2, dificil: 3 }
 
+// Nas difíceis, a ação conta: poucas mãos de check-call e check-fold (que são a maioria
+// do range) e mais de bet, all-in e check-raise, que são o que o aluno mais erra.
+const aposta = (a: AcaoTb) => a.startsWith("B") || a === "All-in"
+function cotaDe(s: SituacaoTb): number {
+  if (s.dificuldade !== "dificil") return COTA[s.dificuldade]
+  if (s.certa === "Check-raise") return 6
+  if (aposta(s.certa)) return 4
+  return 1
+}
+
 function gerar(): SituacaoTb[] {
   const maos = todasAsMaos()
   const lista: SituacaoTb[] = []
@@ -736,14 +750,21 @@ function gerar(): SituacaoTb[] {
           const j = Math.floor(rnd() * (i + 1))
           ;[copia[i], copia[j]] = [copia[j], copia[i]]
         }
-        const cota = b.est === "range" ? 2 : COTA[copia[0].dificuldade]
+        const cota = b.est === "range" ? 2 : cotaDe(copia[0])
         for (const s of copia.slice(0, cota)) escolhidas.set(s.id, s)
       }
       // Para cada mão difícil, a gêmea: mesma classe, ação diferente.
       for (const s of [...escolhidas.values()]) {
         if (s.dificuldade !== "dificil") continue
         const gemea = (porClasse.get(classeDaMao(s.hero)) ?? []).find(
-          (o) => o.certa !== s.certa && !escolhidas.has(o.id)
+          (o) =>
+            o.certa !== s.certa &&
+            !escolhidas.has(o.id) &&
+            // O par precisa ter bet ou check-raise de um lado.
+            (aposta(o.certa) ||
+              o.certa === "Check-raise" ||
+              aposta(s.certa) ||
+              s.certa === "Check-raise")
         )
         if (gemea)
           escolhidas.set(gemea.id, { ...gemea, dificuldade: "dificil" })
