@@ -426,9 +426,9 @@
     "semantic_hash": ""
   },
   "theory/08-3BET-POT/05-Regras-Consolidadas.md": {
-    "mtime": 1794202721.420255,
-    "seen": 1794202797.061598,
-    "ast_hash": "aa8363c2e8a9731624ab2edb40d474cc",
+    "mtime": 1794204786.4763987,
+    "seen": 1794204910.9633765,
+    "ast_hash": "d836e0d1124f219b8580195fd7dccbee",
     "semantic_hash": ""
   },
   "theory/08-3BET-POT/06-Pendencias.md": {
@@ -438,9 +438,9 @@
     "semantic_hash": ""
   },
   "theory/08-3BET-POT/07-Changelog.md": {
-    "mtime": 1794202721.421273,
-    "seen": 1794202797.061598,
-    "ast_hash": "049f7e8cfee4449b6833b5753bd053e4",
+    "mtime": 1794204786.477793,
+    "seen": 1794204910.9643898,
+    "ast_hash": "22d142bc9781a3c7c08b2d762fc1ad14",
     "semantic_hash": ""
   },
   "theory/08-3BET-POT/08-Referencias.md": {
@@ -1122,9 +1122,9 @@
     "semantic_hash": ""
   },
   "theory/08-3BET-POT/08 - 3BET POT GUIDELINE.md": {
-    "mtime": 1794202721.4222975,
-    "seen": 1794202797.061598,
-    "ast_hash": "3c0431ee93a88aaf268b8b5c8b6a49d5",
+    "mtime": 1794204786.479044,
+    "seen": 1794204910.9643898,
+    "ast_hash": "71ad2b59b04c163c765d1b92b192d080",
     "semantic_hash": ""
   },
   "theory/09-BET-CHECK-BET/09 - BET CHECK BET GUIDELINE.md": {
@@ -2370,9 +2370,9 @@
     "semantic_hash": ""
   },
   "docs/Site-Poker-KB.md": {
-    "mtime": 1794203195.733346,
-    "seen": 1794203217.8827102,
-    "ast_hash": "a5d3bb97f492ff6748ad57c778e21721",
+    "mtime": 1794204894.6589746,
+    "seen": 1794204910.9474509,
+    "ast_hash": "8421adab81c1bdba735438e9c7e347e0",
     "semantic_hash": ""
   },
   "app/src/data/mod14.ts": {
@@ -2460,9 +2460,9 @@
     "semantic_hash": ""
   },
   "app/src/data/teoria/modulos/m08.ts": {
-    "mtime": 1793613687.9367168,
-    "seen": 1793675380.8735867,
-    "ast_hash": "9da2b74a312387359acbe8fce4746d69",
+    "mtime": 1794204786.4748957,
+    "seen": 1794204910.9184558,
+    "ast_hash": "dd1daf71cbd6aaab5273c1f69c8a3021",
     "semantic_hash": ""
   },
   "app/src/data/teoria/modulos/m09.ts": {
@@ -2508,9 +2508,9 @@
     "semantic_hash": ""
   },
   "app/src/pages/teoria-modulo.tsx": {
-    "mtime": 1793613687.942918,
-    "seen": 1793675380.8735867,
-    "ast_hash": "4b9452645bcf1e9e316befe7982c9a57",
+    "mtime": 1794204786.4748957,
+    "seen": 1794204910.925009,
+    "ast_hash": "5dcaf3ade0fd5a744856f60eb8e803e0",
     "semantic_hash": ""
   },
   "app/src/components/analise/leitor.tsx": {
@@ -2652,9 +2652,9 @@
     "semantic_hash": ""
   },
   "docs/Pendencias-Teoria-Site.md": {
-    "mtime": 1793613687.942918,
-    "seen": 1793675380.8735867,
-    "ast_hash": "cb3be7a5f6fe7dae676a146d1a924885",
+    "mtime": 1794204786.4763987,
+    "seen": 1794204910.9474509,
+    "ast_hash": "391e64d2b3c7ab04a38545742b96b4b4",
     "semantic_hash": ""
   },
   "app/src/data/prat05.ts": {
@@ -2724,9 +2724,9 @@
     "semantic_hash": ""
   },
   "app/src/data/prat08.ts": {
-    "mtime": 1794203173.7095509,
-    "seen": 1794203217.851157,
-    "ast_hash": "7cd1d506dc4ae869000659d8bd745586",
+    "mtime": 1794204870.67229,
+    "seen": 1794204910.9146903,
+    "ast_hash": "4c1557e3277b9965ec2a6d2ce6f459d1",
     "semantic_hash": ""
   },
   "app/src/data/ranges3bet.ts": {
