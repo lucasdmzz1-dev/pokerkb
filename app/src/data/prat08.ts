@@ -687,6 +687,16 @@ function semente(texto: string): () => number {
 
 const COTA: Record<Dificuldade, number> = { facil: 1, media: 2, dificil: 3 }
 
+// Nas difíceis, a ação conta: poucas mãos de check-call e check-fold (que são a maioria
+// do range) e mais de bet, all-in e check-raise, que são o que o aluno mais erra.
+const aposta = (a: AcaoTb) => a.startsWith("B") || a === "All-in"
+function cotaDe(s: SituacaoTb): number {
+  if (s.dificuldade !== "dificil") return COTA[s.dificuldade]
+  if (s.certa === "Check-raise") return 6
+  if (aposta(s.certa)) return 4
+  return 1
+}
+
 function gerar(): SituacaoTb[] {
   const maos = todasAsMaos()
   const lista: SituacaoTb[] = []
@@ -736,14 +746,21 @@ function gerar(): SituacaoTb[] {
           const j = Math.floor(rnd() * (i + 1))
           ;[copia[i], copia[j]] = [copia[j], copia[i]]
         }
-        const cota = b.est === "range" ? 2 : COTA[copia[0].dificuldade]
+        const cota = b.est === "range" ? 2 : cotaDe(copia[0])
         for (const s of copia.slice(0, cota)) escolhidas.set(s.id, s)
       }
       // Para cada mão difícil, a gêmea: mesma classe, ação diferente.
       for (const s of [...escolhidas.values()]) {
         if (s.dificuldade !== "dificil") continue
         const gemea = (porClasse.get(classeDaMao(s.hero)) ?? []).find(
-          (o) => o.certa !== s.certa && !escolhidas.has(o.id)
+          (o) =>
+            o.certa !== s.certa &&
+            !escolhidas.has(o.id) &&
+            // O par precisa ter bet ou check-raise de um lado.
+            (aposta(o.certa) ||
+              o.certa === "Check-raise" ||
+              aposta(s.certa) ||
+              s.certa === "Check-raise")
         )
         if (gemea)
           escolhidas.set(gemea.id, { ...gemea, dificuldade: "dificil" })
