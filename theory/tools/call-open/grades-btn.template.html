@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grades do BTN contra open</title>
+<style>
+:root{--bg:#0d0f10;--panel:#15181a;--line:#262b2e;--tx:#e6e9ea;--mut:#8b9498;--call:#5fa365;--raise:#e74c3c;--allin:#4a0e02;--fold:#3a4a55;--blue:#6aa9ff;--yel:#e8c25a}
+@media (prefers-color-scheme:light){:root:not([data-theme=dark]){--bg:#0d0f10}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 system-ui,Segoe UI,sans-serif;padding:16px;max-width:980px;margin-inline:auto}
+h1{font-size:20px;margin:0 0 4px}h2{font-size:15px;margin:22px 0 8px;color:var(--blue)}
+.sub{color:var(--mut);margin:0 0 14px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+button,select{background:var(--panel);color:var(--tx);border:1px solid var(--line);border-radius:6px;padding:6px 10px;font:inherit;cursor:pointer}
+button.on{border-color:var(--call);color:var(--call)}
+.info{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:10px 0;color:var(--mut)}
+.info b{color:var(--tx)}
+.grid{display:grid;grid-template-columns:repeat(13,1fr);gap:2px;max-width:640px;margin:8px auto}
+.c{aspect-ratio:1;border-radius:3px;display:flex;align-items:flex-start;justify-content:flex-start;padding:2px 3px;font-size:clamp(8px,1.7vw,12px);font-weight:600;color:#fff;text-shadow:0 0 3px #000,0 0 3px #000;position:relative;min-width:0;overflow:hidden}
+.c i{position:absolute;right:2px;bottom:1px;font-size:clamp(7px,1.3vw,10px);font-style:normal;opacity:.9}
+.c.d{outline:2px solid var(--yel);outline-offset:-2px}
+.leg{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;color:var(--mut);font-size:12px}
+.leg span:before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;background:var(--k)}
+.lst{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:6px 0}
+.lst b.f{color:var(--call)}.lst b.r{color:var(--raise)}
+.lst p{margin:3px 0}.mut{color:var(--mut)}
+</style>
+</head>
+<body>
+<h1>Grades do BTN contra 1 open</h1>
+<p class="sub">BTN contra open do MP (2bb), solver do 4BET Trainer. Cada célula: call (verde), 3bet (vermelho), all-in (vermelho escuro), fold (cinza). Dados de 03/11/2026, amostra de 8 árvores.</p>
+<div class="bar" id="modos">
+ <button data-m="agg" class="on">Geral (média das árvores)</button><button data-m="ex">Exercício</button><button data-m="cen">Uma árvore</button>
+ <span style="flex:1"></span>
+ <button data-v="freq">Frequências</button><button data-v="cat" class="on">Categorias</button>
+</div>
+<div class="bar" id="sel"></div>
+<div class="info" id="info"></div>
+<div class="grid" id="grid"></div>
+<div class="leg" id="leg"></div>
+<h2>Classificação por mão</h2>
+<p class="sub">Categoria pela frequência de continuar (call + 3bet + all-in): Sempre (90% ou mais), Quase sempre (60 a 90%), Às vezes (20 a 60%), Raro (menos de 20%). Flat ou 3bet = ação dominante; "flat+3bet" quando a menor parte passa de 25% do que continua. Todas as mãos fora das listas são fold.</p>
+<div id="lista"></div>
+<div id="dif"></div>
+<script>
+const D=/*DADOS*/null;
+const M=D.maos,C=D.cenarios;
+const $=id=>document.getElementById(id);
+const COR={call:'#5fa365',raise:'#e74c3c',allin:'#4a0e02',fold:'#3a4a55'};
+const CATS=['Sempre','Quase sempre','Às vezes','Raro'];
+const f1=x=>x==null?'n/d':(Math.round(x*10)/10).toString().replace('.',',');
+function cls(c,r,a){const t=c+r+a;if(t<=0)return null;const cat=t>=90?0:t>=60?1:t>=20?2:3;const tr=r+a;const tp=Math.min(c,tr)/t>=.25?'flat+3bet':(c>=tr?'flat':'3bet');return{cat,tp,t}}
+// mão a mão para um "conjunto" (cenário ou média de cenários)
+function mk(cs){const n=cs.length;return M.map((_,i)=>{const g=k=>cs.reduce((s,c)=>s+c[k][i],0)/n;const c=g('call'),r=g('raise'),a=g('allin');return{c,r,a,k:cls(c,r,a)}})}
+let modo='agg',vis='cat',cen=0,aggT='Vanilla',aggF='médio',aggR='todas',sel=new Set(),corr=false;
+const pf=c=>(aggF==='ambas'||c.faixa===aggF)&&(aggR==='todas'||c.relacao===aggR);
+function sets(){if(modo==='cen')return mk([C[cen]]);return mk(C.filter(c=>c.tipo===aggT&&pf(c)))}
+function other(){if(modo!=='agg')return null;return mk(C.filter(c=>c.tipo!==aggT&&pf(c)))}
+const TP={flat:'flat','flat+3bet':'flat+3bet','3bet':'3bet'};
+function renderEx(S){
+ const must=S.map(h=>!!(h.k&&h.k.cat<=1));
+ $('grid').innerHTML=S.map((h,i)=>{const on=sel.has(i);let st='background:#2a3338',tag='';
+  if(!corr){if(on)st='background:#5fa365'}
+  else if(on&&must[i]){st='background:#5fa365';tag=TP[h.k.tp]}
+  else if(on){st='background:#3a4a55;outline:2px solid #e74c3c;outline-offset:-2px';tag='a mais'}
+  else if(must[i]){st='background:#2a3338;outline:2px solid #e8c25a;outline-offset:-2px';tag=TP[h.k.tp]}
+  return`<div class="c" data-i="${i}" style="${st};cursor:pointer">${M[i]}<i>${tag}</i></div>`}).join('');
+ const tot=must.filter(Boolean).length,ok=S.filter((h,i)=>must[i]&&sel.has(i)).length,extra=[...sel].filter(i=>!must[i]).length;
+ $('leg').innerHTML=corr?'<span style="--k:#5fa365">acertou</span><span style="--k:#e8c25a">faltou</span><span style="--k:#e74c3c">a mais (fora de Sempre e Quase sempre)</span>':'<span style="--k:#5fa365">marcada para jogar</span><span>clique nas mãos que você paga ou dá 3bet</span>';
+ $('info').innerHTML=`<b>Exercício, ${aggT==='PKO'?'PKO (Bounty 50%)':'Vanilla'}, BTN ${aggF}</b> (média das fases Early e Mid; relação: ${aggR}; ${C.filter(c=>c.tipo===aggT&&pf(c)).length} grades). Marque as mãos que o BTN tem que jogar contra o open e clique em Corrigir. Vale "Sempre" e "Quase sempre" (60% ou mais de continuar); flat e 3bet contam juntos, e a correção mostra qual é qual.<br>`+(corr?`Resultado: <b style="color:var(--call)">${ok} de ${tot}</b> acertadas, ${tot-ok} faltaram, ${extra} a mais. Marcadas: ${sel.size}.`:`Marcadas: ${sel.size}.`)+` <button id="bc">Corrigir</button> <button id="br">Limpar</button>`;
+ $('bc').onclick=()=>{corr=true;render()};$('br').onclick=()=>{sel.clear();corr=false;render()};
+ $('lista').innerHTML='';$('dif').innerHTML='';
+ if(corr){const miss=S.map((h,i)=>must[i]&&!sel.has(i)?`${M[i]} (${TP[h.k.tp]}, ${CATS[h.k.cat]})`:null).filter(Boolean);const ex=[...sel].filter(i=>!must[i]).map(i=>`${M[i]} (${S[i].k?CATS[S[i].k.cat]+', '+S[i].k.tp:'fold'})`);
+  $('lista').innerHTML=`<div class="lst"><p><b>Faltaram:</b> ${miss.join(', ')||'nenhuma'}</p><p><b>A mais:</b> ${ex.join(', ')||'nenhuma'}</p></div>`}}
+$('grid').onclick=e=>{const c=e.target.closest('.c');if(modo!=='ex'||!c||corr)return;const i=+c.dataset.i;sel.has(i)?sel.delete(i):sel.add(i);renderEx(sets())};
+function grad(h){const p=[];let x=0;for(const[k,v]of[['call',h.c],['raise',h.r],['allin',h.a],['fold',100-h.c-h.r-h.a]]){if(v<=0)continue;p.push(`${COR[k]} ${x}%,${COR[k]} ${x+v}%`);x+=v}return`linear-gradient(to right,${p.join(',')})`}
+function gradCat(h){if(!h.k)return COR.fold;const al=[1,.75,.5,.3][h.k.cat];const tot=h.c+h.r+h.a;const pc=h.c/tot*100;const a=`rgba(95,163,101,${al})`,b=`rgba(231,76,60,${al})`;return`linear-gradient(to right,${a} 0%,${a} ${pc}%,${b} ${pc}%,${b} 100%),${COR.fold}`}
+function render(){
+ const S=sets(),O=other();
+ if(modo==='ex'){renderEx(S);return}
+ $('grid').innerHTML=S.map((h,i)=>{const d=O&&(h.k?h.k.cat:9)!==(O[i].k?O[i].k.cat:9);const tag=vis==='cat'&&h.k?['S','Q','A','R'][h.k.cat]:'';
+  const tip=`${M[i]}: call ${f1(h.c)}%, 3bet ${f1(h.r)}%, all-in ${f1(h.a)}%, fold ${f1(100-h.c-h.r-h.a)}%`+(h.k?` | ${CATS[h.k.cat]} (${h.k.tp})`:'');
+  return`<div class="c${d?' d':''}" title="${tip}" style="background:${vis==='cat'?gradCat(h):grad(h)}">${M[i]}<i>${tag}</i></div>`}).join('');
+ $('leg').innerHTML=vis==='freq'?'<span style="--k:#5fa365">call</span><span style="--k:#e74c3c">3bet</span><span style="--k:#4a0e02">all-in</span><span style="--k:#3a4a55">fold</span>':'<span style="--k:#5fa365">flat</span><span style="--k:#e74c3c">3bet</span><span style="--k:#3a4a55">fold</span><span>S sempre, Q quase sempre, A às vezes, R raro (cor mais forte = mais frequente)</span>'+(O?'<span style="--k:#e8c25a">contorno amarelo: categoria diferente do '+(aggT==='Vanilla'?'PKO':'Vanilla')+'</span>':'');
+ // info
+ if(modo==='cen'){const c=C[cen],r=c.resumo;$('info').innerHTML=`<b>${c.tipo==='PKO'?'PKO (Bounty 50%)':'Vanilla'}</b>, ${c.fase}, BTN ${f1(c.btn_bb)}bb (${c.faixa}), opener ${c.opener} ${f1(c.opener_bb)}bb abre ${f1(c.open_pct)}%, relação ${c.relacao}, RP ${c.rp==null?'n/d':(c.rp>0?'+':'')+f1(c.rp)+'%'} (árvore ${c.arvore}).${c.obs?' <span class="mut">Obs.: '+c.obs+'.</span>':''}<br>Total do BTN: <b>fold ${f1(r.fold)}%</b>, <b style="color:var(--call)">call ${f1(r.call)}%</b>, 3bet ${f1(r.raise)}%, all-in ${f1(r.allin)}%.`}
+ else{const cs=C.filter(c=>c.tipo===aggT&&pf(c));const m=k=>cs.reduce((s,c)=>s+c.resumo[k],0)/cs.length;$('info').innerHTML=`<b>${aggT==='PKO'?'PKO (Bounty 50%)':'Vanilla'}, BTN ${aggF}</b>, relação ${aggR}: média de ${cs.length} grades (${cs.map(c=>c.fase+' '+c.arvore+(c.opener!=='MP'?'@'+c.opener:'')).join(', ')}).<br>Média do BTN: fold ${f1(m('fold'))}%, <b style="color:var(--call)">call ${f1(m('call'))}%</b>, 3bet ${f1(m('raise'))}%, all-in ${f1(m('allin'))}%.`}
+ // listas
+ const L=CATS.map((n,ci)=>{const g={flat:[],'flat+3bet':[],'3bet':[]};S.forEach((h,i)=>{if(h.k&&h.k.cat===ci)g[h.k.tp].push(M[i])});if(!g.flat.length&&!g['flat+3bet'].length&&!g['3bet'].length)return'';
+  const row=(t,cl,a)=>a.length?`<p><b class="${cl}">${t}:</b> ${a.join(' ')}</p>`:'';return`<div class="lst"><b>${n}</b>${row('Flat','f',g.flat)}${row('Flat + 3bet (misto)','f',g['flat+3bet'])}${row('3bet','r',g['3bet'])}</div>`}).join('');
+ $('lista').innerHTML=L||'<p class="mut">Nenhuma mão continua.</p>';
+ // diferenças Vanilla x PKO
+ if(O){const A=aggT==='Vanilla'?S:O,B=aggT==='Vanilla'?O:S;const rows=[];M.forEach((m,i)=>{const a=A[i],b=B[i];const ca=a.k?a.k.cat:9,cb=b.k?b.k.cat:9;if(ca!==cb)rows.push(`<p><b>${m}</b>: Vanilla ${a.k?CATS[a.k.cat]+' '+a.k.tp:'fold'} (call ${f1(a.c)}%) | PKO ${b.k?CATS[b.k.cat]+' '+b.k.tp:'fold'} (call ${f1(b.c)}%)</p>`)});
+  $('dif').innerHTML=`<h2>O que muda do Vanilla para o PKO (BTN ${aggF})</h2><div class="lst">${rows.join('')||'<p class="mut">Nenhuma mão muda de categoria.</p>'}</div>`}else $('dif').innerHTML='';
+}
+function selUI(){const s=$('sel');
+ if(modo==='cen'){s.innerHTML='<select id="s1">'+C.map((c,i)=>`<option value="${i}"${i===cen?' selected':''}>${c.tipo} ${c.fase} · BTN ${f1(c.btn_bb)}bb · ${c.opener} abre ${f1(c.open_pct)}% (${c.relacao}) · ${c.arvore}</option>`).join('')+'</select>';$('s1').onchange=e=>{cen=+e.target.value;render()}}
+ else{s.innerHTML=['Vanilla','PKO'].map(t=>`<button data-t="${t}" class="${t===aggT?'on':''}">${t}</button>`).join('')+['curto','médio','deep','ambas'].map(f=>`<button data-f="${f}" class="${f===aggF?'on':''}">${f==='ambas'?'todos os stacks':'BTN '+f}</button>`).join('')+' · '+['todas','similar','cobre','coberto'].map(x=>`<button data-r="${x}" class="${x===aggR?'on':''}">${x==='todas'?'todas as relações':x}</button>`).join('');
+  s.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{aggR=b.dataset.r;sel.clear();corr=false;selUI();render()});
+  s.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{aggT=b.dataset.t;sel.clear();corr=false;selUI();render()});s.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{aggF=b.dataset.f;sel.clear();corr=false;selUI();render()})}}
+$('modos').querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{modo=b.dataset.m;corr=false;sel.clear();$('modos').querySelectorAll('[data-v]').forEach(x=>x.style.display=modo==='ex'?'none':'');$('modos').querySelectorAll('[data-m]').forEach(x=>x.classList.toggle('on',x===b));selUI();render()});
+$('modos').querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{vis=b.dataset.v;$('modos').querySelectorAll('[data-v]').forEach(x=>x.classList.toggle('on',x===b));render()});
+selUI();render();
+</script>
+</body>
+</html>
