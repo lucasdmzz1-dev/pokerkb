@@ -275,10 +275,13 @@ export function decidir(
     !draw &&
     rs.includes(14) &&
     (rs.includes(13) || rs.includes(12))
-  const sdHigh =
+  // Mão sem par e sem draw, mas com duas overcards ou com um over e backdoor de flush: a
+  // aula não diz se ela desiste, então fica fora do treino em vez de virar check-fold.
+  const duvidosa =
     L.feita === "nada" &&
-    rs.includes(14) &&
-    (rs.includes(13) || rs.includes(12))
+    !draw &&
+    !sdValue &&
+    (L.overcards === 2 || (L.overcards >= 1 && redrawFlush))
   const forca =
     L.feita === "topPair" ? forcaDoTopPair(board, hero, classes) : null
   const feitaTop = L.feita === "sequencia" || L.feita === "flush"
@@ -352,6 +355,7 @@ export function decidir(
         "Valor de showdown",
         "Ás-alta com K ou Q tem valor de showdown e dá check-call."
       )
+    if (duvidosa) return null
     return dec(
       "Check-fold",
       "Sem par nem draw",
@@ -426,30 +430,38 @@ export function decidir(
         "Com all-in o bluff precisa de equity direta: flush draw e duas pontas vão all-in.",
         ["Check-raise"]
       )
-    if (L.gutshot)
-      return L.acimaBoard && redrawFlush
-        ? dec(
-            "All-in",
-            "Broca com overcard e BDFD",
-            "Broca com overcard e backdoor de flush tem equity para o all-in."
-          )
-        : sdHigh
-          ? dec(
-              "Check-call",
-              "Broca com valor de showdown",
-              "Ás-alta com K ou Q e uma broca tem equity contra o range do rival: check-call."
-            )
-          : dec(
-              "Check-fold",
-              "Broca sem redraw",
-              "Em board com sequência a broca precisa de redraw para continuar."
-            )
+    if (L.gutshot) {
+      // Broca com as duas cartas acima do board (A-K, A-Q, A-T): é o bluff "overs e
+      // broca" da aula, e vai all-in. Com um over só precisa do backdoor de flush.
+      if (L.overcards === 2)
+        return dec(
+          "All-in",
+          "Broca com duas overcards",
+          "Broca com duas overcards tem equity de sobra: é bluff do split e vai all-in, e dar check para o check-shove também serve.",
+          ["Check-raise"]
+        )
+      if (L.acimaBoard && redrawFlush)
+        return dec(
+          "All-in",
+          "Broca com overcard e BDFD",
+          "Broca com overcard e backdoor de flush tem equity para o all-in, e o check-shove também serve.",
+          ["Check-raise"]
+        )
+      // Broca com um over e sem redraw: a ação está em aberto, fica fora do treino.
+      if (L.acimaBoard) return null
+      return dec(
+        "Check-fold",
+        "Broca sem over nem redraw",
+        "Broca sem over nem redraw, em board com sequência, não tem equity para continuar."
+      )
+    }
     if (sdValue)
       return dec(
         "Check-call",
         "Valor de showdown",
         "Ás-alta com K ou Q tem valor de showdown e dá check-call."
       )
+    if (duvidosa) return null
     return dec(
       "Check-fold",
       "Sem par nem draw",
@@ -553,6 +565,7 @@ export function decidir(
         "Em board com sequência, A-K e A-Q só dão check-call com redraw."
       )
     }
+    if (duvidosa) return null
     return dec(
       "Check-fold",
       "Sem par nem draw",
@@ -628,6 +641,7 @@ export function decidir(
       "Valor de showdown",
       "Ás-alta com K ou Q tem valor de showdown e dá check-call."
     )
+  if (duvidosa) return null
   return dec(
     "Check-fold",
     "Sem par nem draw",
