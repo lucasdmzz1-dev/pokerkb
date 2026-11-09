@@ -1039,5 +1039,58 @@
   "call": 16.7,
   "raise": 3.1,
   "allin": 1.7
+ },
+ "#6175@MP": {
+  "tipo": "PKO",
+  "fase": "Early",
+  "btn_bb": 36.7,
+  "opener_bb": 29.4,
+  "open_pct": 17.9,
+  "relacao": "similar",
+  "rp": -8.0,
+  "fold": 71.9,
+  "call": 23.4,
+  "raise": 4.5,
+  "allin": 0.1,
+  "jogadores_bounty": "SI 40K, KOi $10 (bounties por jogador não lidos)"
+ },
+ "#5351@MP": {
+  "tipo": "PKO",
+  "fase": "Early",
+  "btn_bb": 54.8,
+  "opener_bb": 30.0,
+  "open_pct": 18.2,
+  "relacao": "cobre",
+  "rp": -5.6,
+  "fold": 76.7,
+  "call": 16.9,
+  "raise": 6.4,
+  "allin": 0.1
+ },
+ "#5434@MP": {
+  "tipo": "PKO",
+  "fase": "Early",
+  "btn_bb": 59.8,
+  "opener_bb": 28.4,
+  "open_pct": 18.7,
+  "relacao": "cobre",
+  "rp": -7.2,
+  "fold": 68.4,
+  "call": 26.2,
+  "raise": 5.4,
+  "allin": 0.0
+ },
+ "#5863@MP": {
+  "tipo": "PKO",
+  "fase": "Early",
+  "btn_bb": 40.0,
+  "opener_bb": 31.1,
+  "open_pct": 20.0,
+  "relacao": "similar",
+  "rp": -2.4,
+  "fold": 77.0,
+  "call": 17.5,
+  "raise": 5.2,
+  "allin": 0.3
  }
 }
