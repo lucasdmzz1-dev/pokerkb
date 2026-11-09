@@ -32,6 +32,22 @@ Este arquivo deve registrar:
 
 ---
 
+# VERSÃO 1.1 (09/11/2026)
+
+Fonte: aula "3bet pot do BB — Postflop 1" (transcrição automática e vídeo). Conteúdo novo, sem remover nada do que existia.
+
+- Guideline: seção "Guideline da aula do BB", com short e deep, as três estratégias e os splits (valor, bluff, check-call, check-raise e check-fold).
+- VideoAulas: seção da aula, com os exemplos do replayer e a lógica de escolha do size.
+- Solver: relatório do GTO Wizard mostrado na aula.
+- Exercícios: sete exercícios da aula, conferidos carta a carta.
+- Regras Consolidadas: Regras 1 a 14 da aula do BB.
+- Pendências: itens 05 a 15 (stacks, overpair, exceção do 6-5-4, seco no deep, ponte para o PRÉ-FLOP, SB e IP, turn).
+- Decisões: Decisões 08 a 11 (a 11 é o middle stack como mistura, esclarecimento do autor).
+- Referências: a aula entra como fonte (videoaula).
+- Flashcards: 12 cartões da aula.
+
+---
+
 # VERSÃO 1.0
 
 

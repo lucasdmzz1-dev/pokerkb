@@ -255,6 +255,68 @@ A ordem antiga do módulo estava invertida (guideline primeiro e correções por
 
 ---
 
+# 08 — BB E SB SEPARADOS NO 3BET POT OOP (09/11/2026)
+
+## Decisão
+
+A aula do BB não vale para o SB. O 3-bet pot OOP no BB tem arvore própria (short e deep), e o SB segue sem aula.
+
+## Motivo
+
+O range do SB é linear e o do BB, polarizado, o que muda a frequência de aposta e a realização de equity.
+
+## Impacto no módulo
+
+A Prática e a Teoria do BB usam só a aula do BB. O SB e o IP ficam abertos (Pendência 13).
+
+---
+
+# 09 — CRITÉRIO ENTRE ALL-IN, B40 E B25 NO SHORT (09/11/2026)
+
+## Decisão
+
+O size do short stack segue as três perguntas do instrutor: B25 se a vantagem é absoluta, B40 se o range precisa de split e o valor não precisa de proteção, all-in se o valor precisa de proteção e o range não perde ao colocar tudo.
+
+## Motivo
+
+É o critério que o instrutor usa em todos os exemplos e resume no guideline.
+
+## Impacto no módulo
+
+As Regras 4 e 5 da aula do BB. O 6-5-4 e o 5-4-3 ficam fora (Pendência 07).
+
+---
+
+# 10 — LEITURA DA TRANSCRIÇÃO (09/11/2026)
+
+## Decisão
+
+Onde a fala e a transcrição são confusas, valem a guideline que o instrutor recita no fim de cada parte e a leitura do vídeo. O que não dá para confirmar vira pendência, e não regra.
+
+## Motivo
+
+A transcrição é automática e confunde nomes e naipes.
+
+## Impacto no módulo
+
+As mãos sem ação clara (Pendência 10) não entram nas regras.
+
+# 11 — MIDDLE STACK COMO MISTURA (09/11/2026)
+
+## Decisão
+
+As faixas de stack da aula são até 30bb (short), de 30 a 60bb (middle) e 60bb ou mais (deep). O middle não tem árvore própria: perto de 30bb usa a lógica do short, perto de 60bb a do deep, e o stack do exemplo decide.
+
+## Motivo
+
+Esclarecimento do autor do KB sobre as três faixas que o instrutor escreve no início da aula.
+
+## Impacto no módulo
+
+Regra 14 da aula do BB. A Prática trata short e deep, e o middle entra conforme o stack de cada exemplo.
+
+---
+
 # DECISÕES FUTURAS
 
 

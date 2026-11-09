@@ -195,6 +195,17 @@ Registrar:
 
 ---
 
+# RELATÓRIO DO GTO WIZARD NA AULA DO BB (09/11/2026)
+
+**Fonte:** relatório mostrado pelo instrutor na aula "3bet pot do BB — Postflop 1". Os sizes configurados no solver eram 10%, 25%, 50%, 75% e all-in. Não há combos nem frequências por mão no material, só a leitura geral.
+
+- **Frequência de check:** cerca de 21% no relatório do BB que dá 3-bet com um range razoável e cobertura de board. Ou seja, o BB poderia apostar em torno de 80% do range.
+- **Onde o BB não aposta alto:** boards conectados, com sequência e muita interação com o range do rival (T-9-8, J-T-9, 9-8-5). Aí é preciso desenvolver o check.
+- **Boards em que o check não importa:** K-8-2 com flush draw. Todas as mãos fazem de tudo um pouco e o EV de apostar é praticamente igual. O instrutor diz para apostar o range e só se preocupar a partir do turn.
+- **Cuidado:** o solver é muito sensível a qualquer ajuste de range, reação ou size. O instrutor pede para seguir a lógica e a frequência mais comum, e não decorar o relatório.
+
+**Pendência:** os combos e as frequências desses nós ainda não estão no KB (Pendência 11).
+
 # PADRÃO DE REGISTRO DE SPOT
 
 
