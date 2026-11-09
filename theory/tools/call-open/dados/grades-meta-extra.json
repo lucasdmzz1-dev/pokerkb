@@ -1196,5 +1196,57 @@
   "call": 17.6,
   "raise": 9.2,
   "allin": 0.0
+ },
+ "#6164@HJ": {
+  "tipo": "PKO",
+  "fase": "Mid",
+  "btn_bb": 50.2,
+  "opener_bb": 26.2,
+  "open_pct": 28.4,
+  "relacao": "cobre",
+  "rp": -4.0,
+  "fold": 67.7,
+  "call": 26.6,
+  "raise": 1.0,
+  "allin": 4.7
+ },
+ "#3359@LJ": {
+  "tipo": "PKO",
+  "fase": "Mid",
+  "btn_bb": 53.8,
+  "opener_bb": 39.3,
+  "open_pct": 25.4,
+  "relacao": "similar",
+  "rp": -0.9,
+  "fold": 72.4,
+  "call": 19.6,
+  "raise": 8.0,
+  "allin": 0.0
+ },
+ "#5103@LJ": {
+  "tipo": "PKO",
+  "fase": "Early",
+  "btn_bb": 57.9,
+  "opener_bb": 29.9,
+  "open_pct": 24.0,
+  "relacao": "cobre",
+  "rp": -3.2,
+  "fold": 74.6,
+  "call": 18.3,
+  "raise": 7.0,
+  "allin": 0.0
+ },
+ "#5886@MP": {
+  "tipo": "PKO",
+  "fase": "Mid",
+  "btn_bb": 66.1,
+  "opener_bb": 33.8,
+  "open_pct": 18.9,
+  "relacao": "cobre",
+  "rp": -3.3,
+  "fold": 71.0,
+  "call": 22.2,
+  "raise": 6.8,
+  "allin": 0.0
  }
 }
