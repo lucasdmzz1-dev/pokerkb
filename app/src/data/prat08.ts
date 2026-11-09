@@ -633,6 +633,22 @@ export function decidir(
 
 // ---------- situações ----------
 
+// Decisões fáceis (todo o range aposta, ou a mão sem nada desiste), médias (par e trinca
+// no check-call) e difíceis (as que pedem pensar: valor contra check-call, bluff,
+// backdoors, o naipe do board, o size).
+export type Dificuldade = "facil" | "media" | "dificil"
+
+export function nivelDe(classe: string): Dificuldade {
+  if (classe === "Qualquer mão" || classe === "Sem par nem draw") return "facil"
+  if (
+    classe === "Par que não é top pair" ||
+    classe === "Trinca" ||
+    classe === "Top set"
+  )
+    return "media"
+  return "dificil"
+}
+
 export interface SituacaoTb {
   id: string
   arvore: Arvore
@@ -645,6 +661,7 @@ export interface SituacaoTb {
   classe: string
   porque: string
   naipes: string
+  dificuldade: Dificuldade
 }
 
 function todasAsMaos(): [string, string][] {
@@ -668,6 +685,8 @@ function semente(texto: string): () => number {
   }
 }
 
+const COTA: Record<Dificuldade, number> = { facil: 1, media: 2, dificil: 3 }
+
 function gerar(): SituacaoTb[] {
   const maos = todasAsMaos()
   const lista: SituacaoTb[] = []
@@ -676,9 +695,13 @@ function gerar(): SituacaoTb[] {
     const classes = classesDo3bet(stack)
     b.boards.forEach((board, v) => {
       const grupos = new Map<string, SituacaoTb[]>()
+      // Mãos da mesma classe (mesmos números e suited ou off) com ações diferentes: o
+      // naipe do board muda a jogada, e é onde a decisão fica apertada.
+      const porClasse = new Map<string, SituacaoTb[]>()
       for (const m of maos) {
         if (m.some((c) => board.includes(c))) continue
-        if (!bb3bet(stack, classeDaMao(m))) continue
+        const classeMao = classeDaMao(m)
+        if (!bb3bet(stack, classeMao)) continue
         const d = decidir(b.est, board, m, classes)
         if (!d) continue
         const chave = `${d.classe}|${d.acao}`
@@ -694,13 +717,18 @@ function gerar(): SituacaoTb[] {
           classe: d.classe,
           porque: d.porque,
           naipes: descreverNaipes(board, m),
+          dificuldade: b.est === "range" ? "facil" : nivelDe(d.classe),
         }
         const g = grupos.get(chave) ?? []
         g.push(sit)
         grupos.set(chave, g)
+        const pc = porClasse.get(classeMao) ?? []
+        pc.push(sit)
+        porClasse.set(classeMao, pc)
       }
-      // Duas mãos de cada categoria, sorteadas sempre do mesmo jeito. No range bet toda
-      // mão aposta, então ficam quatro por board.
+      const escolhidas = new Map<string, SituacaoTb>()
+      // Algumas mãos de cada categoria, sorteadas sempre do mesmo jeito: poucas nas
+      // fáceis e mais nas difíceis. No range bet toda mão aposta, então ficam duas.
       for (const [chave, g] of grupos) {
         const rnd = semente(`${b.id}${v}${chave}`)
         const copia = g.slice()
@@ -708,8 +736,19 @@ function gerar(): SituacaoTb[] {
           const j = Math.floor(rnd() * (i + 1))
           ;[copia[i], copia[j]] = [copia[j], copia[i]]
         }
-        lista.push(...copia.slice(0, b.est === "range" ? 4 : 2))
+        const cota = b.est === "range" ? 2 : COTA[copia[0].dificuldade]
+        for (const s of copia.slice(0, cota)) escolhidas.set(s.id, s)
       }
+      // Para cada mão difícil, a gêmea: mesma classe, ação diferente.
+      for (const s of [...escolhidas.values()]) {
+        if (s.dificuldade !== "dificil") continue
+        const gemea = (porClasse.get(classeDaMao(s.hero)) ?? []).find(
+          (o) => o.certa !== s.certa && !escolhidas.has(o.id)
+        )
+        if (gemea)
+          escolhidas.set(gemea.id, { ...gemea, dificuldade: "dificil" })
+      }
+      lista.push(...escolhidas.values())
     })
   }
   return lista
