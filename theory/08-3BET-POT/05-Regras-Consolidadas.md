@@ -484,7 +484,7 @@ Em SPR baixo, dois pares é mão de slow play em board sem sequência. Com sequ�
 
 ## Regra 9 — Deep stack: três estratégias
 
-- **B25:** seco (e o range inteiro, quando o board não muda o nuts).
+- **B25:** seco, monotone e dobrado (o range inteiro, quando o board não muda o nuts do flop para o turn).
 - **B40, split:** board com sequência (todos os overpairs apostam). Também em seco que interage mais.
 - **B70, split:** Tx e Jx conectados com flush draw, e 98x com flush draw. Sem o flush draw, o Tx e o Jx podem ir para B40.
 
@@ -492,7 +492,7 @@ Em SPR baixo, dois pares é mão de slow play em board sem sequência. Com sequ�
 
 - **Bet por valor (B40):** sequência sem o naipe do board, todos os overpairs, top pairs que conectam ou com kicker extra, e a trinca de baixo.
 - **Bet por valor (B70):** top pairs (os piores vão para o check) e os primeiros overpairs.
-- **Bet de bluff:** duas pontas, brocas com flush draw e BDFD + BDST. Sem backdoor, não aposta.
+- **Bet de bluff:** duas pontas, brocas com flush draw e BDFD + BDST. No B70, os flush draws também apostam (as "brocas com redraw" da aula). Sem backdoor, não aposta.
 - **Check-call:** top set, sequência com flush draw, qualquer par, draws diretos, valor de showdown com flush draw ou BDFD. A-K e A-Q só com redraw em board com sequência.
 - **Check-raise:** sequência sem flush draw, trincas que não bloqueiam o top pair, combo draws e, no B70, overpairs. O size é muito alto, para atolar o turn.
 

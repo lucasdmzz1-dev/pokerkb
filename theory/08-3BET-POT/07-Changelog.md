@@ -116,6 +116,18 @@ Adicionado:
 
 ---
 
+# VERSÃO 1.5 (09/11/2026)
+
+
+Alteração: no deep, o B70 aposta os flush draws como bluff ("brocas com redraw" da aula), e o seco em B25 inclui monotone e dobrado.
+
+Motivo: revisão do treino pelo chat da Prática. Na aula, o instrutor diz que as brocas com redraw do B70 são os flush draws, e lista dobrado e monotone entre os boards de B25 da parte deep.
+
+Impacto no módulo: guideline da aula do BB (tabela deep e split B70) e Regras 9 e 10.
+
+
+---
+
 # VERSÃO 1.4
 
 
