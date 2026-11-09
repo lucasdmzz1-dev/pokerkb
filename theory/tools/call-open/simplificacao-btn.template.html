@@ -43,7 +43,7 @@ p{margin:4px 0}b.v{color:var(--g)}
 <h2>3. Vanilla contra PKO (mesmo stack)</h2>
 <div class="box" id="dif"></div>
 <p><b>Dentro de cada grupo:</b> quanto mais o opener abre, mais o BTN continua (a relação aparece em todos os 4 grupos, mais forte no PKO médio); e em Mid o BTN continua um pouco menos do que em Early. Os spots mais apertados do Vanilla médio (11% a 15%) são Mid, opener abrindo 18% ou menos e RP do BTN positivo e alto.</p>
-<p class="mut">Amostra pequena: 6 árvores por grupo (5 no PKO de spots largos). Serve como atalho de mesa, não como regra exata. Marca "3" = quase sempre 3bet; "f+3" = misto de flat e 3bet. Passe o mouse (ou toque) numa mão para ver média, mínimo e máximo entre as árvores.</p>
+<p class="mut">Amostra pequena: 6 árvores por grupo (5 no PKO de spots largos). Serve como atalho de mesa, não como regra exata. Marca "3" = quase sempre 3bet; "f+3" = flat com 3bet considerável (12% ou mais do que a mão continua, inclui os blefes como A5s, A2s e Kxs). Passe o mouse (ou toque) numa mão para ver média, mínimo e máximo entre as árvores.</p>
 
 <script>
 const D=/*DADOS*/null;
@@ -53,7 +53,7 @@ const key=()=>pos+t+(t==='P'&&f==='f'&&x?'x':f);
 const SN={c:'curto (19 a 32bb)',m:'médio (33 a 44bb)',f:'deep (45bb ou mais)'};const SNs={c:'curto',m:'médio',f:'deep'};
 const NOMET={V:'Vanilla',P:'PKO (Bounty 50%)'};
 function cor(v){return v>=80?'#5fa365':v>=50?'rgba(95,163,101,.6)':v>=25?'rgba(95,163,101,.28)':'#2a3338'}
-function tag(h){return h[3]>=60?'3':h[3]>=30?'f+3':''}
+function tag(h){return h[0]<25?'':h[3]>=60?'3':h[3]>=12?'f+3':''}
 function ui(){
  $('b0').innerHTML=[['i','BTN contra posições iniciais (UTG a LJ)'],['c','BTN contra CO e HJ']].map(([k,n])=>`<button data-p="${k}" class="${k===pos?'on':''}">${n}</button>`).join('');
  $('b0').querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{pos=b.dataset.p;x=false;render()});
@@ -62,7 +62,7 @@ function ui(){
  $('b1').querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{t=b.dataset.t;render()});
  $('b1').querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{f=b.dataset.f;render()});
  const e=$('xx');if(e)e.onchange=()=>{x=e.checked;render()}}
-function lista(g,lo,hi){const r={fl:[],r3:[],mx:[]};D.maos.forEach((n,i)=>{const h=g.h[i];if(h[0]>=lo&&h[0]<hi){(h[3]>=60?r.r3:h[3]>=30?r.mx:r.fl).push(n)}});return r}
+function lista(g,lo,hi){const r={fl:[],r3:[],mx:[]};D.maos.forEach((n,i)=>{const h=g.h[i];if(h[0]>=lo&&h[0]<hi){(h[3]>=60?r.r3:h[3]>=12?r.mx:r.fl).push(n)}});return r}
 function render(){
  ui();const g=D.g[key()];
  if(!g){$('info').innerHTML='<b>Sem grades para este spot ainda.</b>';$('grid').innerHTML='';$('leg').innerHTML='';$('txt').innerHTML='';$('dif').innerHTML='';return}
