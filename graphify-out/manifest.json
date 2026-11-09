@@ -408,50 +408,50 @@
     "semantic_hash": ""
   },
   "theory/08-3BET-POT/02-VideoAulas.md": {
-    "mtime": 1793575912.8933184,
-    "seen": 1793675380.8735867,
+    "mtime": 1794201827.5435505,
+    "seen": 1794202207.7895186,
     "ast_hash": "d9d4cd1321591cbe82074378dad747e6",
     "semantic_hash": ""
   },
   "theory/08-3BET-POT/03-Solver.md": {
-    "mtime": 1793575912.8943284,
-    "seen": 1793675380.8735867,
+    "mtime": 1794201827.5445607,
+    "seen": 1794202207.7895186,
     "ast_hash": "3cce10ef1d14115ba1a90fd39fc0c745",
     "semantic_hash": ""
   },
   "theory/08-3BET-POT/04-Exercicios.md": {
-    "mtime": 1793575912.8943284,
-    "seen": 1793675380.8735867,
+    "mtime": 1794201827.5445607,
+    "seen": 1794202207.7895186,
     "ast_hash": "dd20fa1573bb0028caf650e532e7d124",
     "semantic_hash": ""
   },
   "theory/08-3BET-POT/05-Regras-Consolidadas.md": {
-    "mtime": 1793575912.8943284,
-    "seen": 1793675380.8735867,
+    "mtime": 1794201827.545572,
+    "seen": 1794202207.7895186,
     "ast_hash": "59a7d59d6d060cf28a883a07f845df38",
     "semantic_hash": ""
   },
   "theory/08-3BET-POT/06-Pendencias.md": {
-    "mtime": 1793575912.895831,
-    "seen": 1793675380.8735867,
+    "mtime": 1794201827.5465734,
+    "seen": 1794202207.7895186,
     "ast_hash": "f23ebde50f85598323c7d5f6c8d2b57e",
     "semantic_hash": ""
   },
   "theory/08-3BET-POT/07-Changelog.md": {
-    "mtime": 1793575912.895831,
-    "seen": 1793675380.8735867,
+    "mtime": 1794201827.5470767,
+    "seen": 1794202207.7895186,
     "ast_hash": "e6f8343665bef6677eeaaf1a064b055d",
     "semantic_hash": ""
   },
   "theory/08-3BET-POT/08-Referencias.md": {
-    "mtime": 1793575912.898066,
-    "seen": 1793675380.8735867,
+    "mtime": 1794201827.548142,
+    "seen": 1794202207.7895186,
     "ast_hash": "b9aaec00fa39c8d51dc1e2c4e9dfafe4",
     "semantic_hash": ""
   },
   "theory/08-3BET-POT/09-Decisoes.md": {
-    "mtime": 1793575912.898066,
-    "seen": 1793675380.8735867,
+    "mtime": 1794201827.549142,
+    "seen": 1794202207.7895186,
     "ast_hash": "b20ee5d85b31392b1cf89645d4581db7",
     "semantic_hash": ""
   },
@@ -1122,8 +1122,8 @@
     "semantic_hash": ""
   },
   "theory/08-3BET-POT/08 - 3BET POT GUIDELINE.md": {
-    "mtime": 1793575912.8969133,
-    "seen": 1793675380.8735867,
+    "mtime": 1794201827.548142,
+    "seen": 1794202207.7895186,
     "ast_hash": "46106f61d42b141293a7243adfe1e642",
     "semantic_hash": ""
   },
@@ -1218,8 +1218,8 @@
     "semantic_hash": ""
   },
   "theory/08-3BET-POT/08 - 3BET POT FLASHCARDS.md": {
-    "mtime": 1793575912.895831,
-    "seen": 1793675380.8735867,
+    "mtime": 1794201827.5470767,
+    "seen": 1794202207.7895186,
     "ast_hash": "982c35dec93360e1c23399b0dd9f6cba",
     "semantic_hash": ""
   },
@@ -1494,9 +1494,9 @@
     "semantic_hash": ""
   },
   "app/src/pages/pratica.tsx": {
-    "mtime": 1793675312.0939937,
-    "seen": 1793675380.8735867,
-    "ast_hash": "5d56d45b30aeac0823a42df3a67049d3",
+    "mtime": 1794202039.9036543,
+    "seen": 1794202207.752851,
+    "ast_hash": "2b4f01386ec891c9fc416b6931c13b6d",
     "semantic_hash": ""
   },
   "app/src/pages/teoria-15.tsx": {
@@ -2370,9 +2370,9 @@
     "semantic_hash": ""
   },
   "docs/Site-Poker-KB.md": {
-    "mtime": 1793853763.772751,
-    "seen": 1793853780.6554508,
-    "ast_hash": "86831d298dcd79b98e9bff3a0ed152e2",
+    "mtime": 1794202180.247707,
+    "seen": 1794202207.7751753,
+    "ast_hash": "3e9a6eccaf67ff872b39805c997d9971",
     "semantic_hash": ""
   },
   "app/src/data/mod14.ts": {
@@ -2394,9 +2394,9 @@
     "semantic_hash": ""
   },
   "app/src/pages/pratica-probe.tsx": {
-    "mtime": 1793675312.0939937,
-    "seen": 1793675380.8735867,
-    "ast_hash": "dd09802d109f0671b5a93a54fdf4c7d2",
+    "mtime": 1794202039.892425,
+    "seen": 1794202207.752851,
+    "ast_hash": "7ee6c3852c33b2da068b4aab2eb90dd0",
     "semantic_hash": ""
   },
   "app/src/components/teoria/blocos.tsx": {
@@ -2682,9 +2682,9 @@
     "semantic_hash": ""
   },
   "app/src/data/prat17.ts": {
-    "mtime": 1793853696.449639,
-    "seen": 1793853780.6214867,
-    "ast_hash": "1eedc85be09b91cb753db9824d941dfa",
+    "mtime": 1794198342.7533157,
+    "seen": 1794202207.7451,
+    "ast_hash": "d09345e0d75d0d71ab49776157d7f8a2",
     "semantic_hash": ""
   },
   "app/src/lib/uso.ts": {
@@ -2721,6 +2721,24 @@
     "mtime": 1793594606.5607443,
     "seen": 1793675380.8735867,
     "ast_hash": "36aecdee21bb23754c454e13d66c482a",
+    "semantic_hash": ""
+  },
+  "app/src/data/prat08.ts": {
+    "mtime": 1794202112.2467263,
+    "seen": 1794202207.7451,
+    "ast_hash": "9f147ee999f2d41ad5dce16115ec3c13",
+    "semantic_hash": ""
+  },
+  "app/src/data/ranges3bet.ts": {
+    "mtime": 1794201985.4396768,
+    "seen": 1794202207.7451,
+    "ast_hash": "f1a67b93a46fb10295efdb72800827f0",
+    "semantic_hash": ""
+  },
+  "app/src/pages/pratica-3bet.tsx": {
+    "mtime": 1794202110.8179705,
+    "seen": 1794202207.7518487,
+    "ast_hash": "230af981d2efc684a58ec804df27c74e",
     "semantic_hash": ""
   },
   "app/pnpm-lock.yaml": {
