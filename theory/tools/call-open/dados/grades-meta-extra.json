@@ -792,5 +792,44 @@
   "call": 8.4,
   "raise": 6.1,
   "allin": 0.0
+ },
+ "#5288@MP": {
+  "tipo": "Vanilla",
+  "fase": "Early",
+  "btn_bb": 38.9,
+  "opener_bb": 34.2,
+  "open_pct": 18.8,
+  "relacao": "similar",
+  "rp": 3.3,
+  "fold": 82.2,
+  "call": 10.9,
+  "raise": 6.9,
+  "allin": 0.0
+ },
+ "#9240@MP": {
+  "tipo": "Vanilla",
+  "fase": "Early",
+  "btn_bb": 53.4,
+  "opener_bb": 35.5,
+  "open_pct": 17.5,
+  "relacao": "cobre",
+  "rp": 4.4,
+  "fold": 83.7,
+  "call": 7.8,
+  "raise": 8.5,
+  "allin": 0.0
+ },
+ "#3870@HJ": {
+  "tipo": "Vanilla",
+  "fase": "Mid",
+  "btn_bb": 34.4,
+  "opener_bb": 27.5,
+  "open_pct": 26.2,
+  "relacao": "similar",
+  "rp": 3.4,
+  "fold": 80.1,
+  "call": 14.3,
+  "raise": 5.5,
+  "allin": 0.1
  }
 }
