@@ -623,5 +623,83 @@
   "call": 14.1,
   "raise": 2.8,
   "allin": 3.5
+ },
+ "#4818@HJ": {
+  "tipo": "PKO",
+  "fase": "Early",
+  "btn_bb": 35.5,
+  "opener_bb": 33.1,
+  "open_pct": 31.4,
+  "relacao": "similar",
+  "rp": -5.5,
+  "fold": 64.5,
+  "call": 29.9,
+  "raise": 5.1,
+  "allin": 0.5
+ },
+ "#2984@HJ": {
+  "tipo": "PKO",
+  "fase": "Mid",
+  "btn_bb": 34.9,
+  "opener_bb": 31.1,
+  "open_pct": 22.4,
+  "relacao": "similar",
+  "rp": -4.8,
+  "fold": 78.8,
+  "call": 13.0,
+  "raise": 8.1,
+  "allin": 0.0
+ },
+ "#4846@HJ": {
+  "tipo": "PKO",
+  "fase": "Mid",
+  "btn_bb": 40.1,
+  "opener_bb": 33.9,
+  "open_pct": 22.6,
+  "relacao": "similar",
+  "rp": -9.3,
+  "fold": 68.2,
+  "call": 23.4,
+  "raise": 8.2,
+  "allin": 0.1
+ },
+ "#5051@HJ": {
+  "tipo": "PKO",
+  "fase": "Mid",
+  "btn_bb": 36.8,
+  "opener_bb": 34.4,
+  "open_pct": 27.9,
+  "relacao": "similar",
+  "rp": 0.2,
+  "fold": 77.4,
+  "call": 12.6,
+  "raise": 10.0,
+  "allin": 0.0
+ },
+ "#7081@HJ": {
+  "tipo": "PKO",
+  "fase": "Early",
+  "btn_bb": 35.4,
+  "opener_bb": 30.3,
+  "open_pct": 21.3,
+  "relacao": "similar",
+  "rp": -9.7,
+  "fold": 65.9,
+  "call": 26.2,
+  "raise": 3.4,
+  "allin": 4.4
+ },
+ "#4033@HJ": {
+  "tipo": "PKO",
+  "fase": "Early",
+  "btn_bb": 58.2,
+  "opener_bb": 35.0,
+  "open_pct": 31.2,
+  "relacao": "cobre",
+  "rp": -8.1,
+  "fold": 65.7,
+  "call": 25.9,
+  "raise": 8.4,
+  "allin": 0.0
  }
 }
