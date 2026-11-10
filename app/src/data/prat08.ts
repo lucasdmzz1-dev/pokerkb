@@ -432,7 +432,7 @@ export function decidir(
       )
     if (L.gutshot) {
       // Broca com as duas cartas acima do board (A-K, A-Q, A-T): é o bluff "overs e
-      // broca" da aula, e vai all-in. Com um over só precisa do backdoor de flush.
+      // broca" da aula, e vai all-in.
       if (L.overcards === 2)
         return dec(
           "All-in",
@@ -440,12 +440,21 @@ export function decidir(
           "Broca com duas overcards tem equity de sobra: é bluff do split e vai all-in, e dar check para o check-shove também serve.",
           ["Check-raise"]
         )
-      if (L.acimaBoard && redrawFlush)
+      // Com um over só, o all-in é do ás com backdoor de flush (A♠9♠ da aula). Broca com
+      // redraw e o over que não é ás dá check-call, que é a "broca + redraw" do roteiro.
+      if (L.acimaBoard && redrawFlush && rs.includes(14))
         return dec(
           "All-in",
-          "Broca com overcard e BDFD",
-          "Broca com overcard e backdoor de flush tem equity para o all-in, e o check-shove também serve.",
+          "Broca com ás e BDFD",
+          "Broca com o ás como overcard e backdoor de flush tem equity para o all-in, e o check-shove também serve.",
           ["Check-raise"]
+        )
+      if (redrawFlush)
+        return dec(
+          "Check-call",
+          "Broca com redraw",
+          "Broca com redraw de flush dá check-call, a broca + redraw do roteiro. Fica perto do indiferente: o check-fold também vale.",
+          ["Check-fold"]
         )
       // Broca com um over e sem redraw: a ação está em aberto, fica fora do treino.
       if (L.acimaBoard) return null
