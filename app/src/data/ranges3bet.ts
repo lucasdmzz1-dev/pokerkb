@@ -1,6 +1,8 @@
 // Ranges de 3-bet do BB contra o open do BTN, para a Prática do módulo 08 (3Bet Pot).
 // Fonte: Poker Academy (Charts), ChipEV, CE-Symmetric, Regular, BB vs. RFI do BTN, lidos
 // em 09/11/2026. Só entram as mãos com raise (a ação que leva ao flop): o all-in não.
+// No short (25bb) ficam de fora o JTs (raise 23%, all-in 77%) e o A9o (raise 7%, all-in
+// 74%), por decisão do autor: quase sempre vão all-in e dificilmente chegam ao flop.
 // Cada entrada é "mão:R<frequência do raise>". O tamanho é o do site, em múltiplos do open.
 
 export type Stack3bet = 25 | 30 | 40 | 60 | 80
@@ -12,7 +14,7 @@ export const BB_3BET: Record<
   25: {
     tamanho: "3x",
     freq: 5.6,
-    maos: "AA:R100 AKs:R100 AQs:R55 AJs:R100 ATs:R100 KK:R100 QQ:R100 KJo:R9 JJ:R25 JTs:R23 T9s:R80 A9o:R7 98s:R61 A8o:R24 Q8o:R4 J8o:R7 T8o:R2 87s:R20 A7o:R16 K7o:R12 J7o:R14 T7o:R9 A6o:R13 K6o:R14 Q6o:R5 T6o:R11 A5o:R5 K5o:R16 Q5o:R4 J5o:R19 A4o:R2 K4o:R10 Q4o:R20 J4o:R4 A3o:R12 K3o:R8 Q3o:R12 Q2o:R18 J2o:R6",
+    maos: "AA:R100 AKs:R100 AQs:R55 AJs:R100 ATs:R100 KK:R100 QQ:R100 KJo:R9 JJ:R25 T9s:R80 98s:R61 A8o:R24 Q8o:R4 J8o:R7 T8o:R2 87s:R20 A7o:R16 K7o:R12 J7o:R14 T7o:R9 A6o:R13 K6o:R14 Q6o:R5 T6o:R11 A5o:R5 K5o:R16 Q5o:R4 J5o:R19 A4o:R2 K4o:R10 Q4o:R20 J4o:R4 A3o:R12 K3o:R8 Q3o:R12 Q2o:R18 J2o:R6",
   },
   30: {
     tamanho: "3.5x",

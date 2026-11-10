@@ -2370,9 +2370,9 @@
     "semantic_hash": ""
   },
   "docs/Site-Poker-KB.md": {
-    "mtime": 1794288855.9774647,
-    "seen": 1794288879.6758952,
-    "ast_hash": "e7c33b60c49391211b31722c316384ae",
+    "mtime": 1794289042.3665042,
+    "seen": 1794289061.2778747,
+    "ast_hash": "e900c7723469118e2d98799aebe002b1",
     "semantic_hash": ""
   },
   "app/src/data/mod14.ts": {
@@ -2730,9 +2730,9 @@
     "semantic_hash": ""
   },
   "app/src/data/ranges3bet.ts": {
-    "mtime": 1794201985.4396768,
-    "seen": 1794202207.7451,
-    "ast_hash": "f1a67b93a46fb10295efdb72800827f0",
+    "mtime": 1794289018.1293423,
+    "seen": 1794289061.2390885,
+    "ast_hash": "ef57f666396e4b7a37abffd2bb4bd811",
     "semantic_hash": ""
   },
   "app/src/pages/pratica-3bet.tsx": {
