@@ -1,7 +1,7 @@
-# Graph Report - kb-pratica-384abd  (2026-11-09)
+# Graph Report - kb-pratica-384abd  (2026-11-10)
 
 ## Corpus Check
-- 456 files · ~831,533 words
+- 456 files · ~831,662 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 39 file(s) not represented in the graph (top: .csv 25, (none) 6, .css 4)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `cea95282`
+- Built from commit: `834c1254`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
