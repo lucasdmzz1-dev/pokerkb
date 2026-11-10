@@ -270,18 +270,22 @@ export function decidir(
   const bdst = temBDSD(board, hero, draw)
   const bdBoth = redrawFlush && bdst
   const rs = hero.map(rk)
-  const sdValue =
-    L.feita === "nada" &&
-    !draw &&
-    rs.includes(14) &&
-    (rs.includes(13) || rs.includes(12))
+  // Ás-alta sem par e sem draw: com T, J, Q ou K tem valor de showdown (o relatório do
+  // solver chama o A-T no Q-8-6 em mais de 80%). Com 6 a 9 a aula não diz, e com 2 a 5
+  // o solver desiste.
+  const kickerDoAs = rs.includes(14) ? Math.min(...rs) : 0
+  const asAlta =
+    L.feita === "nada" && !draw && kickerDoAs > 0 && kickerDoAs < 14
+  const sdValue = asAlta && kickerDoAs >= 10
   // Mão sem par e sem draw, mas com duas overcards ou com um over e backdoor de flush: a
   // aula não diz se ela desiste, então fica fora do treino em vez de virar check-fold.
   const duvidosa =
     L.feita === "nada" &&
     !draw &&
     !sdValue &&
-    (L.overcards === 2 || (L.overcards >= 1 && redrawFlush))
+    (L.overcards === 2 ||
+      (L.overcards >= 1 && redrawFlush) ||
+      (asAlta && kickerDoAs >= 6))
   const forca =
     L.feita === "topPair" ? forcaDoTopPair(board, hero, classes) : null
   const feitaTop = L.feita === "sequencia" || L.feita === "flush"
@@ -353,7 +357,7 @@ export function decidir(
       return dec(
         "Check-call",
         "Valor de showdown",
-        "Ás-alta com K ou Q tem valor de showdown e dá check-call."
+        "Ás-alta com T, J, Q ou K tem valor de showdown e dá check-call."
       )
     if (duvidosa) return null
     return dec(
@@ -468,7 +472,7 @@ export function decidir(
       return dec(
         "Check-call",
         "Valor de showdown",
-        "Ás-alta com K ou Q tem valor de showdown e dá check-call."
+        "Ás-alta com T, J, Q ou K tem valor de showdown e dá check-call."
       )
     if (duvidosa) return null
     return dec(
@@ -571,7 +575,7 @@ export function decidir(
       return dec(
         "Check-call",
         "Valor de showdown com redraw",
-        "Em board com sequência, A-K e A-Q só dão check-call com redraw."
+        "Em board com sequência, ás-alta com T a K só dá check-call com redraw."
       )
     }
     if (duvidosa) return null
@@ -648,7 +652,7 @@ export function decidir(
     return dec(
       "Check-call",
       "Valor de showdown",
-      "Ás-alta com K ou Q tem valor de showdown e dá check-call."
+      "Ás-alta com T, J, Q ou K tem valor de showdown e dá check-call."
     )
   if (duvidosa) return null
   return dec(
