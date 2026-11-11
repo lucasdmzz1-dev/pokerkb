@@ -263,6 +263,61 @@ function Assento({
   )
 }
 
+// Fichas na frente do vilão quando ele aposta: quanto maior a aposta em relação ao
+// pote, mais fichas. Ficam entre o assento e o centro da mesa.
+const CORES_FICHA = ["#c0392b", "#2f8f5b", "#2d6fd6", "#8e44ad"]
+
+function FichasAposta({
+  heroPos,
+  vilaoPos,
+  acao,
+  pote,
+}: {
+  heroPos: Pos
+  vilaoPos: Pos
+  acao: string
+  pote: number
+}) {
+  const valor = Number(acao.replace(/^\D+/, "").replace(",", "."))
+  if (!(valor > 0)) return null
+  const razao = valor / pote
+  const n = razao <= 0.3 ? 2 : razao <= 0.6 ? 3 : razao <= 1 ? 4 : 5
+  const [x, y, xm] = POS_TELA[lugarDe(vilaoPos, heroPos, true)]
+  const aproxima = (v: number, alvo: number) => v + (alvo - v) * 0.3
+  // Duas pilhas: a primeira com todas as fichas menos uma e a segunda com as demais.
+  const pilhas = [n - Math.floor(n / 2), Math.floor(n / 2)]
+  return (
+    <div
+      role="img"
+      aria-label={`Fichas da aposta: ${acao}`}
+      className="absolute left-(--xm) flex items-end gap-0.5 sm:left-(--x)"
+      style={
+        {
+          "--x": `${aproxima(x, 50)}%`,
+          "--xm": `${aproxima(xm, 50)}%`,
+          top: `${aproxima(y, 47)}%`,
+          transform: "translate(-50%, -50%)",
+        } as CSSProperties
+      }
+    >
+      {pilhas.map((qtd, k) => (
+        <div key={k} className="flex flex-col-reverse items-center">
+          {Array.from({ length: qtd }, (_, j) => (
+            <span
+              key={j}
+              aria-hidden="true"
+              className="-mt-[calc(var(--s)*0.1)] block h-[calc(var(--s)*0.24)] w-[calc(var(--s)*0.62)] rounded-[50%] border-2 border-dashed border-white/70 shadow-[0_2px_0_rgba(0,0,0,0.45)]"
+              style={{
+                background: CORES_FICHA[(j + k * 2) % CORES_FICHA.length],
+              }}
+            />
+          ))}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export function Mesa({
   opener,
   board,
@@ -350,6 +405,15 @@ export function Mesa({
             gen={gen}
           />
         ))}
+
+        {gen && /^(Bet|Raise)/i.test(gen.acaoVilao) && (
+          <FichasAposta
+            heroPos={heroPos}
+            vilaoPos={vilao}
+            acao={gen.acaoVilao}
+            pote={gen.pote}
+          />
+        )}
 
         <div className="absolute top-[47%] left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1.5">
           <Cards codes={board} size="mesa" />
