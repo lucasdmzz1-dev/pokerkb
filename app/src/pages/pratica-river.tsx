@@ -36,7 +36,8 @@ interface Config {
   lead: string
   titulosTipos: string
   situacoes: SituacaoRiver[]
-  // Filtro opcional da seleção (ataque ou defesa).
+  // Filtro opcional da seleção (ataque ou defesa, aposta ou check).
+  tituloFiltro?: string
   filtros?: { id: string; label: string; vale: (s: SituacaoRiver) => boolean }[]
 }
 
@@ -61,6 +62,14 @@ const CONFIG_18: Config = {
   lead: "Treine as decisões do módulo 18. O BTN abriu, você pagou do BB, deu check-call no flop e o turn foi check-check. Você age primeiro no river.",
   titulosTipos: "Por tipo de board",
   situacoes: situacoes18,
+  tituloFiltro: "Parte",
+  filtros: [
+    { id: "todas", label: "Bet e check", vale: () => true },
+    // Quando o herói aposta: a resposta certa é um size.
+    { id: "bet", label: "Quando eu aposto", vale: (s) => ehBet(s.certa) },
+    // Quando o herói dá check: check-call, check-fold e o call ou fold contra o bet do BTN.
+    { id: "check", label: "Quando eu dou check", vale: (s) => !ehBet(s.certa) },
+  ],
 }
 
 function PraticaRiver({
@@ -200,7 +209,7 @@ function PraticaRiver({
             {cfg.filtros && (
               <fieldset className="grid gap-2.5">
                 <legend className="mb-1 font-medium text-muted-foreground">
-                  Lado
+                  {cfg.tituloFiltro ?? "Lado"}
                 </legend>
                 <RadioGroup
                   value={filtro}
