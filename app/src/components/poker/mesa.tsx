@@ -346,8 +346,7 @@ function FichasAposta({
   gira: boolean
 }) {
   const [x, y, xm, ym] = POS_FICHAS[lugarDe(pos, heroPos, gira)]
-  // Nos assentos de cima não há etiqueta com o total (o "Bet X" do assento já mostra),
-  // para as fichas não subirem no board.
+  // Nos assentos de cima o total fica ao lado das fichas, para não descer sobre o board.
   const emCima = y < 30
   const texto = (Math.round(valor * 100) / 100).toString().replace(".", ",")
   return (
@@ -356,7 +355,7 @@ function FichasAposta({
       aria-label={`Fichas da aposta: ${texto} bb`}
       className={cn(
         "absolute top-(--ym) left-(--xm) flex items-center gap-1.5 sm:top-(--y) sm:left-(--x)",
-        "flex-col"
+        !emCima && "flex-col"
       )}
       style={
         {
@@ -386,11 +385,9 @@ function FichasAposta({
           </div>
         ))}
       </div>
-      {!emCima && (
-        <span className="rounded-full bg-black/60 px-2 py-0.5 text-[clamp(0.6rem,1.05vw,0.8rem)] font-medium whitespace-nowrap text-white tabular-nums">
-          {texto} bb
-        </span>
-      )}
+      <span className="rounded-full bg-black/60 px-2 py-0.5 text-[clamp(0.6rem,1.05vw,0.8rem)] font-medium whitespace-nowrap text-white tabular-nums">
+        {texto} bb
+      </span>
     </div>
   )
 }
