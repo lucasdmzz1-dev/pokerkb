@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react"
-import { ArrowLeft, Square } from "lucide-react"
+import { ArrowLeft, ChevronDown, Square } from "lucide-react"
 import {
   BotaoResposta,
   CartaoResultado,
@@ -10,6 +10,11 @@ import { RelatarErro } from "@/components/poker/relatar-erro"
 import { destacar } from "@/components/poker/destacar"
 import { PageHeader } from "@/components/page-header"
 import { Button } from "@/components/ui/button"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Mesa } from "@/components/poker/mesa"
@@ -116,6 +121,32 @@ export function Ficha({
 export type Tema =
   "bet" | "probe" | "cbet" | "cbet40" | "oop" | "bb" | "tbet" | "tbarrel" | "xc"
 
+// Temas agrupados pela street em que o herói decide. O pré-flop ainda não tem tema.
+const STREETS: { id: string; nome: string; temas: [Tema, string][] }[] = [
+  { id: "preflop", nome: "Pré-flop", temas: [] },
+  {
+    id: "flop",
+    nome: "Flop",
+    temas: [
+      ["bet", "Bet vs Missed C-Bet"],
+      ["cbet", "C-Bet IP Short Stack"],
+      ["cbet40", "C-Bet IP 40bb"],
+      ["oop", "C-Bet OOP 40bb"],
+      ["bb", "BB raised pot vs SB"],
+      ["tbet", "3Bet Pot do BB"],
+    ],
+  },
+  { id: "turn", nome: "Turn", temas: [["probe", "Probe Turn"]] },
+  {
+    id: "river",
+    nome: "River",
+    temas: [
+      ["tbarrel", "Third Barrel e vs Third Barrel"],
+      ["xc", "XC e Play River"],
+    ],
+  },
+]
+
 export function SeletorTema({
   tema,
   onTema,
@@ -123,41 +154,100 @@ export function SeletorTema({
   tema: Tema
   onTema: (t: Tema) => void
 }) {
-  const temas: [Tema, string][] = [
-    ["bet", "Bet vs Missed C-Bet"],
-    ["probe", "Probe Turn"],
-    ["cbet", "C-Bet IP Short Stack"],
-    ["cbet40", "C-Bet IP 40bb"],
-    ["oop", "C-Bet OOP 40bb"],
-    ["bb", "BB raised pot vs SB"],
-    ["tbet", "3Bet Pot do BB"],
-    ["tbarrel", "Third Barrel e vs Third Barrel"],
-    ["xc", "XC e Play River"],
-  ]
+  const atual = STREETS.flatMap((s) => s.temas).find(([id]) => id === tema)
+  // A street do tema escolhido começa aberta; as outras, fechadas.
+  const [abertas, setAbertas] = useState<Record<string, boolean>>(() => ({
+    [STREETS.find((s) => s.temas.some(([id]) => id === tema))?.id ?? "flop"]:
+      true,
+  }))
+  const alternar = (id: string, v: boolean) =>
+    setAbertas((a) => ({ ...a, [id]: v }))
+  const todasAbertas = STREETS.every((s) => abertas[s.id])
   return (
-    <fieldset className="grid gap-2.5">
+    <fieldset className="grid gap-3">
       <legend className="mb-1 font-medium text-muted-foreground">Tema</legend>
-      <div className="flex flex-wrap gap-2">
-        {temas.map(([id, nome]) => (
-          <button
-            key={id}
-            type="button"
-            aria-pressed={tema === id}
-            onClick={() => onTema(id)}
-            className={cn(
-              "cursor-pointer rounded-full border px-3.5 py-2 uppercase transition-colors",
-              tema === id
-                ? "border-primary bg-primary text-primary-foreground"
-                : "bg-card text-muted-foreground hover:text-foreground"
-            )}
-          >
-            {nome}
-          </button>
-        ))}
-        <span className="rounded-full border bg-card px-3.5 py-2 text-muted-foreground uppercase opacity-50">
-          Misturar temas · em breve
-        </span>
+      <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-primary/40 bg-primary/10 px-4 py-3">
+        <div>
+          <p className="text-xs text-muted-foreground uppercase">
+            Tema escolhido
+          </p>
+          <p className="font-bold uppercase">{atual?.[1]}</p>
+        </div>
+        <button
+          type="button"
+          className="cursor-pointer text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+          onClick={() =>
+            setAbertas(
+              Object.fromEntries(STREETS.map((s) => [s.id, !todasAbertas]))
+            )
+          }
+        >
+          {todasAbertas ? "Fechar tudo" : "Abrir tudo"}
+        </button>
       </div>
+      <div className="grid gap-2">
+        {STREETS.map((s) => {
+          const aberta = !!abertas[s.id]
+          const temAtual = s.temas.some(([id]) => id === tema)
+          return (
+            <Collapsible
+              key={s.id}
+              open={aberta}
+              onOpenChange={(v) => alternar(s.id, v)}
+              className={cn(
+                "rounded-xl border bg-card/50",
+                temAtual && "border-primary/40"
+              )}
+            >
+              <CollapsibleTrigger className="flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-3 text-left">
+                <span className="flex items-center gap-2.5 font-bold uppercase">
+                  {s.nome}
+                  <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                    {s.temas.length === 0
+                      ? "em breve"
+                      : `${s.temas.length} ${s.temas.length === 1 ? "tema" : "temas"}`}
+                  </span>
+                </span>
+                <ChevronDown
+                  aria-hidden="true"
+                  className={cn(
+                    "size-5 text-muted-foreground transition-transform duration-200",
+                    aberta && "rotate-180"
+                  )}
+                />
+              </CollapsibleTrigger>
+              <CollapsibleContent className="overflow-hidden data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                <div className="flex flex-wrap gap-2 px-4 pb-4">
+                  {s.temas.length === 0 && (
+                    <p className="text-sm text-muted-foreground">
+                      Nenhum tema de pré-flop na Prática ainda.
+                    </p>
+                  )}
+                  {s.temas.map(([id, nome]) => (
+                    <button
+                      key={id}
+                      type="button"
+                      aria-pressed={tema === id}
+                      onClick={() => onTema(id)}
+                      className={cn(
+                        "cursor-pointer rounded-full border px-3.5 py-2 uppercase transition-colors",
+                        tema === id
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "bg-card text-muted-foreground hover:text-foreground"
+                      )}
+                    >
+                      {nome}
+                    </button>
+                  ))}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+          )
+        })}
+      </div>
+      <span className="w-fit rounded-full border bg-card px-3.5 py-2 text-sm text-muted-foreground uppercase opacity-50">
+        Misturar temas · em breve
+      </span>
     </fieldset>
   )
 }
