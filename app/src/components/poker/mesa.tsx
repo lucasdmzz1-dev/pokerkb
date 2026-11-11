@@ -55,6 +55,8 @@ export interface MesaGen {
   rotuloVilao: string
   // Vazio quando o vilão ainda não agiu.
   acaoVilao: string
+  // false quando a abertura do pré-flop já foi para o pote e não deve ter fichas.
+  fichasRotulo?: boolean
 }
 
 function stackNaMesa(
@@ -309,19 +311,28 @@ function Ficha3D({ cor, rotulo }: { cor: string; rotulo?: string }) {
   )
 }
 
+// Número em bb de um texto como "Bet 5,25", "Abriu 2" ou "1,88 bb".
+export function valorBB(texto?: string): number | undefined {
+  const m = texto ? /(\d+(?:[.,]\d+)?)/.exec(texto) : null
+  const v = m ? Number(m[1].replace(",", ".")) : 0
+  return v > 0 ? v : undefined
+}
+
 function FichasAposta({
   heroPos,
-  vilaoPos,
-  acao,
+  pos,
+  valor,
+  gira,
 }: {
   heroPos: Pos
-  vilaoPos: Pos
-  acao: string
+  pos: Pos
+  valor: number
+  gira: boolean
 }) {
-  const valor = Number(acao.replace(/^\D+/, "").replace(",", "."))
-  if (!(valor > 0)) return null
-  const [x, y, xm] = POS_TELA[lugarDe(vilaoPos, heroPos, true)]
-  const aproxima = (v: number, alvo: number) => v + (alvo - v) * 0.3
+  // O herói fica embaixo, colado no pote: as fichas dele vão um pouco mais para o centro.
+  const fator = pos === heroPos ? 0.42 : 0.3
+  const [x, y, xm] = POS_TELA[lugarDe(pos, heroPos, gira)]
+  const aproxima = (v: number, alvo: number) => v + (alvo - v) * fator
   const texto = (Math.round(valor * 100) / 100).toString().replace(".", ",")
   return (
     <div
@@ -375,6 +386,7 @@ export function Mesa({
   heroCbet = "BTN",
   stackCbet = 20,
   gen,
+  fichasHero,
 }: {
   opener: Opener
   board: string[]
@@ -391,6 +403,8 @@ export function Mesa({
   heroCbet?: Pos
   stackCbet?: number
   gen?: MesaGen
+  // Aposta do herói em bb, quando ele já respondeu com bet ou raise.
+  fichasHero?: number
 }) {
   const vilao: Pos = gen ? gen.vilaoPos : probe ? "BTN" : cbet ? "BB" : opener
   const heroPos: Pos = gen
@@ -400,6 +414,12 @@ export function Mesa({
       : cbet
         ? heroCbet
         : "BTN"
+  const gira = probe || cbet || !!gen
+  // Fichas do vilão: a aposta dele nesta street ou, sem aposta, o open ou o call.
+  const valorVilao = gen
+    ? (valorBB(gen.acaoVilao) ??
+      (gen.fichasRotulo === false ? undefined : valorBB(gen.rotuloVilao)))
+    : ABERTURA
   const estilo = { "--s": "clamp(40px, 7.2vw, 66px)" } as CSSProperties
   return (
     <div className="mx-auto w-full max-w-[880px]" style={estilo}>
@@ -450,11 +470,20 @@ export function Mesa({
           />
         ))}
 
-        {gen && /^(Bet|Raise)/i.test(gen.acaoVilao) && (
+        {valorVilao !== undefined && (
           <FichasAposta
             heroPos={heroPos}
-            vilaoPos={vilao}
-            acao={gen.acaoVilao}
+            pos={vilao}
+            valor={valorVilao}
+            gira={gira}
+          />
+        )}
+        {fichasHero !== undefined && (
+          <FichasAposta
+            heroPos={heroPos}
+            pos={heroPos}
+            valor={fichasHero}
+            gira={gira}
           />
         )}
 

@@ -19,6 +19,7 @@ import {
   BarraAcoes,
   Mesa,
   tamanhoBB,
+  valorBB,
   type Opener,
 } from "@/components/poker/mesa"
 import PraticaCbet from "@/pages/pratica-cbet"
@@ -550,6 +551,7 @@ function PraticaBet({ onTema }: { onTema: (t: Tema) => void }) {
           mao={i + 1}
           total={fila.length}
           sequencia={sequencia}
+          fichasHero={valorBB(ACOES.find((x) => x.a === resp)?.sub)}
         />
       </div>
 

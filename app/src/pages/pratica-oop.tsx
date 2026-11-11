@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Mesa } from "@/components/poker/mesa"
+import { Mesa, valorBB } from "@/components/poker/mesa"
 import {
   NOME_ESTRATEGIA,
   TEXTURAS,
@@ -417,6 +417,7 @@ export default function PraticaOop({ onTema }: { onTema: (t: Tema) => void }) {
         mao={i + 1}
         total={fila.length}
         sequencia={sequencia}
+        fichasHero={valorBB(ACOES.find((x) => x.a === resp)?.sub)}
         gen={{
           heroPos: atual.heroPos,
           vilaoPos: "BTN",
