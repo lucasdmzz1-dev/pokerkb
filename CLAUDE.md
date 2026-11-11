@@ -11,7 +11,7 @@ Rules:
 
 ## Site
 
-O site visual da base fica em `app/`. Veja `docs/Site-Poker-KB.md` para rodar, estrutura, chaves de dados e o fluxo mensal.
+O site visual da base fica em `app/`. Veja `docs/Site-Poker-KB.md` (índice) para rodar, chaves de dados e o fluxo mensal; o detalhe de cada área fica em `docs/site/`.
 
 ## Economia de limite
 
@@ -28,6 +28,10 @@ O site visual da base fica em `app/`. Veja `docs/Site-Poker-KB.md` para rodar, e
 | --- | --- |
 | Módulo de teoria | `theory/CLAUDE.md` e só o módulo do dia |
 | Coordenação da teoria | `theory/retomada-main-teoria.md` |
-| Site (qualquer área) | trecho de `docs/Site-Poker-KB.md`; o padrão da página de teoria carrega sozinho em `app/src/` |
+| Site: Teoria | `docs/site/Teoria.md`; o padrão da página carrega sozinho em `app/src/` |
+| Site: Prática | `docs/site/retomada-pratica.md` |
+| Site: Análise | `docs/site/retomada-analise.md` |
+| Site: Supabase, publicação, admin | `docs/site/Supabase.md` |
+| Site: rodar, chaves de dados | `docs/Site-Poker-KB.md` (índice) |
 | Prática de módulo novo | `docs/Pratica-Novo-Tema.md` |
 | PKO e stats | agente `pko-stats` |
