@@ -66,7 +66,7 @@ const CONFIG_18: Config = {
   filtros: [
     { id: "todas", label: "Tudo", vale: () => true },
     // Quando o herói aposta: a resposta certa é um size.
-    { id: "bet", label: "Aposta River", vale: (s) => ehBet(s.certa) },
+    { id: "bet", label: "Ataque River", vale: (s) => ehBet(s.certa) },
     // Quando o herói dá check: check-call, check-fold e o call ou fold contra o bet do BTN.
     { id: "check", label: "Defesa River", vale: (s) => !ehBet(s.certa) },
   ],
