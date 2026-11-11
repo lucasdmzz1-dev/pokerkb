@@ -293,14 +293,14 @@ function Ficha3D({ cor, rotulo }: { cor: string; rotulo?: string }) {
   return (
     <span
       aria-hidden="true"
-      className="relative grid size-[calc(var(--s)*0.5)] place-items-center rounded-full"
+      className="relative grid size-[calc(var(--s)*0.36)] place-items-center rounded-full"
       style={{
         background: `repeating-conic-gradient(#f5f5f5 0 14deg, ${cor} 14deg 45deg)`,
         boxShadow: `0 calc(var(--s)*0.05) 0 color-mix(in srgb, ${cor} 55%, #000), 0 calc(var(--s)*0.09) 4px rgba(0,0,0,0.45)`,
       }}
     >
       <span
-        className="grid size-[72%] place-items-center rounded-full border-2 bg-[#14181d] text-[clamp(0.5rem,0.95vw,0.72rem)] leading-none font-extrabold text-white"
+        className="grid size-[72%] place-items-center rounded-full border-2 bg-[#14181d] text-[clamp(0.42rem,0.75vw,0.58rem)] leading-none font-extrabold text-white"
         style={{ borderColor: cor }}
       >
         {rotulo}
@@ -343,7 +343,7 @@ function FichasAposta({
             {Array.from({ length: g.qtd }, (_, j) => (
               <span
                 key={j}
-                className={j > 0 ? "-mb-[calc(var(--s)*0.3)]" : undefined}
+                className={j > 0 ? "-mb-[calc(var(--s)*0.21)]" : undefined}
                 style={{ zIndex: j }}
               >
                 <Ficha3D
