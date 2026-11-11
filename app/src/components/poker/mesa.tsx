@@ -318,6 +318,22 @@ export function valorBB(texto?: string): number | undefined {
   return v > 0 ? v : undefined
 }
 
+// Onde as fichas ficam, por lugar da mesa: entre o assento e o centro, longe do número
+// de stack do próprio assento e dos vizinhos. [x, y, x no celular], em % da mesa.
+const POS_FICHAS: Record<
+  Pos,
+  [x: number, y: number, xCelular: number, yCelular: number]
+> = {
+  BTN: [50, 71, 50, 71],
+  SB: [22, 67, 20, 64],
+  BB: [22, 50, 13, 30],
+  UTG: [30, 26, 31, 26],
+  UTG1: [50, 25, 50, 25],
+  LJ: [68, 26, 66, 26],
+  HJ: [79, 50, 87, 30],
+  CO: [72, 70, 81, 68],
+}
+
 function FichasAposta({
   heroPos,
   pos,
@@ -329,21 +345,25 @@ function FichasAposta({
   valor: number
   gira: boolean
 }) {
-  // O herói fica embaixo, colado no pote: as fichas dele vão um pouco mais para o centro.
-  const fator = pos === heroPos ? 0.42 : 0.3
-  const [x, y, xm] = POS_TELA[lugarDe(pos, heroPos, gira)]
-  const aproxima = (v: number, alvo: number) => v + (alvo - v) * fator
+  const [x, y, xm, ym] = POS_FICHAS[lugarDe(pos, heroPos, gira)]
+  // Nos assentos de cima não há etiqueta com o total (o "Bet X" do assento já mostra),
+  // para as fichas não subirem no board.
+  const emCima = y < 30
   const texto = (Math.round(valor * 100) / 100).toString().replace(".", ",")
   return (
     <div
       role="img"
       aria-label={`Fichas da aposta: ${texto} bb`}
-      className="absolute left-(--xm) flex flex-col items-center gap-1.5 sm:left-(--x)"
+      className={cn(
+        "absolute top-(--ym) left-(--xm) flex items-center gap-1.5 sm:top-(--y) sm:left-(--x)",
+        "flex-col"
+      )}
       style={
         {
-          "--x": `${aproxima(x, 50)}%`,
-          "--xm": `${aproxima(xm, 50)}%`,
-          top: `${aproxima(y, 47)}%`,
+          "--x": `${x}%`,
+          "--xm": `${xm}%`,
+          "--y": `${y}%`,
+          "--ym": `${ym}%`,
           transform: "translate(-50%, -50%)",
         } as CSSProperties
       }
@@ -366,9 +386,11 @@ function FichasAposta({
           </div>
         ))}
       </div>
-      <span className="rounded-full bg-black/60 px-2 py-0.5 text-[clamp(0.6rem,1.05vw,0.8rem)] font-medium whitespace-nowrap text-white tabular-nums">
-        {texto} bb
-      </span>
+      {!emCima && (
+        <span className="rounded-full bg-black/60 px-2 py-0.5 text-[clamp(0.6rem,1.05vw,0.8rem)] font-medium whitespace-nowrap text-white tabular-nums">
+          {texto} bb
+        </span>
+      )}
     </div>
   )
 }
