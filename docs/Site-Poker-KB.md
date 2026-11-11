@@ -115,6 +115,7 @@ Todo tema novo da Prática usa os mesmos blocos, para ficar igual aos outros:
 - `components/poker/cards.tsx`: `RngStrip` com `rng` é a barra que enche até o número sorteado (roxo na aposta, azul no check, sem vermelho). Sem `rng` é a barra da Teoria.
 - O resultado do treino mostra o tipo de board que mais errou, o desempenho por tipo e o tipo de erro.
 - `components/poker/resultado-final.tsx`: `ResultadoFinal`, a tela final padrão (nota, onde mais errou, desempenho por tipo e tipo de erro).
+- `SeletorTema` (em `pratica-probe.tsx`): mostra o tema escolhido e agrupa os temas por street (Pré-flop, Flop, Turn e River) em janelas que abrem e fecham, com "Abrir tudo" e "Fechar tudo". A street do tema escolhido abre sozinha. Tema novo entra na lista `STREETS`.
 - `components/poker/relatar-erro.tsx`: botão "Relatar erro" no canto do card de resultado, com uma aba curta para contar o erro e enviar. Salva no aparelho (`pkb:relatos`) e, com conta, manda para a tabela `relatos_erro` (SQL em `docs/Supabase-Poker-KB.sql`; você lê os relatos pelo painel do Supabase).
 - Botão "Parar treino" (ao lado do "Voltar à seleção"): fecha a sessão e mostra o resultado das mãos já respondidas.
 - Botão "Voltar à seleção" no topo do jogo e seletor de tema na seleção (`SeletorTema`).
