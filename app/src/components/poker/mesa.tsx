@@ -55,6 +55,8 @@ export interface MesaGen {
   rotuloVilao: string
   // Vazio quando o vilão ainda não agiu.
   acaoVilao: string
+  // false quando a abertura do pré-flop já foi para o pote e não deve ter fichas.
+  fichasRotulo?: boolean
 }
 
 function stackNaMesa(
@@ -309,30 +311,58 @@ function Ficha3D({ cor, rotulo }: { cor: string; rotulo?: string }) {
   )
 }
 
+// Número em bb de um texto como "Bet 5,25", "Abriu 2" ou "1,88 bb".
+export function valorBB(texto?: string): number | undefined {
+  const m = texto ? /(\d+(?:[.,]\d+)?)/.exec(texto) : null
+  const v = m ? Number(m[1].replace(",", ".")) : 0
+  return v > 0 ? v : undefined
+}
+
+// Onde as fichas ficam, por lugar da mesa: entre o assento e o centro, longe do número
+// de stack do próprio assento e dos vizinhos. [x, y, x no celular], em % da mesa.
+const POS_FICHAS: Record<
+  Pos,
+  [x: number, y: number, xCelular: number, yCelular: number]
+> = {
+  BTN: [50, 71, 50, 71],
+  SB: [22, 67, 20, 64],
+  BB: [22, 50, 13, 30],
+  UTG: [30, 26, 31, 26],
+  UTG1: [50, 25, 50, 25],
+  LJ: [68, 26, 66, 26],
+  HJ: [79, 50, 87, 30],
+  CO: [72, 70, 81, 68],
+}
+
 function FichasAposta({
   heroPos,
-  vilaoPos,
-  acao,
+  pos,
+  valor,
+  gira,
 }: {
   heroPos: Pos
-  vilaoPos: Pos
-  acao: string
+  pos: Pos
+  valor: number
+  gira: boolean
 }) {
-  const valor = Number(acao.replace(/^\D+/, "").replace(",", "."))
-  if (!(valor > 0)) return null
-  const [x, y, xm] = POS_TELA[lugarDe(vilaoPos, heroPos, true)]
-  const aproxima = (v: number, alvo: number) => v + (alvo - v) * 0.3
+  const [x, y, xm, ym] = POS_FICHAS[lugarDe(pos, heroPos, gira)]
+  // Nos assentos de cima o total fica ao lado das fichas, para não descer sobre o board.
+  const emCima = y < 30
   const texto = (Math.round(valor * 100) / 100).toString().replace(".", ",")
   return (
     <div
       role="img"
       aria-label={`Fichas da aposta: ${texto} bb`}
-      className="absolute left-(--xm) flex flex-col items-center gap-1.5 sm:left-(--x)"
+      className={cn(
+        "absolute top-(--ym) left-(--xm) flex items-center gap-1.5 sm:top-(--y) sm:left-(--x)",
+        !emCima && "flex-col"
+      )}
       style={
         {
-          "--x": `${aproxima(x, 50)}%`,
-          "--xm": `${aproxima(xm, 50)}%`,
-          top: `${aproxima(y, 47)}%`,
+          "--x": `${x}%`,
+          "--xm": `${xm}%`,
+          "--y": `${y}%`,
+          "--ym": `${ym}%`,
           transform: "translate(-50%, -50%)",
         } as CSSProperties
       }
@@ -375,6 +405,7 @@ export function Mesa({
   heroCbet = "BTN",
   stackCbet = 20,
   gen,
+  fichasHero,
 }: {
   opener: Opener
   board: string[]
@@ -391,6 +422,8 @@ export function Mesa({
   heroCbet?: Pos
   stackCbet?: number
   gen?: MesaGen
+  // Aposta do herói em bb, quando ele já respondeu com bet ou raise.
+  fichasHero?: number
 }) {
   const vilao: Pos = gen ? gen.vilaoPos : probe ? "BTN" : cbet ? "BB" : opener
   const heroPos: Pos = gen
@@ -400,6 +433,12 @@ export function Mesa({
       : cbet
         ? heroCbet
         : "BTN"
+  const gira = probe || cbet || !!gen
+  // Fichas do vilão: a aposta dele nesta street ou, sem aposta, o open ou o call.
+  const valorVilao = gen
+    ? (valorBB(gen.acaoVilao) ??
+      (gen.fichasRotulo === false ? undefined : valorBB(gen.rotuloVilao)))
+    : ABERTURA
   const estilo = { "--s": "clamp(40px, 7.2vw, 66px)" } as CSSProperties
   return (
     <div className="mx-auto w-full max-w-[880px]" style={estilo}>
@@ -450,11 +489,20 @@ export function Mesa({
           />
         ))}
 
-        {gen && /^(Bet|Raise)/i.test(gen.acaoVilao) && (
+        {valorVilao !== undefined && (
           <FichasAposta
             heroPos={heroPos}
-            vilaoPos={vilao}
-            acao={gen.acaoVilao}
+            pos={vilao}
+            valor={valorVilao}
+            gira={gira}
+          />
+        )}
+        {fichasHero !== undefined && (
+          <FichasAposta
+            heroPos={heroPos}
+            pos={heroPos}
+            valor={fichasHero}
+            gira={gira}
           />
         )}
 

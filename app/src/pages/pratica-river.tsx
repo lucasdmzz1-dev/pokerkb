@@ -372,6 +372,11 @@ function PraticaRiver({
         mao={i + 1}
         total={fila.length}
         sequencia={sequencia}
+        fichasHero={
+          resp && META[resp].frac
+            ? r2(atual.pote * META[resp].frac!)
+            : undefined
+        }
         gen={{
           heroPos: atual.heroPos,
           vilaoPos: atual.vilaoPos,
@@ -379,6 +384,7 @@ function PraticaRiver({
           pote: atual.pote,
           rotuloVilao: atual.vilaoPos === "BB" ? "Pagou 2" : "Abriu 2",
           acaoVilao: atual.acaoVilao,
+          fichasRotulo: false,
         }}
       />
 
