@@ -12,3 +12,22 @@ Rules:
 ## Site
 
 O site visual da base fica em `app/`. Veja `docs/Site-Poker-KB.md` para rodar, estrutura, chaves de dados e o fluxo mensal.
+
+## Economia de limite
+
+- Resposta curta: resultado primeiro, sem recapitular o pedido nem repetir o que está nos arquivos. Sem resumo longo no fim.
+- Leia só o que a tarefa pede, por trecho (offset e limit). Não releia arquivo já lido na conversa.
+- Uma tarefa por chat. Tarefa nova e sem relação: sugira abrir um chat novo em vez de continuar num chat longo.
+- Print do navegador só em mudança visual, e um só. Para conferir texto e estrutura, use leitura da página.
+- Trabalho mecânico vai para agente barato: `kb-busca` (achar), `kb-checagem` (prettier e tsc), `kb-site` e `kb-teoria` (tarefa bem definida de uma área), `pko-stats`.
+- Skills de design e animação só rodam quando o dono digita `/nome` (impeccable, ui-ux-pro-max, animate etc.).
+
+## Onde começar
+
+| Trabalho | Leia primeiro |
+| --- | --- |
+| Módulo de teoria | `theory/CLAUDE.md` e só o módulo do dia |
+| Coordenação da teoria | `theory/retomada-main-teoria.md` |
+| Site (qualquer área) | trecho de `docs/Site-Poker-KB.md`; o padrão da página de teoria carrega sozinho em `app/src/` |
+| Prática de módulo novo | `docs/Pratica-Novo-Tema.md` |
+| PKO e stats | agente `pko-stats` |

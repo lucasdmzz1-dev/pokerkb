@@ -1,0 +1,11 @@
+# Busca (ripgrep / Grep do Claude): pula arquivos gerados e pesados.
+# Não apaga nada, só tira do resultado das buscas.
+graphify-out/graph.json
+graphify-out/graph.html
+graphify-out/manifest.json
+graphify-out/cache/
+app/pnpm-lock.yaml
+app/dist/
+.claude/skills/
+.claude/worktrees/
+*.png

@@ -1,0 +1,5 @@
+# Fora do grafo: skills de terceiros e arquivos gerados (não são o projeto).
+.claude/
+app/pnpm-lock.yaml
+app/dist/
+app/node_modules/
