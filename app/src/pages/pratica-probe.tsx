@@ -119,7 +119,16 @@ export function Ficha({
 }
 
 export type Tema =
-  "bet" | "probe" | "cbet" | "cbet40" | "oop" | "bb" | "tbet" | "tbarrel" | "xc"
+  | "bet"
+  | "probe"
+  | "cbet"
+  | "cbet40"
+  | "barrel"
+  | "oop"
+  | "bb"
+  | "tbet"
+  | "tbarrel"
+  | "xc"
 
 // Temas agrupados pela street em que o herói decide. O pré-flop ainda não tem tema.
 const STREETS: { id: string; nome: string; temas: [Tema, string][] }[] = [
@@ -136,7 +145,14 @@ const STREETS: { id: string; nome: string; temas: [Tema, string][] }[] = [
       ["tbet", "3Bet Pot do BB"],
     ],
   },
-  { id: "turn", nome: "Turn", temas: [["probe", "Probe Turn"]] },
+  {
+    id: "turn",
+    nome: "Turn",
+    temas: [
+      ["probe", "Probe Turn"],
+      ["barrel", "Second Barrel IP"],
+    ],
+  },
   {
     id: "river",
     nome: "River",
