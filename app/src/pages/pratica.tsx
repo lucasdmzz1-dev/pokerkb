@@ -24,6 +24,7 @@ import {
 } from "@/components/poker/mesa"
 import PraticaCbet from "@/pages/pratica-cbet"
 import PraticaCbet40 from "@/pages/pratica-cbet40"
+import PraticaBarrel from "@/pages/pratica-barrel"
 import PraticaOop from "@/pages/pratica-oop"
 import PraticaBB from "@/pages/pratica-bb"
 import Pratica3bet from "@/pages/pratica-3bet"
@@ -618,6 +619,7 @@ export default function Pratica() {
   if (tema === "probe") return <PraticaProbe onTema={setTema} />
   if (tema === "cbet") return <PraticaCbet onTema={setTema} />
   if (tema === "cbet40") return <PraticaCbet40 onTema={setTema} />
+  if (tema === "barrel") return <PraticaBarrel onTema={setTema} />
   if (tema === "oop") return <PraticaOop onTema={setTema} />
   if (tema === "bb") return <PraticaBB onTema={setTema} />
   if (tema === "tbet") return <Pratica3bet onTema={setTema} />
