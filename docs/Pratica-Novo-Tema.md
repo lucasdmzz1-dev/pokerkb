@@ -1,6 +1,6 @@
 # Como criar a prática de um módulo novo
 
-Roteiro usado no Probe Turn (módulo 14) e no C-Bet IP Short Stack (módulo 01). Siga a ordem. Para o visual e os componentes, veja "Padrão dos temas da Prática" em `docs/Site-Poker-KB.md`.
+Roteiro usado no Probe Turn (módulo 14) e no C-Bet IP Short Stack (módulo 01). Siga a ordem. Para o visual e os componentes, veja "Padrão dos temas da Prática" em `docs/site/Pratica.md`.
 
 ## 1. Ler a teoria do módulo
 

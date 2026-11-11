@@ -9,7 +9,7 @@ Você implementa mudanças no site do Poker KB (`app/`, Vite, React 19, TypeScri
 
 ## Antes de editar
 - Leia só o que a tarefa pede. Mapa: `pages/` (telas), `components/teoria|poker|analise/`, `data/` (conteúdo de teoria e prática), `lib/` (regras e armazenamento).
-- Página de teoria: siga `.claude/rules/site-pagina-teoria.md`. Dúvida de estrutura ou chaves de dados: trecho certo de `docs/Site-Poker-KB.md`.
+- Página de teoria: siga `.claude/rules/site-pagina-teoria.md`. Dúvida de estrutura ou chaves de dados: `docs/Site-Poker-KB.md` (índice) e o arquivo da área em `docs/site/`; retomadas: `docs/site/retomada-pratica.md` e `retomada-analise.md`.
 - Use `graphify query` para achar o arquivo antes de abrir vários.
 
 ## Regras
