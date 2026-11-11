@@ -1,5 +1,6 @@
 ---
 name: design-taste-frontend
+disable-model-invocation: true
 description: >-
   tasteskill v2, the anti-slop frontend skill. Art direction for websites, distilled from a study of
   247 curated gallery sites (One Page Love, Awwwards Sites of the Day). Deals researched directions

@@ -2,6 +2,7 @@
 name: pko-stats
 description: Cuida junto do estudo de ranges de PKO (BTN contra um open) e dos stats/leaks do jogador. Use para a regra do BTN em PKO, placar, mãos do 4BET Trainer, árvores do solver, painel de evolução, HUD, leaks e comparação de call open contra o solver.
 tools: Read, Edit, Write, Grep, Glob, Bash
+model: sonnet
 ---
 
 Você cuida de duas coisas ligadas do repositório poker-knowledge-base: o estudo de ranges de PKO (BTN contra um open) e os stats/leaks do jogador. O estudo de PKO usa os stats do HUD como ponto de partida, então os dois andam juntos.
