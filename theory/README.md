@@ -26,6 +26,7 @@ Teoria de torneio (ChipEV, foco em 20-40bb, formato Bounty/KO), um módulo por t
 | 14 | `14-Probe-Turn/` | PÓS | Finalizado |
 | 15 | `15-Bet-vs-Missed/` | PÓS | Finalizado |
 | 16 | `16-PKO/` | PRÉ | v1.2, regra v3 (170 mãos); arquivos de trabalho em `tools/pko/` |
+| 18 | `18-XC-Play-River/` | PÓS | v1.0: guideline, aula, 17 regras e 11 exercícios; faltam solver e Prática |
 
 O detalhe do que falta em cada módulo está no `06-Pendencias.md` dele e em `theory/retomada-main-teoria.md`.
 
@@ -79,6 +80,7 @@ _Gerado a partir do grafo do graphify. Não editar à mão: é sobrescrito na pr
 - [[theory/14-Probe-Turn/README|14-Probe-Turn]]
 - [[theory/15-Bet-vs-Missed/README|15-Bet-vs-Missed]]
 - [[theory/16-PKO/README|16-PKO]]
+- [[theory/18-XC-Play-River/README|18-XC-Play-River]]
 - [[theory/CLAUDE|CLAUDE]]
 - [[theory/MAPA-PRE-POS|MAPA-PRE-POS]]
 - [[theory/_TEMPLATE/01-Guideline|_TEMPLATE/01-Guideline]]
