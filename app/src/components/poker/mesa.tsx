@@ -51,7 +51,10 @@ export interface MesaGen {
   stack: number
   stackHero?: number
   stackVilao?: number
-  pote: number
+  // null esconde o pote (a aula não dá o valor).
+  pote: number | null
+  // Esconde os stacks nos assentos.
+  semStack?: boolean
   rotuloVilao: string
   // Vazio quando o vilão ainda não agiu.
   acaoVilao: string
@@ -226,9 +229,11 @@ function Assento({
         <span className="text-[clamp(0.6rem,1.35vw,0.95rem)] font-bold">
           {pos}
         </span>
-        <span className="text-[clamp(0.58rem,1.2vw,0.85rem)] text-muted-foreground tabular-nums">
-          {stackNaMesa(pos, opener, probe, cbet, heroPos, stackCbet, gen)}
-        </span>
+        {!gen?.semStack && (
+          <span className="text-[clamp(0.58rem,1.2vw,0.85rem)] text-muted-foreground tabular-nums">
+            {stackNaMesa(pos, opener, probe, cbet, heroPos, stackCbet, gen)}
+          </span>
+        )}
       </div>
       {abriu && (
         <span
@@ -331,7 +336,7 @@ export function Mesa({
       <div
         className="relative mb-5 aspect-[1.25/1] w-full sm:aspect-[2.2/1]"
         role="group"
-        aria-label={`Mesa: herói no ${heroPos} contra ${vilao}, pote de ${gen ? gen.pote : probe || cbet ? 4.5 : POTE_BB} bb`}
+        aria-label={`Mesa: herói no ${heroPos} contra ${vilao}${gen ? (gen.pote === null ? "" : `, pote de ${gen.pote} bb`) : `, pote de ${probe || cbet ? 4.5 : POTE_BB} bb`}`}
       >
         <div
           className="absolute inset-x-[6%] inset-y-[12%] rounded-[999px] border-2 border-felt-line bg-felt/50"
@@ -353,12 +358,14 @@ export function Mesa({
 
         <div className="absolute top-[47%] left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1.5">
           <Cards codes={board} size="mesa" />
-          <p className="text-center text-[clamp(0.75rem,1.6vw,1.05rem)] leading-tight">
-            <span className="text-muted-foreground">Pote </span>
-            <b className="tabular-nums">
-              {gen ? gen.pote : probe || cbet ? 4.5 : POTE_BB} bb
-            </b>
-          </p>
+          {gen?.pote !== null && (
+            <p className="text-center text-[clamp(0.75rem,1.6vw,1.05rem)] leading-tight">
+              <span className="text-muted-foreground">Pote </span>
+              <b className="tabular-nums">
+                {gen ? gen.pote : probe || cbet ? 4.5 : POTE_BB} bb
+              </b>
+            </p>
+          )}
         </div>
 
         <div
