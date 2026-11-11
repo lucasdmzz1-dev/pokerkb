@@ -263,6 +263,105 @@ function Assento({
   )
 }
 
+// Fichas na frente do vilão quando ele aposta: o valor vira fichas de 100, 25, 10, 5, 1
+// e 0,25bb, em pilhas por valor, com o total em uma etiqueta embaixo. Ficam entre o
+// assento e o centro da mesa.
+const FICHAS: { v: number; cor: string }[] = [
+  { v: 100, cor: "#d63a2f" },
+  { v: 25, cor: "#e8872a" },
+  { v: 10, cor: "#2fa35f" },
+  { v: 5, cor: "#2d8fe6" },
+  { v: 1, cor: "#e6b422" },
+  { v: 0.25, cor: "#9b59b6" },
+]
+
+// Quebra a aposta nas maiores fichas possíveis (até 4 valores diferentes).
+function fichasDe(valor: number): { v: number; cor: string; qtd: number }[] {
+  let resto = Math.round(valor * 4) / 4
+  const grupos: { v: number; cor: string; qtd: number }[] = []
+  for (const f of FICHAS) {
+    const qtd = Math.floor(resto / f.v + 1e-9)
+    if (qtd > 0) {
+      grupos.push({ ...f, qtd: Math.min(qtd, 4) })
+      resto = Math.round((resto - qtd * f.v) * 4) / 4
+    }
+  }
+  return grupos.slice(0, 4)
+}
+
+function Ficha3D({ cor, rotulo }: { cor: string; rotulo?: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="relative grid size-[calc(var(--s)*0.36)] place-items-center rounded-full"
+      style={{
+        background: `repeating-conic-gradient(#f5f5f5 0 14deg, ${cor} 14deg 45deg)`,
+        boxShadow: `0 calc(var(--s)*0.05) 0 color-mix(in srgb, ${cor} 55%, #000), 0 calc(var(--s)*0.09) 4px rgba(0,0,0,0.45)`,
+      }}
+    >
+      <span
+        className="grid size-[72%] place-items-center rounded-full border-2 bg-[#14181d] text-[clamp(0.42rem,0.75vw,0.58rem)] leading-none font-extrabold text-white"
+        style={{ borderColor: cor }}
+      >
+        {rotulo}
+      </span>
+    </span>
+  )
+}
+
+function FichasAposta({
+  heroPos,
+  vilaoPos,
+  acao,
+}: {
+  heroPos: Pos
+  vilaoPos: Pos
+  acao: string
+}) {
+  const valor = Number(acao.replace(/^\D+/, "").replace(",", "."))
+  if (!(valor > 0)) return null
+  const [x, y, xm] = POS_TELA[lugarDe(vilaoPos, heroPos, true)]
+  const aproxima = (v: number, alvo: number) => v + (alvo - v) * 0.3
+  const texto = (Math.round(valor * 100) / 100).toString().replace(".", ",")
+  return (
+    <div
+      role="img"
+      aria-label={`Fichas da aposta: ${texto} bb`}
+      className="absolute left-(--xm) flex flex-col items-center gap-1.5 sm:left-(--x)"
+      style={
+        {
+          "--x": `${aproxima(x, 50)}%`,
+          "--xm": `${aproxima(xm, 50)}%`,
+          top: `${aproxima(y, 47)}%`,
+          transform: "translate(-50%, -50%)",
+        } as CSSProperties
+      }
+    >
+      <div className="flex items-end gap-1">
+        {fichasDe(valor).map((g) => (
+          <div key={g.v} className="flex flex-col-reverse items-center">
+            {Array.from({ length: g.qtd }, (_, j) => (
+              <span
+                key={j}
+                className={j > 0 ? "-mb-[calc(var(--s)*0.21)]" : undefined}
+                style={{ zIndex: j }}
+              >
+                <Ficha3D
+                  cor={g.cor}
+                  rotulo={j === g.qtd - 1 ? String(g.v).replace(".", ",") : ""}
+                />
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
+      <span className="rounded-full bg-black/60 px-2 py-0.5 text-[clamp(0.6rem,1.05vw,0.8rem)] font-medium whitespace-nowrap text-white tabular-nums">
+        {texto} bb
+      </span>
+    </div>
+  )
+}
+
 export function Mesa({
   opener,
   board,
@@ -350,6 +449,14 @@ export function Mesa({
             gen={gen}
           />
         ))}
+
+        {gen && /^(Bet|Raise)/i.test(gen.acaoVilao) && (
+          <FichasAposta
+            heroPos={heroPos}
+            vilaoPos={vilao}
+            acao={gen.acaoVilao}
+          />
+        )}
 
         <div className="absolute top-[47%] left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1.5">
           <Cards codes={board} size="mesa" />
