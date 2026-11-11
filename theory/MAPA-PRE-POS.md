@@ -49,6 +49,7 @@ Os módulos 12 e 13 continuam sendo lidos juntos (ver `theory/CLAUDE.md`).
 | 11 Value Bet Masterclass | Transversal: sizing e valor |
 | 14 Probe Turn | BB no turn após check-check |
 | 15 Bet vs Missed C-Bet | Flop IP quando o agressor dá check |
+| 18 XC e Play River | BB no river após check-call no flop e check-check no turn |
 
 ---
 
