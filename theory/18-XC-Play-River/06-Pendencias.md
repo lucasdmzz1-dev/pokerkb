@@ -97,4 +97,4 @@ A transcrição troca nomes de cartas (rei, 6, ás). Boards e mãos foram lidos 
 
 O módulo ainda não tem treino na área Prática.
 
-**Status:** aberta, para o chat da Prática.
+**Status:** feita em 11/11/2026: tema "XC e Play River" na Prática, com as seis mãos, os exercícios 7 e 8 (call ou fold contra o bet de 2/3, que a aula do 4-x não define) e os 9 e 10 (boards ilustrativos). O exercício 11 ficou de fora.

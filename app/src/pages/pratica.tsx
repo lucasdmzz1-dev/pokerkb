@@ -26,6 +26,7 @@ import PraticaCbet40 from "@/pages/pratica-cbet40"
 import PraticaOop from "@/pages/pratica-oop"
 import PraticaBB from "@/pages/pratica-bb"
 import Pratica3bet from "@/pages/pratica-3bet"
+import { PraticaTerceiro, PraticaXC } from "@/pages/pratica-river"
 import PraticaProbe, { SeletorTema, type Tema } from "@/pages/pratica-probe"
 import { btnPaga } from "@/data/ranges"
 import { situacoesMaisBvM } from "@/data/prat15"
@@ -618,5 +619,7 @@ export default function Pratica() {
   if (tema === "oop") return <PraticaOop onTema={setTema} />
   if (tema === "bb") return <PraticaBB onTema={setTema} />
   if (tema === "tbet") return <Pratica3bet onTema={setTema} />
+  if (tema === "tbarrel") return <PraticaTerceiro onTema={setTema} />
+  if (tema === "xc") return <PraticaXC onTema={setTema} />
   return <PraticaBet onTema={setTema} />
 }

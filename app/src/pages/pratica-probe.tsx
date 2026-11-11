@@ -113,7 +113,8 @@ export function Ficha({
   )
 }
 
-export type Tema = "bet" | "probe" | "cbet" | "cbet40" | "oop" | "bb" | "tbet"
+export type Tema =
+  "bet" | "probe" | "cbet" | "cbet40" | "oop" | "bb" | "tbet" | "tbarrel" | "xc"
 
 export function SeletorTema({
   tema,
@@ -130,6 +131,8 @@ export function SeletorTema({
     ["oop", "C-Bet OOP 40bb"],
     ["bb", "BB raised pot vs SB"],
     ["tbet", "3Bet Pot do BB"],
+    ["tbarrel", "Third Barrel e vs Third Barrel"],
+    ["xc", "XC e Play River"],
   ]
   return (
     <fieldset className="grid gap-2.5">

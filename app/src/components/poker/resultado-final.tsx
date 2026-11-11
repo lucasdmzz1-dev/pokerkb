@@ -16,6 +16,9 @@ export function nomeNaFrase(nome: string): string {
 
 // "B25" vira "bet 25%", "Check-call" vira "check-call".
 export function nomeAcao(a: string): string {
+  if (a === "CHECKCALL") return "check-call"
+  if (a === "CHECKFOLD") return "check-fold"
+  if (a === "BET") return "bet 70%"
   const m = /^B(\d+)$/.exec(a)
   return m ? `bet ${m[1]}%` : a.toLowerCase()
 }
