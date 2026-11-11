@@ -12,7 +12,7 @@ import { PageHeader } from "@/components/page-header"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Mesa } from "@/components/poker/mesa"
+import { Mesa, valorBB } from "@/components/poker/mesa"
 import {
   BOARD_CBET40,
   situacoesCbet40,
@@ -319,6 +319,7 @@ export default function PraticaCbet40({
         mao={i + 1}
         total={fila.length}
         sequencia={sequencia}
+        fichasHero={valorBB(ACOES.find((x) => x.a === resp)?.sub)}
       />
 
       <div className="mx-auto mt-4 grid max-w-[880px] grid-cols-2 gap-2 sm:grid-cols-4 md:gap-3">
