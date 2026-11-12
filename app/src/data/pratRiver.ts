@@ -33,6 +33,9 @@ export interface SituacaoRiver {
   acoes: AcaoRiver[]
   certa: AcaoRiver
   aceita?: AcaoRiver[]
+  // Spot de split: o RNG decide a ação (de 1 até `ate` vale `acao`, depois vale `senao`).
+  // `certa` fica como a ação de referência, a primeira do split.
+  rng?: { ate: number; acao: AcaoRiver; senao: AcaoRiver }
   classe: string
   porque: string
   // Board montado a partir da regra, e não de uma mão da aula.
