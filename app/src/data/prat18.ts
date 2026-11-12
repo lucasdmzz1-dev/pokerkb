@@ -782,9 +782,18 @@ const coach18: SituacaoRiver[] = [
     "Segundo par na dobra",
     DOBRA_SIMPLES
   ),
-  // Fora do treino, em aberto: K♦ Q♣ 7♥ 5♥ A♠ com T♦ Q♠. O estudo manda check ("third pair
-  // abaixo de kicker J fora dos melhores third pairs"), mas o corte em J deixaria só o Q-J
-  // com o A e o K no board, então pode ser um equívoco do guideline. Aguarda o coach.
+  // O estudo justifica o check pelo corte de kicker J, que parecia equívoco (deixaria só o
+  // Q-J). O áudio do coach (12/11/2026) dá outro motivo: o ás no river é carta muito ruim
+  // e a estratégia vai para bet muito alto ou check. Por isso a explicação aqui é a do áudio.
+  coach(
+    "t09-third-pair",
+    "High card",
+    ["Kd", "Qc", "7h", "5h", "As"],
+    ["Td", "Qs"],
+    "CHECK",
+    "Third pair em board com ás no river",
+    "o ás no river é uma carta muito ruim para o BB: a estratégia tende a ir para um bet muito alto ou check. O third pair com T fica em check."
+  ),
   coach(
     "t10-trinca",
     "Dobra",
