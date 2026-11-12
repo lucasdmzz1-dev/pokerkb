@@ -782,15 +782,9 @@ const coach18: SituacaoRiver[] = [
     "Segundo par na dobra",
     DOBRA_SIMPLES
   ),
-  coach(
-    "t09-third-pair",
-    "High card",
-    ["Kd", "Qc", "7h", "5h", "As"],
-    ["Td", "Qs"],
-    "CHECK",
-    "Third pair com kicker abaixo de J",
-    "third pair abaixo de kicker J está fora dos melhores third pairs."
-  ),
+  // Fora do treino, em aberto: K♦ Q♣ 7♥ 5♥ A♠ com T♦ Q♠. O estudo manda check ("third pair
+  // abaixo de kicker J fora dos melhores third pairs"), mas o corte em J deixaria só o Q-J
+  // com o A e o K no board, então pode ser um equívoco do guideline. Aguarda o coach.
   coach(
     "t10-trinca",
     "Dobra",
