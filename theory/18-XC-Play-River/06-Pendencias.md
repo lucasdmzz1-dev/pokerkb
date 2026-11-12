@@ -101,12 +101,14 @@ O módulo ainda não tem treino na área Prática.
 
 ---
 
-# 12 — Sequência no turn: B25 e B100 ou B40 only
+# 12 — Quarta carta da sequência no turn: B40 only
 
-O guideline (TXT) diz B25 e B100 para a sequência no turn. No áudio do coach de 12/11/2026, ao tratar da sequência de quatro cartas que completa no turn com o BTN dando check, ele diz "B40 only": o range do BTN está capado, o BB aposta o range inteiro (pares, sequência e até um quarto par em alguma frequência) e o bluff que ele percebe praticamente não existe. Quando a sequência bate no river e o BTN não está capado, ele fala em dois sizes, B40 e B70.
+Caso esclarecido pelo dono em 12/11/2026: o flop já tem sequência em formação, a quarta carta bate no turn (só uma carta completa a sequência), o BTN dá check e o river vem. No áudio do coach de 12/11/2026 ele diz "B40 only" para esse caso: o range do BTN está capado, o BB aposta o range inteiro (pares, sequência e, em alguma frequência, o último par e até o quarto par) e o bluff que ele percebe praticamente não existe. Quando a sequência bate no river e o BTN não está capado, ele fala em dois sizes, B40 e B70.
 
-**Falta saber (coach):** se o "B40 only" substitui o B25 e B100 da sequência no turn ou é um caso à parte (quatro cartas para a sequência).
-**Status:** aberta. A prática não foi alterada. A transcrição do áudio é automática e tem trechos truncados.
+Não é um conflito com a tabela "sequência no turn" do guideline (B25 e B100): é um caso que o guideline não trata.
+
+**Falta saber (coach):** um board de exemplo desse caso e as mãos exatas (quais pares apostam, em que frequência o último e o quarto par blefam).
+**Status:** aberta. A prática não foi alterada, porque faltam board e mãos. A transcrição do áudio é automática e tem trechos truncados.
 
 ---
 

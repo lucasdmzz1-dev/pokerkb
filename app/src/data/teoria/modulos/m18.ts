@@ -564,7 +564,7 @@ const m18: ModuloTeoria = {
         "High card no river: a linha de valor do B40 está em branco no guideline.",
         "Size acima do pote: vale com muitos bluffs disponíveis, sem um corte objetivo.",
         "Outras posições: a aula é BTN contra BB. Contra EP, a high card no river pesa mais.",
-        "Sequência no turn: o guideline diz B25 e B100, e o áudio do coach diz B40 only quando a sequência de quatro cartas completa e o BTN dá check. Falta confirmar se é o mesmo caso.",
+        "Quarta carta da sequência no turn: com o BTN em check, o áudio do coach manda B40 only (range inteiro, sem bluff perceptível dele). O guideline não traz esse caso, e faltam o board de exemplo e as mãos.",
       ],
     },
     {
