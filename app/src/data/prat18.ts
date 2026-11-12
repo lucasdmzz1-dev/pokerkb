@@ -761,7 +761,7 @@ const coach18: SituacaoRiver[] = [
     ["7s", "2d", "8c", "9c", "9s"],
     ["Qs", "2h"],
     "CHECK",
-    "Dois pares com a dupla do board",
+    "Dois pares com a dobra do board",
     DOBRA_SIMPLES
   ),
   coach(
@@ -815,7 +815,7 @@ const coach18: SituacaoRiver[] = [
     ["Ks", "8d", "5d", "Qc", "Qh"],
     ["5h", "8s"],
     "CHECK",
-    "Dois pares abaixo da dupla do board",
+    "Dois pares abaixo da dobra do board",
     DOBRA_SIMPLES
   ),
   coach(
@@ -879,7 +879,7 @@ const coach18: SituacaoRiver[] = [
     ["8c", "5s", "4c", "8s", "2c"],
     ["4h", "Ah"],
     "CHECK",
-    "Dois pares abaixo da dupla do board",
+    "Dois pares abaixo da dobra do board",
     DOBRA_SIMPLES
   ),
   coach(
