@@ -98,3 +98,20 @@ A transcrição troca nomes de cartas (rei, 6, ás). Boards e mãos foram lidos 
 O módulo ainda não tem treino na área Prática.
 
 **Status:** feita em 11/11/2026: tema "XC e Play River" na Prática, com as seis mãos, os exercícios 7 e 8 (call ou fold contra o bet de 2/3, que a aula do 4-x não define) e os 9 e 10 (boards ilustrativos). O exercício 11 ficou de fora.
+
+---
+
+# 12 — Sequência no turn: B25 e B100 ou B40 only
+
+O guideline (TXT) diz B25 e B100 para a sequência no turn. No áudio do coach de 12/11/2026, ao tratar da sequência de quatro cartas que completa no turn com o BTN dando check, ele diz "B40 only": o range do BTN está capado, o BB aposta o range inteiro (pares, sequência e até um quarto par em alguma frequência) e o bluff que ele percebe praticamente não existe. Quando a sequência bate no river e o BTN não está capado, ele fala em dois sizes, B40 e B70.
+
+**Falta saber (coach):** se o "B40 only" substitui o B25 e B100 da sequência no turn ou é um caso à parte (quatro cartas para a sequência).
+**Status:** aberta. A prática não foi alterada. A transcrição do áudio é automática e tem trechos truncados.
+
+---
+
+# 13 — T-Q em K-Q-7-5-A (third pair com ás no river)
+
+O estudo guiado manda check, justificado por "third pair abaixo de kicker J fora dos melhores third pairs". Esse corte parecia equívoco, porque com o A e o K no board deixaria só o Q-J. No áudio do coach de 12/11/2026, ele diz que quando bate o ás (lido como "wise" na transcrição) no river é uma carta muito ruim e a estratégia tende a um bet muito alto ou check.
+
+**Status:** resolvida. O check se mantém, pelo motivo do áudio. A mão voltou ao treino. O ponto "ás" vem da transcrição automática, e o dono confirmou ser provável.

@@ -564,7 +564,7 @@ const m18: ModuloTeoria = {
         "High card no river: a linha de valor do B40 está em branco no guideline.",
         "Size acima do pote: vale com muitos bluffs disponíveis, sem um corte objetivo.",
         "Outras posições: a aula é BTN contra BB. Contra EP, a high card no river pesa mais.",
-        "Corte do third pair na high card: o estudo manda check para third pair com kicker abaixo de J (K-Q-7-5-A com T-Q). Com o A e o K no board, o corte deixaria só o Q-J entre os melhores third pairs, então pode ser equívoco do guideline.",
+        "Sequência no turn: o guideline diz B25 e B100, e o áudio do coach diz B40 only quando a sequência de quatro cartas completa e o BTN dá check. Falta confirmar se é o mesmo caso.",
       ],
     },
     {
