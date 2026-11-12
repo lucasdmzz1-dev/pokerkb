@@ -24,10 +24,16 @@ import {
   type SituacaoRiver,
 } from "@/data/pratRiver"
 import { Ficha, SeletorTema, type Tema } from "@/pages/pratica-probe"
-import { shuffle, type ItemSessao, type Sessao } from "@/lib/poker"
+import { rng, shuffle, type ItemSessao, type Sessao } from "@/lib/poker"
 import { KEYS, lerSessoes, writeJSON } from "@/lib/storage"
 
 type Fase = "setup" | "jogo" | "fim"
+
+// A ação certa da mão. Nos spots de split o RNG decide entre as duas ações.
+function certaDe(q: SituacaoRiver, roll: number): AcaoRiver {
+  if (!q.rng) return q.certa
+  return roll <= q.rng.ate ? q.rng.acao : q.rng.senao
+}
 
 interface Config {
   tema: Tema
@@ -90,6 +96,7 @@ function PraticaRiver({
   const [levada, setLevada] = useState(false)
   // Guarda síncrona contra duas teclas no mesmo quadro.
   const respondido = useRef(false)
+  const [roll, setRoll] = useState(() => rng())
 
   const atual = fila[i]
 
@@ -97,16 +104,17 @@ function PraticaRiver({
     (a: AcaoRiver) => {
       if (!atual || respondido.current) return
       respondido.current = true
+      const certa = certaDe(atual, roll)
       setItens((prev) => [
         ...prev,
         {
           sid: atual.id,
           tipo: atual.tipo,
           bucket: 0,
-          rng: 0,
+          rng: atual.rng ? roll : 0,
           resp: a,
-          esperado: atual.certa,
-          ok: a === atual.certa || !!atual.aceita?.includes(a),
+          esperado: certa,
+          ok: a === certa || !!atual.aceita?.includes(a),
           board: atual.board,
           hero: atual.hero,
           classe: atual.classe,
@@ -115,7 +123,7 @@ function PraticaRiver({
       ])
       setResp(a)
     },
-    [atual]
+    [atual, roll]
   )
 
   useEffect(() => {
@@ -144,6 +152,7 @@ function PraticaRiver({
     setI(0)
     setItens([])
     setResp(null)
+    setRoll(rng())
     respondido.current = false
     setLevada(false)
     setFase("jogo")
@@ -185,6 +194,7 @@ function PraticaRiver({
     }
     setI(i + 1)
     setResp(null)
+    setRoll(rng())
     respondido.current = false
   }
 
@@ -319,9 +329,10 @@ function PraticaRiver({
   }
 
   if (!atual) return null
-  const ok = resp === atual.certa || !!(resp && atual.aceita?.includes(resp))
+  const certa = certaDe(atual, roll)
+  const ok = resp === certa || !!(resp && atual.aceita?.includes(resp))
   // O que o botão mostra como certo: a ação escolhida, se o instrutor também a aceita.
-  const certaNaTela = ok && resp ? resp : atual.certa
+  const certaNaTela = ok && resp ? resp : certa
   const ultimo = i === fila.length - 1
   let sequencia = 0
   for (let k = itens.length - 1; k >= 0 && itens[k].ok; k--) sequencia++
@@ -369,6 +380,7 @@ function PraticaRiver({
         opener="HJ"
         board={atual.board}
         hero={atual.hero}
+        roll={atual.rng ? roll : undefined}
         mao={i + 1}
         total={fila.length}
         sequencia={sequencia}
@@ -418,10 +430,8 @@ function PraticaRiver({
           <CartaoResultado ok={ok}>
             <p className="max-w-[64ch] text-lg text-muted-foreground">
               {ok ? "A ação certa era " : "O certo era "}
-              <strong className="text-foreground">
-                {META[atual.certa].nome}
-              </strong>
-              {ok && resp !== atual.certa && (
+              <strong className="text-foreground">{META[certa].nome}</strong>
+              {ok && resp !== certa && (
                 <> (o {META[resp].nome} também vale)</>
               )}{" "}
               em{" "}
@@ -434,6 +444,19 @@ function PraticaRiver({
               <strong className="text-foreground">{atual.classe}</strong>:{" "}
               {destacar(atual.porque)}
             </p>
+            {atual.rng && (
+              <p className="max-w-[64ch] text-muted-foreground">
+                Spot de split: com RNG de 1 a {atual.rng.ate} vale{" "}
+                <strong className="text-foreground">
+                  {META[atual.rng.acao].nome}
+                </strong>
+                , de {atual.rng.ate + 1} a 100 vale{" "}
+                <strong className="text-foreground">
+                  {META[atual.rng.senao].nome}
+                </strong>
+                . Seu RNG foi {roll}.
+              </p>
+            )}
             {atual.ilustrativo && (
               <p className="max-w-[64ch] text-sm text-muted-foreground">
                 Board ilustrativo: montado a partir da regra do módulo.
@@ -455,7 +478,8 @@ function PraticaRiver({
                   board: atual.board.join(" "),
                   mao: atual.hero.join(" "),
                   resposta: String(resp),
-                  certa: atual.certa,
+                  certa,
+                  ...(atual.rng ? { rng: String(roll) } : {}),
                 }}
               />
             </div>

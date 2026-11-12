@@ -300,26 +300,26 @@ const variacoes18: SituacaoRiver[] = [
     [
       "v4-q1",
       ["Qs", "7c"],
-      "B40",
+      "B25",
       "Q-x",
-      "o que não é trinca vai no size baixo: o Q-x extrai de 55 a TT e de A high. O B25 também vale.",
-      ["B25"],
+      "o que não é trinca vai no size baixo: o Q-x extrai de 55 a TT e de A high. O B40 também serve.",
+      ["B40"],
     ],
     [
       "v4-q2",
       ["Qh", "6d"],
-      "B40",
+      "B25",
       "Q-x",
-      "o Q-x faz bloco: B40 serve muito bem e o B25 não tem problema.",
-      ["B25"],
+      "o Q-x faz bloco: na dobra simples o top pair usa B25, e o B40 também serve.",
+      ["B40"],
     ],
     [
       "v4-q3",
       ["Qd", "5h"],
-      "B40",
+      "B25",
       "Q-x",
       "o Q-x extrai de pares menores e de A high, no size baixo.",
-      ["B25"],
+      ["B40"],
     ],
     [
       "v4-b1",
@@ -581,21 +581,21 @@ const variacoes18: SituacaoRiver[] = [
         ["Kc", "7h"],
         "B100",
         "Top pair",
-        "top pairs e second pairs vão no pote quando a high card vem no turn.",
+        "top pairs ou melhor vão no size alto, que com a high card no turn é o pote.",
       ],
       [
         "v7-2",
         ["Qs", "4h"],
-        "B100",
-        "Q-x",
-        "o Q-x cobra de 66, 77, 99, TT e JJ em pote.",
+        "B25",
+        "Second pair",
+        "correção final do professor: second pairs sempre usam o menor size da situação (B25).",
       ],
       [
         "v7-3",
         ["Qh", "6c"],
-        "B100",
-        "Q-x",
-        "o Q-x cobra de 66, 77, 99, TT e JJ em pote.",
+        "B25",
+        "Second pair",
+        "correção final do professor: second pairs sempre usam o menor size da situação (B25).",
       ],
       [
         "v7-4",
@@ -630,16 +630,16 @@ const variacoes18: SituacaoRiver[] = [
       [
         "v8-2",
         ["Qs", "4h"],
-        "B70",
-        "Q-x",
-        "o mesmo Q-x faz pote com o K no turn e B70 com o K no river.",
+        "B25",
+        "Second pair",
+        "correção final do professor: second pairs sempre usam o menor size da situação (B25), qualquer kicker.",
       ],
       [
         "v8-3",
         ["Qh", "6c"],
-        "B70",
-        "Q-x",
-        "com a high card no river o size alto desce para B70.",
+        "B25",
+        "Second pair",
+        "correção final do professor: second pairs sempre usam o menor size da situação (B25).",
       ],
       [
         "v8-4",
@@ -659,13 +659,6 @@ const variacoes18: SituacaoRiver[] = [
   ),
   ...lote("Sequência", ["Qs", "8d", "7c", "5h", "6s"], 1 / 3, 40, true, [
     [
-      "v9-1",
-      ["9c", "3c"],
-      "B100",
-      "Sequência",
-      "top pair ou melhor vai no size alto, e a sequência vai aqui.",
-    ],
-    [
       "v9-2",
       ["8h", "3h"],
       "B25",
@@ -680,6 +673,269 @@ const variacoes18: SituacaoRiver[] = [
       "com quatro cartas de low cards para a sequência, os dois pares apostam B25.",
     ],
   ]),
+]
+
+// As 25 mãos do estudo guiado do time (solver com correções do professor). Aqui o
+// coach só distingue check de bet, então o botão é CHECK e não check-call ou check-fold.
+// Os pots da ferramenta usam outro modelo de ante e de flop; o da prática segue o do site.
+const ACOES_COACH: AcaoRiver[] = ["CHECK", "B25", "B40", "B70", "B100"]
+
+function coach(
+  id: string,
+  tipo: string,
+  board: string[],
+  hero: [string, string],
+  certa: AcaoRiver,
+  classe: string,
+  porque: string,
+  rngSplit?: SituacaoRiver["rng"]
+): SituacaoRiver {
+  return {
+    ...primeira(
+      { id, tipo, board, hero, certa, classe, porque, rng: rngSplit },
+      0.5
+    ),
+    acoes: ACOES_COACH,
+  }
+}
+
+const FLUSH_UM_PAR =
+  "quatro cartas do mesmo naipe têm prioridade: mão com apenas um par fica em check."
+const DOBRA_SIMPLES =
+  "dobra simples no board: a força relativa da mão define o size. Segundo par e pares abaixo ficam em check."
+const PAR_ABAIXO =
+  "par abaixo da faixa de valor preserva showdown: não é air e não vira blefe automaticamente."
+const SECOND_PAIR =
+  "correção final do professor: second pairs sempre usam o menor size da situação (B25), qualquer kicker e mesmo com draws bustados."
+
+const coach18: SituacaoRiver[] = [
+  coach(
+    "t01-flush-air",
+    "Flush",
+    ["Td", "6h", "8d", "Qc", "Kd"],
+    ["7h", "5s"],
+    "B25",
+    "Air sem blocker",
+    "river de flush: sem blocker para apostar alto, os outros blefes elegíveis usam o size baixo, B25. Não exigir blocker para o blefe baixo."
+  ),
+  coach(
+    "t02-second-pair",
+    "High card",
+    ["6h", "4d", "Qd", "Ac", "Kh"],
+    ["2d", "Kd"],
+    "B25",
+    "Second pair",
+    SECOND_PAIR
+  ),
+  coach(
+    "t03-flush-par",
+    "Flush",
+    ["6c", "9c", "3c", "Th", "4c"],
+    ["4s", "7h"],
+    "CHECK",
+    "Um par",
+    FLUSH_UM_PAR
+  ),
+  coach(
+    "t04-trinca-flush",
+    "Flush",
+    ["Tc", "Kc", "Ac", "Td", "3c"],
+    ["8d", "Th"],
+    "B25",
+    "Trinca em board dobrado com quatro do mesmo naipe",
+    "trinca é o mínimo de valor confirmado nesse board: 50% B25 e 50% check.",
+    { ate: 50, acao: "B25", senao: "CHECK" }
+  ),
+  coach(
+    "t05-flush-par",
+    "Flush",
+    ["Ad", "6d", "9d", "5d", "Ts"],
+    ["4s", "6s"],
+    "CHECK",
+    "Um par",
+    FLUSH_UM_PAR
+  ),
+  coach(
+    "t06-dobra",
+    "Dobra",
+    ["7s", "2d", "8c", "9c", "9s"],
+    ["Qs", "2h"],
+    "CHECK",
+    "Dois pares com a dupla do board",
+    DOBRA_SIMPLES
+  ),
+  coach(
+    "t07-blank-par",
+    "Blank",
+    ["Td", "3d", "Th", "8c", "5h"],
+    ["2s", "2d"],
+    "CHECK",
+    "Par abaixo da faixa de valor",
+    PAR_ABAIXO
+  ),
+  coach(
+    "t08-dobra",
+    "Dobra",
+    ["3c", "Ks", "Qs", "3s", "Ah"],
+    ["7d", "Qc"],
+    "CHECK",
+    "Segundo par na dobra",
+    DOBRA_SIMPLES
+  ),
+  coach(
+    "t09-third-pair",
+    "High card",
+    ["Kd", "Qc", "7h", "5h", "As"],
+    ["Td", "Qs"],
+    "CHECK",
+    "Third pair com kicker abaixo de J",
+    "third pair abaixo de kicker J está fora dos melhores third pairs."
+  ),
+  coach(
+    "t10-trinca",
+    "Dobra",
+    ["9s", "6d", "4c", "4s", "7d"],
+    ["Ts", "4h"],
+    "B100",
+    "Trinca",
+    "trinca ou melhor usa B100, com a reserva de check-raise das mãos selecionadas."
+  ),
+  coach(
+    "t11-high-card",
+    "High card",
+    ["2h", "4c", "2d", "5d", "Tc"],
+    ["6h", "Kh"],
+    "B70",
+    "Bluff sem par",
+    "o bluff sem par com high card alta vai no size alto, que aqui é B70."
+  ),
+  coach(
+    "t12-dobra",
+    "Dobra",
+    ["Ks", "8d", "5d", "Qc", "Qh"],
+    ["5h", "8s"],
+    "CHECK",
+    "Dois pares abaixo da dupla do board",
+    DOBRA_SIMPLES
+  ),
+  coach(
+    "t13-trinca",
+    "Dobra",
+    ["9c", "Ks", "Ad", "9h", "7c"],
+    ["9d", "2d"],
+    "B100",
+    "Trinca",
+    "trinca ou melhor usa B100, com a reserva de check-raise das mãos selecionadas."
+  ),
+  coach(
+    "t14-second-pair",
+    "Blank",
+    ["6s", "2h", "Ah", "4s", "7c"],
+    ["Js", "7h"],
+    "B25",
+    "Second pair",
+    SECOND_PAIR
+  ),
+  coach(
+    "t15-sequencia",
+    "Sequência",
+    ["5d", "Ts", "4h", "2h", "6s"],
+    ["2d", "3d"],
+    "B100",
+    "Sequência com quatro cartas abertas, sem flush",
+    "sequência para cima ou mão superior: 50% B100 e 50% B40. Sem check neste split.",
+    { ate: 50, acao: "B100", senao: "B40" }
+  ),
+  coach(
+    "t16-dobra-tp",
+    "Dobra",
+    ["5h", "Jh", "3c", "Th", "5d"],
+    ["8h", "Jc"],
+    "B25",
+    "Top pair na dobra",
+    "dobra simples no board: top pair ou overpair usa B25."
+  ),
+  coach(
+    "t17-flush-dois-pares",
+    "Flush",
+    ["2d", "As", "Ad", "5d", "6d"],
+    ["Kh", "2s"],
+    "CHECK",
+    "Dois pares em board dobrado com quatro do mesmo naipe",
+    "dois pares e as demais mãos fora do range de aposta ficam em check."
+  ),
+  coach(
+    "t18-flush-par",
+    "Flush",
+    ["3d", "7h", "6s", "Js", "Ts"],
+    ["Kc", "3s"],
+    "CHECK",
+    "Par abaixo da faixa de valor",
+    PAR_ABAIXO
+  ),
+  coach(
+    "t19-dobra",
+    "Dobra",
+    ["8c", "5s", "4c", "8s", "2c"],
+    ["4h", "Ah"],
+    "CHECK",
+    "Dois pares abaixo da dupla do board",
+    DOBRA_SIMPLES
+  ),
+  coach(
+    "t20-flush-par",
+    "Flush",
+    ["As", "Ts", "7s", "3c", "Qd"],
+    ["5s", "3d"],
+    "CHECK",
+    "Par abaixo da faixa de valor",
+    PAR_ABAIXO
+  ),
+  coach(
+    "t21-flush-par",
+    "Flush",
+    ["Qd", "6s", "Ah", "8h", "Th"],
+    ["6h", "4s"],
+    "CHECK",
+    "Par abaixo da faixa de valor",
+    PAR_ABAIXO
+  ),
+  coach(
+    "t22-sequencia-flush",
+    "Sequência",
+    ["Tc", "9s", "7d", "Js", "Qs"],
+    ["Kd", "8d"],
+    "B40",
+    "Sequência feita com flush possível",
+    "quatro cartas para sequência no river com flush possível: a mão feita aposta por valor em B40."
+  ),
+  coach(
+    "t23-a-high",
+    "Dobra",
+    ["Kd", "2s", "5c", "Ks", "3c"],
+    ["8d", "Ah"],
+    "CHECK",
+    "A high em board dobrado",
+    "A high, K high com A no board e Q high com A e K no board só blefam na exceção: flush e sequência juntos, ou quatro cartas para a sequência. Fora disso, check."
+  ),
+  coach(
+    "t24-dois-pares",
+    "Blank",
+    ["7c", "3c", "Ks", "9d", "2d"],
+    ["2s", "7s"],
+    "B100",
+    "Dois pares reais",
+    "correção final do professor: top pairs ou melhor pertencem ao valor de size alto, e dois pares reais usam B100."
+  ),
+  coach(
+    "t25-flush-top-pair",
+    "Flush",
+    ["5c", "Ad", "4h", "2d", "Qd"],
+    ["6d", "As"],
+    "CHECK",
+    "Top pair com quatro para a sequência e flush possível",
+    "quatro cartas para a sequência no river com flush possível: fora dos grupos de aposta deste spot."
+  ),
 ]
 
 export const situacoes18: SituacaoRiver[] = [
@@ -729,11 +985,11 @@ export const situacoes18: SituacaoRiver[] = [
       tipo: "Dobra",
       board: ["Jd", "Qc", "4d", "Jh", "3s"],
       hero: ["Qd", "8h"],
-      certa: "B40",
-      aceita: ["B25"],
+      certa: "B25",
+      aceita: ["B40"],
       classe: "Top pair do flop na dobra",
       porque:
-        "o Q-8 extrai de 55 a TT e de A high, então aposta baixo. Os J-x vão no pote. O B40 serve muito bem e o B25 não tem problema.",
+        "o Q-8 extrai de 55 a TT e de A high, então aposta baixo. Os J-x vão no pote. Na dobra simples o top pair usa o size baixo, B25. O B40 também serve, como na aula.",
     },
     0.5
   ),
@@ -825,10 +1081,10 @@ export const situacoes18: SituacaoRiver[] = [
       tipo: "High card no turn",
       board: ["Qd", "5c", "2h", "Ks", "8d"],
       hero: ["Qc", "9h"],
-      certa: "B100",
+      certa: "B25",
       classe: "Second pair com high card no turn",
       porque:
-        "a high card no turn deixa o BTN ainda mais capado: o Q-x é forte o bastante para o pote.",
+        "correção final do professor: second pairs sempre usam o menor size da situação (B25), qualquer kicker e mesmo com draws bustados.",
       ilustrativo: true,
     },
     1 / 3
@@ -839,10 +1095,10 @@ export const situacoes18: SituacaoRiver[] = [
       tipo: "High card no river",
       board: ["Qd", "5c", "2h", "8s", "Kd"],
       hero: ["Qc", "9h"],
-      certa: "B70",
+      certa: "B25",
       classe: "Second pair com high card no river",
       porque:
-        "com a high card no river o BTN tem mais mãos que acertaram, então o size alto desce para B70.",
+        "correção final do professor: second pairs sempre usam o menor size da situação (B25), qualquer kicker e mesmo com draws bustados.",
       ilustrativo: true,
     },
     1 / 3
@@ -876,4 +1132,5 @@ export const situacoes18: SituacaoRiver[] = [
     1 / 3
   ),
   ...variacoes18,
+  ...coach18,
 ]
