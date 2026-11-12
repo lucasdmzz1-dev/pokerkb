@@ -93,6 +93,595 @@ function enfrenta(
   }
 }
 
+// Variações das mãos da aula: em cada board, outras mãos da mesma categoria que o
+// instrutor cita (todos os A-x em pote, K-x em B25, bluff com 6-x, 4-x em check-call...).
+// Cada linha é [id, mão, resposta, classe, porque, também aceita].
+type Linha = [string, [string, string], AcaoRiver, string, string, AcaoRiver[]?]
+
+function lote(
+  tipo: string,
+  board: string[],
+  c: number,
+  efetivo: number,
+  ilustrativo: boolean,
+  linhas: Linha[]
+): SituacaoRiver[] {
+  return linhas.map(([id, hero, certa, classe, porque, aceita]) =>
+    primeira(
+      {
+        id,
+        tipo,
+        board,
+        hero,
+        certa,
+        aceita,
+        classe,
+        porque,
+        ilustrativo: ilustrativo || undefined,
+      },
+      c,
+      efetivo
+    )
+  )
+}
+
+const variacoes18: SituacaoRiver[] = [
+  // Mão 1 (A-6-K-Q-9): o BTN está capado e o T-J fez sequência.
+  ...lote("Sequência", ["Ad", "6c", "Kh", "Qs", "9d"], 1 / 3, 40, false, [
+    [
+      "v1-a1",
+      ["Ac", "3h"],
+      "B100",
+      "Top pair",
+      "todos os A-x vão em pote: o range do BTN está capado e o top pair virou o nuts.",
+    ],
+    [
+      "v1-a2",
+      ["Ah", "7s"],
+      "B100",
+      "Top pair",
+      "todos os A-x vão em pote, mesmo com kicker ruim. Não é mão de bloco.",
+    ],
+    [
+      "v1-a3",
+      ["As", "4h"],
+      "B100",
+      "Top pair",
+      "o top pair é a mão para pôr o máximo de fichas contra esse range capado.",
+    ],
+    [
+      "v1-k1",
+      ["Ks", "3d"],
+      "B25",
+      "Second pair",
+      "o K-x aposta B25 em frequência muito alta e extrai de Q-x e 9-x.",
+    ],
+    [
+      "v1-k2",
+      ["Kd", "2c"],
+      "B25",
+      "Second pair",
+      "second pair é valor: aposta baixo e extrai de pares médios e de A-x.",
+    ],
+    [
+      "v1-k3",
+      ["Kc", "5s"],
+      "B25",
+      "Second pair",
+      "o K-x aposta B25. O pote só vale para os A-x.",
+    ],
+    [
+      "v1-b1",
+      ["6s", "2s"],
+      "B100",
+      "Bluff com 6-x",
+      "sem bluff natural (o T-J fez sequência), o 6-x blefa em pote e ataca 9-x e Q-x.",
+    ],
+    [
+      "v1-b2",
+      ["6h", "3h"],
+      "B100",
+      "Bluff com 6-x",
+      "o bluff vem do 6-x, sempre em pote.",
+    ],
+    [
+      "v1-b3",
+      ["6d", "4s"],
+      "B100",
+      "Bluff com 6-x",
+      "sem bluff natural, o par baixo vira bluff no size alto.",
+    ],
+    [
+      "v1-f1",
+      ["8h", "7h"],
+      "B100",
+      "Float com backdoor",
+      "os floats com backdoor blefam em pote e atacam 9-x e Q-x.",
+    ],
+    [
+      "v1-f2",
+      ["8c", "7c"],
+      "B100",
+      "Float com backdoor",
+      "float com backdoor de flush: bluff em pote.",
+    ],
+    [
+      "v1-f3",
+      ["8s", "7s"],
+      "B100",
+      "Float com backdoor",
+      "float com backdoor de flush: bluff em pote.",
+    ],
+    [
+      "v1-q1",
+      ["Qd", "8d"],
+      "CHECKCALL",
+      "Third pair",
+      "o Q-x passa a ser mais check-call.",
+    ],
+    [
+      "v1-q2",
+      ["Qh", "4c"],
+      "CHECKCALL",
+      "Third pair",
+      "o Q-x passa a ser mais check-call.",
+    ],
+    [
+      "v1-q3",
+      ["Qc", "7d"],
+      "CHECKCALL",
+      "Third pair",
+      "o Q-x passa a ser mais check-call.",
+    ],
+  ]),
+  // Mão 2 (7-9-K-J-6): quase não há bluff natural, o par vira bluff.
+  ...lote("Sequência", ["7d", "9s", "Kh", "Jc", "6c"], 0.25, 40, false, [
+    [
+      "v2-p3",
+      ["2d", "2c"],
+      "B100",
+      "Par baixo sem bluff natural",
+      "bluff de par é sempre no size mais alto.",
+    ],
+    ["v2-k1", ["Ks", "4s"], "B100", "Top pair", "K-x ou melhor aposta pote."],
+    ["v2-k2", ["Kd", "3c"], "B100", "Top pair", "K-x ou melhor aposta pote."],
+    ["v2-k3", ["Ks", "2c"], "B100", "Top pair", "K-x ou melhor aposta pote."],
+    ["v2-j1", ["Jd", "4d"], "B25", "Second pair", "o J-x aposta B25."],
+    ["v2-j2", ["Jh", "3h"], "B25", "Second pair", "o J-x aposta B25."],
+    ["v2-j3", ["Js", "2s"], "B25", "Second pair", "o J-x aposta B25."],
+  ]),
+  // Mão 3 (9-Q-6-3-Q): muitos bluffs disponíveis, o size alto pode passar do pote.
+  ...lote("Dobra", ["9d", "Qd", "6h", "3h", "Qh"], 0.4, 40, false, [
+    [
+      "v3-q1",
+      ["Qs", "8c"],
+      "B100",
+      "Trinca com muitos draws bustados",
+      "há muitos bluffs disponíveis, então o valor toma call e o size alto é pote ou mais.",
+    ],
+    [
+      "v3-q2",
+      ["Qc", "4s"],
+      "B100",
+      "Trinca com muitos draws bustados",
+      "a dama aposta alto, e aqui o alto é muito alto.",
+    ],
+    [
+      "v3-q3",
+      ["Qs", "2c"],
+      "B100",
+      "Trinca com muitos draws bustados",
+      "a dama aposta alto: dá para passar do pote.",
+    ],
+  ]),
+  // Mão 4 (J-Q-4-J-3): na dobra, trinca vai no alto e o resto no baixo.
+  ...lote("Dobra", ["Jd", "Qc", "4d", "Jh", "3s"], 0.5, 40, false, [
+    [
+      "v4-t1",
+      ["Jc", "7h"],
+      "B100",
+      "Trinca",
+      "na dobra, o que vira trinca vai no size alto.",
+    ],
+    [
+      "v4-t2",
+      ["Js", "5h"],
+      "B100",
+      "Trinca",
+      "na dobra, o que vira trinca vai no size alto.",
+    ],
+    [
+      "v4-t3",
+      ["Jc", "2c"],
+      "B100",
+      "Trinca",
+      "na dobra, o que vira trinca vai no size alto.",
+    ],
+    [
+      "v4-q1",
+      ["Qs", "7c"],
+      "B40",
+      "Q-x",
+      "o que não é trinca vai no size baixo: o Q-x extrai de 55 a TT e de A high. O B25 também vale.",
+      ["B25"],
+    ],
+    [
+      "v4-q2",
+      ["Qh", "6d"],
+      "B40",
+      "Q-x",
+      "o Q-x faz bloco: B40 serve muito bem e o B25 não tem problema.",
+      ["B25"],
+    ],
+    [
+      "v4-q3",
+      ["Qd", "5h"],
+      "B40",
+      "Q-x",
+      "o Q-x extrai de pares menores e de A high, no size baixo.",
+      ["B25"],
+    ],
+    [
+      "v4-b1",
+      ["Kd", "Td"],
+      "B100",
+      "Flush draw bustado",
+      "bluff ruim vai em pote: flush draw bustado e K-T.",
+    ],
+    ["v4-b2", ["Kh", "Ts"], "B100", "K-T", "bluff ruim vai em pote."],
+    [
+      "v4-b3",
+      ["Td", "8d"],
+      "B100",
+      "Flush draw bustado",
+      "bluff ruim vai em pote: T high ou maior ataca poucas mãos.",
+    ],
+    [
+      "v4-l1",
+      ["6c", "5c"],
+      "B25",
+      "Bluff de low cards",
+      "o bluff de low cards ataca mais mãos e vai no size baixo.",
+    ],
+    [
+      "v4-l2",
+      ["8c", "7c"],
+      "B25",
+      "Bluff de low cards",
+      "9 high ou menor faz foldar muitas mãos: size baixo.",
+    ],
+    [
+      "v4-l3",
+      ["7h", "5s"],
+      "B25",
+      "Bluff de low cards",
+      "9 high ou menor faz foldar muitas mãos: size baixo.",
+    ],
+    [
+      "v4-l4",
+      ["9s", "8h"],
+      "B25",
+      "Bluff de 9 high",
+      "9 high ou menor vai no size baixo.",
+    ],
+    [
+      "v4-c1",
+      ["5s", "4s"],
+      "CHECKCALL",
+      "4-x",
+      "4-x com kicker que não bloqueia bluff paga, de 4-2 a 4-8.",
+    ],
+    [
+      "v4-c2",
+      ["4c", "6h"],
+      "CHECKCALL",
+      "4-x",
+      "4-x com kicker que não bloqueia bluff paga, de 4-2 a 4-8.",
+    ],
+    [
+      "v4-c3",
+      ["4s", "7s"],
+      "CHECKCALL",
+      "4-x",
+      "4-x com kicker que não bloqueia bluff paga, de 4-2 a 4-8.",
+    ],
+    ["v4-c4", ["Ah", "4c"], "CHECKCALL", "A-4", "o A-4 paga sempre."],
+    ["v4-f1", ["Ac", "9h"], "CHECKFOLD", "A high", "o A-9 off é check-fold."],
+    [
+      "v4-f2",
+      ["Ah", "8c"],
+      "CHECKFOLD",
+      "A high",
+      "A high sem par é check-fold.",
+    ],
+    [
+      "v4-f3",
+      ["Tc", "4c"],
+      "CHECKFOLD",
+      "4-x que bloqueia bluff",
+      "o 4-9 e o 4-T são péssimos calls: bloqueiam o que o BTN blefa.",
+    ],
+    [
+      "v4-f4",
+      ["4h", "9h"],
+      "CHECKFOLD",
+      "4-x que bloqueia bluff",
+      "o 9 é carta que o BTN blefa: o 4-9 é péssimo call.",
+    ],
+  ]),
+  // Mão 5 (J-6-3-T-Q): a dama é carta que o BTN overblefa.
+  ...lote(
+    "High card no river",
+    ["Jh", "6s", "3s", "Td", "Qc"],
+    0.25,
+    40,
+    false,
+    [
+      [
+        "v5-c1",
+        ["8c", "6h"],
+        "CHECKCALL",
+        "6-x",
+        "o 6-x desbloqueia os bluffs do BTN e paga em frequência muito alta.",
+      ],
+      [
+        "v5-c2",
+        ["6d", "4c"],
+        "CHECKCALL",
+        "6-x",
+        "o 6-x desbloqueia os bluffs do BTN e paga em frequência muito alta.",
+      ],
+      [
+        "v5-c3",
+        ["7c", "6h"],
+        "CHECKCALL",
+        "6-x",
+        "há bluffs naturais antes dele, então o 6-x não aposta e paga.",
+      ],
+      [
+        "v5-d1",
+        ["Jc", "6c"],
+        "B100",
+        "Dois pares",
+        "dois pares apostam em pote.",
+      ],
+      [
+        "v5-d2",
+        ["Js", "6h"],
+        "B100",
+        "Dois pares",
+        "dois pares apostam em pote.",
+      ],
+      [
+        "v5-d3",
+        ["Jd", "3d"],
+        "B100",
+        "Dois pares",
+        "dois pares apostam em pote.",
+      ],
+      ["v5-j1", ["Jc", "7c"], "B25", "J-x", "o J-x aposta B25."],
+      ["v5-j2", ["Jd", "2d"], "B25", "J-x", "o J-x aposta B25."],
+      ["v5-j3", ["Js", "4d"], "B25", "J-x", "o J-x aposta B25."],
+    ]
+  ),
+  // Mão 6 (J-6-T-3-5): blank. Os J-x vão all-in com 18bb, e o botão de all-in não existe aqui.
+  ...lote("Blank", ["Jh", "6d", "Ts", "3c", "5c"], 1 / 3, 18, false, [
+    [
+      "v6-t1",
+      ["Tc", "8h"],
+      "B25",
+      "Second pair no blank",
+      "todos os T-x apostam B25: é mão boa, não absoluta.",
+    ],
+    [
+      "v6-t2",
+      ["Th", "2h"],
+      "B25",
+      "Second pair no blank",
+      "todos os T-x apostam B25: extraem de pares médios e de A-x.",
+    ],
+    [
+      "v6-t3",
+      ["Td", "7c"],
+      "B25",
+      "Second pair no blank",
+      "todos os T-x apostam B25.",
+    ],
+    [
+      "v6-b1",
+      ["9h", "8h"],
+      "B25",
+      "9 high",
+      "no blank, o bluff de 9 high ou menor vai no B25.",
+    ],
+    [
+      "v6-b2",
+      ["9d", "2d"],
+      "B25",
+      "9 high",
+      "no blank, o bluff de 9 high ou menor vai no B25.",
+    ],
+    [
+      "v6-b3",
+      ["8s", "2s"],
+      "B25",
+      "8 high",
+      "no blank, o bluff de 9 high ou menor vai no B25.",
+    ],
+    [
+      "v6-q1",
+      ["Qh", "9c"],
+      "B100",
+      "Q high",
+      "no blank, o bluff de J high e Q high vai no size alto.",
+    ],
+    [
+      "v6-q2",
+      ["Qd", "8h"],
+      "B100",
+      "Q high",
+      "no blank, o bluff de J high e Q high vai no size alto.",
+    ],
+    [
+      "v6-q3",
+      ["Qs", "2d"],
+      "B100",
+      "Q high",
+      "no blank, o bluff de J high e Q high vai no size alto.",
+    ],
+    ["v6-c1", ["6h", "2h"], "CHECKCALL", "6-x", "6-2, 6-4, 6-7 e 6-8 pagam."],
+    ["v6-c2", ["6s", "7c"], "CHECKCALL", "6-x", "6-2, 6-4, 6-7 e 6-8 pagam."],
+    ["v6-c3", ["6c", "8h"], "CHECKCALL", "6-x", "6-2, 6-4, 6-7 e 6-8 pagam."],
+    [
+      "v6-a1",
+      ["Ac", "6c"],
+      "CHECKCALL",
+      "A-6",
+      "o A-6 é ótimo: não bloqueia nenhum bluff.",
+    ],
+    [
+      "v6-a2",
+      ["Ad", "6h"],
+      "CHECKCALL",
+      "A-6",
+      "o A-6 é ótimo: não bloqueia nenhum bluff.",
+    ],
+    [
+      "v6-f1",
+      ["9d", "6c"],
+      "CHECKFOLD",
+      "6-9",
+      "o 9 é carta que o BTN blefa: o 6-9 é fold.",
+    ],
+    [
+      "v6-f2",
+      ["Qh", "6c"],
+      "CHECKFOLD",
+      "6-Q",
+      "a dama é carta que o BTN blefa: o 6-Q é fold.",
+    ],
+    [
+      "v6-f3",
+      ["Kc", "6h"],
+      "CHECKFOLD",
+      "6-K",
+      "o 6-K também é ruim para pagar.",
+    ],
+  ]),
+  // Guideline por runout. Os boards a partir daqui são ilustrativos, só a regra vem da aula.
+  ...lote(
+    "High card no turn",
+    ["Qd", "5c", "2h", "Ks", "8d"],
+    1 / 3,
+    40,
+    true,
+    [
+      [
+        "v7-1",
+        ["Kc", "7h"],
+        "B100",
+        "Top pair",
+        "top pairs e second pairs vão no pote quando a high card vem no turn.",
+      ],
+      [
+        "v7-2",
+        ["Qs", "4h"],
+        "B100",
+        "Q-x",
+        "o Q-x cobra de 66, 77, 99, TT e JJ em pote.",
+      ],
+      [
+        "v7-3",
+        ["Qh", "6c"],
+        "B100",
+        "Q-x",
+        "o Q-x cobra de 66, 77, 99, TT e JJ em pote.",
+      ],
+      [
+        "v7-4",
+        ["Jc", "3c"],
+        "B100",
+        "J high",
+        "bluff de high cards, menos A high, vai no size alto.",
+      ],
+      [
+        "v7-5",
+        ["9s", "7c"],
+        "B25",
+        "9 high",
+        "bluff de 9 high ou menor vai no size baixo.",
+      ],
+    ]
+  ),
+  ...lote(
+    "High card no river",
+    ["Qd", "5c", "2h", "8s", "Kd"],
+    1 / 3,
+    40,
+    true,
+    [
+      [
+        "v8-1",
+        ["Kc", "7h"],
+        "B70",
+        "Top pair",
+        "com a high card no river o size alto desce para B70.",
+      ],
+      [
+        "v8-2",
+        ["Qs", "4h"],
+        "B70",
+        "Q-x",
+        "o mesmo Q-x faz pote com o K no turn e B70 com o K no river.",
+      ],
+      [
+        "v8-3",
+        ["Qh", "6c"],
+        "B70",
+        "Q-x",
+        "com a high card no river o size alto desce para B70.",
+      ],
+      [
+        "v8-4",
+        ["Jc", "3c"],
+        "B70",
+        "J high",
+        "bluff de J high e Q high vai no size alto, que aqui é B70.",
+      ],
+      [
+        "v8-5",
+        ["9s", "7c"],
+        "B40",
+        "9 high",
+        "bluff de 9 high ou menor vai no size baixo, que aqui é B40.",
+      ],
+    ]
+  ),
+  ...lote("Sequência", ["Qs", "8d", "7c", "5h", "6s"], 1 / 3, 40, true, [
+    [
+      "v9-1",
+      ["9c", "3c"],
+      "B100",
+      "Sequência",
+      "top pair ou melhor vai no size alto, e a sequência vai aqui.",
+    ],
+    [
+      "v9-2",
+      ["8h", "3h"],
+      "B25",
+      "Second pair",
+      "com sequência de low cards, second pair aposta B25.",
+    ],
+    [
+      "v9-3",
+      ["Qd", "8c"],
+      "B25",
+      "Dois pares",
+      "com quatro cartas de low cards para a sequência, os dois pares apostam B25.",
+    ],
+  ]),
+]
+
 export const situacoes18: SituacaoRiver[] = [
   // As seis mãos da aula.
   primeira(
@@ -286,4 +875,5 @@ export const situacoes18: SituacaoRiver[] = [
     },
     1 / 3
   ),
+  ...variacoes18,
 ]
