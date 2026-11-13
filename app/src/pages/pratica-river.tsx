@@ -24,7 +24,13 @@ import {
   type SituacaoRiver,
 } from "@/data/pratRiver"
 import { Ficha, SeletorTema, type Tema } from "@/pages/pratica-probe"
-import { rng, shuffle, type ItemSessao, type Sessao } from "@/lib/poker"
+import {
+  rng,
+  shuffle,
+  sortearMaos,
+  type ItemSessao,
+  type Sessao,
+} from "@/lib/poker"
 import { KEYS, lerSessoes, writeJSON } from "@/lib/storage"
 import { useRefazerPendente } from "@/lib/refazer"
 
@@ -145,8 +151,10 @@ function PraticaRiver({
     e.preventDefault()
     const n = Number(qty)
     const vale = cfg.filtros?.find((f) => f.id === filtro)?.vale
-    let pool = shuffle(vale ? cfg.situacoes.filter(vale) : cfg.situacoes)
-    if (n && pool.length > n) pool = pool.slice(0, n)
+    const pool = sortearMaos(
+      vale ? cfg.situacoes.filter(vale) : cfg.situacoes,
+      n
+    )
     comecar(pool)
   }
 
@@ -400,7 +408,6 @@ function PraticaRiver({
           pote: atual.pote,
           rotuloVilao: atual.vilaoPos === "BB" ? "Pagou 2" : "Abriu 2",
           acaoVilao: atual.acaoVilao,
-          fichasRotulo: false,
         }}
       />
 

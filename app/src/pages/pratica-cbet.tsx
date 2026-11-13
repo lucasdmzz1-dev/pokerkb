@@ -20,7 +20,7 @@ import {
   type SituacaoCbet,
 } from "@/data/prat01"
 import { Ficha, SeletorTema, type Tema } from "@/pages/pratica-probe"
-import { shuffle, type ItemSessao, type Sessao } from "@/lib/poker"
+import { shuffle, sortearMaos, type ItemSessao, type Sessao } from "@/lib/poker"
 import { KEYS, lerSessoes, writeJSON } from "@/lib/storage"
 import { useRefazerPendente } from "@/lib/refazer"
 
@@ -125,8 +125,7 @@ export default function PraticaCbet({ onTema }: { onTema: (t: Tema) => void }) {
   function iniciar(e: React.FormEvent) {
     e.preventDefault()
     const n = Number(qty)
-    let pool = shuffle(situacoesCbet)
-    if (n && pool.length > n) pool = pool.slice(0, n)
+    const pool = sortearMaos(situacoesCbet, n)
     comecar(pool)
   }
 
@@ -212,6 +211,7 @@ export default function PraticaCbet({ onTema }: { onTema: (t: Tema) => void }) {
                 {[
                   ["10", "10"],
                   ["20", "20"],
+                  ["50", "50"],
                   ["0", "Todas"],
                 ].map(([v, label]) => (
                   <Label

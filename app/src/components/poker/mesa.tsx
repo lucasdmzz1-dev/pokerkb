@@ -55,8 +55,6 @@ export interface MesaGen {
   rotuloVilao: string
   // Vazio quando o vilão ainda não agiu.
   acaoVilao: string
-  // false quando a abertura do pré-flop já foi para o pote e não deve ter fichas.
-  fichasRotulo?: boolean
 }
 
 function stackNaMesa(
@@ -434,11 +432,8 @@ export function Mesa({
         ? heroCbet
         : "BTN"
   const gira = probe || cbet || !!gen
-  // Fichas do vilão: a aposta dele nesta street ou, sem aposta, o open ou o call.
-  const valorVilao = gen
-    ? (valorBB(gen.acaoVilao) ??
-      (gen.fichasRotulo === false ? undefined : valorBB(gen.rotuloVilao)))
-    : ABERTURA
+  // Fichas do vilão: só a aposta da street atual. O open e o call do pré-flop já estão no pote.
+  const valorVilao = gen ? valorBB(gen.acaoVilao) : undefined
   const estilo = { "--s": "clamp(40px, 7.2vw, 66px)" } as CSSProperties
   return (
     <div className="mx-auto w-full max-w-[880px]" style={estilo}>

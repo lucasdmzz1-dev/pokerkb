@@ -37,6 +37,7 @@ import {
   randomInt,
   rng,
   shuffle,
+  sortearMaos,
   type ItemSessao,
   type Sessao,
 } from "@/lib/poker"
@@ -179,8 +180,10 @@ function PraticaBet({ onTema }: { onTema: (t: Tema) => void }) {
       return
     }
     const n = Number(qty)
-    let pool = shuffle(situacoesTreino.filter((s) => tipos.includes(s.tipo)))
-    if (n && pool.length > n) pool = pool.slice(0, n)
+    const pool = sortearMaos(
+      situacoesTreino.filter((s) => tipos.includes(s.tipo)),
+      n
+    )
     setErro("")
     comecar(pool)
   }
@@ -309,6 +312,7 @@ function PraticaBet({ onTema }: { onTema: (t: Tema) => void }) {
                 {[
                   ["10", "10"],
                   ["20", "20"],
+                  ["50", "50"],
                   ["0", "Todas"],
                 ].map(([v, label]) => (
                   <Label
