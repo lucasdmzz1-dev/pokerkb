@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { pedirRefazer } from "@/lib/refazer"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Secao } from "@/components/analise/secao"
@@ -118,7 +120,16 @@ function Modulo({
   sessoes: Sessao[]
   tirar: (id: number) => void
 }) {
+  const navegar = useNavigate()
   const itens = sessoes.flatMap((s) => s.itens)
+  // Mãos cuja resposta mais recente foi errada: as que já acertou depois saem.
+  const ultima = new Map<string, boolean>()
+  itens.forEach((x) => ultima.set(x.sid, x.ok))
+  const idsErrados = [...ultima].filter(([, ok]) => !ok).map(([id]) => id)
+  function treinarErros() {
+    pedirRefazer(modulo, idsErrados)
+    navegar("/pratica")
+  }
   const acertos = itens.filter((x) => x.ok).length
   const linhas = agrupar(sessoes, modulo)
   const maisErros = linhas
@@ -157,6 +168,14 @@ function Modulo({
           erros={false}
         />
       </div>
+
+      {idsErrados.length > 0 && (
+        <div className="mt-6 flex justify-center">
+          <Button onClick={treinarErros}>
+            Treinar só o que errei ({idsErrados.length})
+          </Button>
+        </div>
+      )}
 
       <h3 className="mt-10 mb-3 font-bold">Sessões deste módulo</h3>
       <div className="grid gap-2.5">
