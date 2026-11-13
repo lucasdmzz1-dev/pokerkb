@@ -657,22 +657,82 @@ const variacoes18: SituacaoRiver[] = [
       ],
     ]
   ),
-  ...lote("Sequência", ["Qs", "8d", "7c", "5h", "6s"], 1 / 3, 40, true, [
+  ...lote(
+    "Sequência de low cards",
+    ["Qs", "8d", "7c", "5h", "6s"],
+    1 / 3,
+    40,
+    true,
     [
-      "v9-2",
-      ["8h", "3h"],
-      "B25",
-      "Second pair",
-      "com sequência de low cards, second pair aposta B25.",
-    ],
+      [
+        "v9-2",
+        ["8h", "3h"],
+        "B25",
+        "Second pair",
+        "com sequência de low cards, second pair aposta B25.",
+      ],
+      [
+        "v9-3",
+        ["Qd", "8c"],
+        "B25",
+        "Dois pares",
+        "com quatro cartas de low cards para a sequência, os dois pares apostam B25.",
+      ],
+      [
+        "v9-4",
+        ["9c", "2d"],
+        "B100",
+        "Sequência feita",
+        "o BTN tem poucas sequências quando ela vem de low cards: a sequência vai no B100 e os dois pares no B25.",
+      ],
+      [
+        "v9-5",
+        ["4c", "2d"],
+        "B100",
+        "Sequência feita",
+        "o BTN tem poucas sequências quando ela vem de low cards: a sequência vai no B100 e os dois pares no B25.",
+      ],
+    ]
+  ),
+  // Q-9-2-T-J (aula, ilustrativo): a sequência vem de Broadway. O BTN tem muito K-x, então só
+  // o K aposta por valor (B100) e o 8 vai de check-call.
+  ...lote(
+    "Sequência de Broadway",
+    ["Qd", "9c", "2s", "Th", "Jc"],
+    1 / 3,
+    40,
+    true,
     [
-      "v9-3",
-      ["Qd", "8c"],
-      "B25",
-      "Dois pares",
-      "com quatro cartas de low cards para a sequência, os dois pares apostam B25.",
-    ],
-  ]),
+      [
+        "v10-1",
+        ["Ks", "4c"],
+        "B100",
+        "Sequência no K",
+        "quando a sequência vem de Broadway o BTN tem muito K-x: só o K aposta por valor, em B100.",
+      ],
+      [
+        "v10-2",
+        ["Kh", "3d"],
+        "B100",
+        "Sequência no K",
+        "quando a sequência vem de Broadway o BTN tem muito K-x: só o K aposta por valor, em B100.",
+      ],
+      [
+        "v10-3",
+        ["8c", "4d"],
+        "CHECKCALL",
+        "Sequência no 8",
+        "a sequência para baixo vai de check-call: o 8 não aposta por valor nesse board.",
+      ],
+      [
+        "v10-4",
+        ["8h", "6s"],
+        "CHECKCALL",
+        "Sequência no 8",
+        "a sequência para baixo vai de check-call: o 8 não aposta por valor nesse board.",
+      ],
+    ]
+  ),
 ]
 
 // As 25 mãos do estudo guiado do time (solver com correções do professor). Aqui o
@@ -1201,7 +1261,7 @@ export const situacoes18: SituacaoRiver[] = [
   primeira(
     {
       id: "x10-baixa",
-      tipo: "Sequência",
+      tipo: "Sequência de low cards",
       board: ["Qc", "8d", "7s", "5h", "6c"],
       hero: ["Qd", "8h"],
       certa: "B25",
@@ -1215,7 +1275,7 @@ export const situacoes18: SituacaoRiver[] = [
   primeira(
     {
       id: "x10-broadway",
-      tipo: "Sequência",
+      tipo: "Sequência de Broadway",
       board: ["Qd", "9c", "2s", "Th", "Jc"],
       hero: ["Qs", "9h"],
       certa: "CHECKCALL",
