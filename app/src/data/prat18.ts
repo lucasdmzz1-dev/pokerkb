@@ -720,7 +720,7 @@ const coach18: SituacaoRiver[] = [
   ),
   coach(
     "t02-second-pair",
-    "High card",
+    "High card no river",
     ["6h", "4d", "Qd", "Ac", "Kh"],
     ["2d", "Kd"],
     "B25",
@@ -787,7 +787,7 @@ const coach18: SituacaoRiver[] = [
   // e a estratégia vai para bet muito alto ou check. Por isso a explicação aqui é a do áudio.
   coach(
     "t09-third-pair",
-    "High card",
+    "High card no river",
     ["Kd", "Qc", "7h", "5h", "As"],
     ["Td", "Qs"],
     "CHECK",
@@ -805,7 +805,7 @@ const coach18: SituacaoRiver[] = [
   ),
   coach(
     "t11-high-card",
-    "High card",
+    "High card no river",
     ["2h", "4c", "2d", "5d", "Tc"],
     ["6h", "Kh"],
     "B70",
@@ -938,6 +938,98 @@ const coach18: SituacaoRiver[] = [
     "CHECK",
     "Top pair com quatro para a sequência e flush possível",
     "quatro cartas para a sequência no river com flush possível: fora dos grupos de aposta deste spot."
+  ),
+  // Boards mais difíceis (dobra, flush e second pair em boards novos). Só entram mãos
+  // cuja categoria já foi corrigida pelo professor nos estudos acima: mesma regra, outro board.
+  coach(
+    "n1-trinca",
+    "Dobra",
+    ["Js", "8d", "3h", "3s", "6c"],
+    ["3d", "Ah"],
+    "B100",
+    "Trinca",
+    "trinca ou melhor usa B100, com a reserva de check-raise das mãos selecionadas."
+  ),
+  coach(
+    "n2-trinca",
+    "Dobra",
+    ["Qh", "7s", "7c", "2d", "9h"],
+    ["7d", "Kc"],
+    "B100",
+    "Trinca",
+    "trinca ou melhor usa B100, com a reserva de check-raise das mãos selecionadas."
+  ),
+  coach(
+    "n3-trinca",
+    "Dobra",
+    ["Ac", "5h", "5d", "Td", "8s"],
+    ["5s", "Kd"],
+    "B100",
+    "Trinca",
+    "trinca ou melhor usa B100, com a reserva de check-raise das mãos selecionadas."
+  ),
+  coach(
+    "n4-full",
+    "Dobra",
+    ["Ks", "8d", "8c", "Kh", "4s"],
+    ["8h", "2c"],
+    "B100",
+    "Full house",
+    "trinca ou melhor usa B100, com a reserva de check-raise das mãos selecionadas."
+  ),
+  coach(
+    "n5-tp-dobra",
+    "Dobra",
+    ["Qs", "9h", "4c", "4d", "2h"],
+    ["Qc", "8d"],
+    "B25",
+    "Top pair na dobra",
+    "dobra simples no board: top pair ou overpair usa B25."
+  ),
+  coach(
+    "n6-second-pair",
+    "Blank",
+    ["Kc", "9d", "4s", "Th", "2c"],
+    ["Tc", "6d"],
+    "B25",
+    "Second pair",
+    SECOND_PAIR
+  ),
+  coach(
+    "n7-second-pair",
+    "Blank",
+    ["Jc", "7d", "4h", "2s", "9c"],
+    ["9d", "Ah"],
+    "B25",
+    "Second pair",
+    SECOND_PAIR
+  ),
+  coach(
+    "n8-dois-pares",
+    "Blank",
+    ["Kd", "8c", "5h", "2s", "9d"],
+    ["8d", "5s"],
+    "B100",
+    "Dois pares reais",
+    "correção final do professor: top pairs ou melhor pertencem ao valor de size alto, e dois pares reais usam B100."
+  ),
+  coach(
+    "n10-flush-par",
+    "Flush",
+    ["Kh", "9h", "4c", "2h", "6h"],
+    ["4d", "7s"],
+    "CHECK",
+    "Um par",
+    FLUSH_UM_PAR
+  ),
+  coach(
+    "n11-flush-par",
+    "Flush",
+    ["8s", "Qs", "3d", "5s", "9s"],
+    ["3h", "Kd"],
+    "CHECK",
+    "Par abaixo da faixa de valor",
+    PAR_ABAIXO
   ),
 ]
 
