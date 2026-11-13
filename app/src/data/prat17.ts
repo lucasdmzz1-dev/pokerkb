@@ -353,7 +353,7 @@ export const BOARDS_BB: BoardBBTreino[] = [
     estrategia: "split70",
     grupo: "B70",
     criterio:
-      "O 5 conecta com o 8 (sequência 8-7-6-5) e há flush draw: B70, como o T-8-5. Com o 3 no lugar do 5 (Q-8-3) seria B40 (trainer do time, 13/11/2026).",
+      "O Q-8-5 permite menos thin value que o Q-8-3, e com flush draw o size é B70. Com o 3 no lugar do 5 (Q-8-3) é B40 (coach, 13/11/2026).",
   },
   {
     id: "832",
