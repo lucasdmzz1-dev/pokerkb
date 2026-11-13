@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button"
-import { Secao } from "@/components/analise/secao"
-import { nomeAcao } from "@/components/poker/resultado-final"
-import { tipoById, type TipoId } from "@/data/mod15"
-import type { ItemSessao, Sessao } from "@/lib/poker"
 import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { Secao } from "@/components/analise/secao"
+import { tipoById, type TipoId } from "@/data/mod15"
+import type { Sessao } from "@/lib/poker"
 import { cn } from "@/lib/utils"
 
 const MODULOS: Record<string, string> = {
@@ -19,10 +19,9 @@ const MODULOS: Record<string, string> = {
   "18": "XC no River",
 }
 
-// Com menos mãos que isso a porcentagem engana: o tipo vai para "ainda poucas mãos".
+// Poucas mãos num tipo: a porcentagem engana, então o número de mãos aparece junto.
 const POUCAS = 5
-const FRACOS = 3
-const BOM = 80
+const LIMITE = 5
 
 function nomeDoTipo(modulo: string, tipo: string): string {
   return modulo === "15" ? (tipoById[tipo as TipoId]?.nome ?? tipo) : tipo
@@ -32,27 +31,82 @@ interface Linha {
   nome: string
   n: number
   ok: number
-  // O erro que mais se repete: o que você fez e o que era certo.
-  tipico?: string
 }
 
 function agrupar(sessoes: Sessao[], modulo: string): Linha[] {
-  const grupos = new Map<string, ItemSessao[]>()
+  const mapa = new Map<string, Linha>()
   sessoes
     .flatMap((s) => s.itens)
     .forEach((x) => {
       const nome = nomeDoTipo(modulo, x.tipo)
-      grupos.set(nome, [...(grupos.get(nome) ?? []), x])
+      const l = mapa.get(nome) ?? { nome, n: 0, ok: 0 }
+      l.n++
+      if (x.ok) l.ok++
+      mapa.set(nome, l)
     })
-  return [...grupos.entries()].map(([nome, d]) => {
-    const conta = new Map<string, number>()
-    d.filter((x) => !x.ok).forEach((x) => {
-      const k = `${nomeAcao(x.resp)} quando era ${nomeAcao(x.esperado)}`
-      conta.set(k, (conta.get(k) ?? 0) + 1)
-    })
-    const tipico = [...conta.entries()].sort((a, b) => b[1] - a[1])[0]?.[0]
-    return { nome, n: d.length, ok: d.filter((x) => x.ok).length, tipico }
-  })
+  return [...mapa.values()]
+}
+
+function Ranking({
+  titulo,
+  vazio,
+  linhas,
+  erros,
+}: {
+  titulo: string
+  vazio: string
+  linhas: Linha[]
+  erros: boolean
+}) {
+  const [todas, setTodas] = useState(false)
+  const vistas = todas ? linhas : linhas.slice(0, LIMITE)
+  return (
+    <section className="rounded-2xl border bg-card p-5">
+      <h3 className="mb-3 font-bold">{titulo}</h3>
+      {linhas.length === 0 ? (
+        <p className="text-muted-foreground">{vazio}</p>
+      ) : (
+        <ul className="grid gap-3">
+          {vistas.map((l) => {
+            const certas = l.ok
+            const errados = l.n - l.ok
+            const p = Math.round((certas / l.n) * 100)
+            return (
+              <li key={l.nome} className="grid gap-1.5">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+                  <span>{l.nome}</span>
+                  <span className="text-sm text-muted-foreground tabular-nums">
+                    {erros
+                      ? `${errados} ${errados === 1 ? "erro" : "erros"} em ${l.n} mãos`
+                      : `${certas} de ${l.n} mãos · ${p}%`}
+                    {l.n < POUCAS && " · poucas mãos"}
+                  </span>
+                </div>
+                <span className="h-2 overflow-hidden rounded-full bg-secondary">
+                  <i
+                    className={cn(
+                      "block h-full",
+                      erros ? "bg-destructive" : "bg-primary"
+                    )}
+                    style={{ width: `${erros ? 100 - p : p}%` }}
+                  />
+                </span>
+              </li>
+            )
+          })}
+        </ul>
+      )}
+      {linhas.length > LIMITE && (
+        <Button
+          variant="ghost"
+          className="mt-3"
+          onClick={() => setTodas(!todas)}
+        >
+          {todas ? "Ver só os primeiros" : `Ver todos (${linhas.length})`}
+        </Button>
+      )}
+    </section>
+  )
 }
 
 function Modulo({
@@ -67,90 +121,62 @@ function Modulo({
   const itens = sessoes.flatMap((s) => s.itens)
   const acertos = itens.filter((x) => x.ok).length
   const linhas = agrupar(sessoes, modulo)
-  const confiaveis = linhas.filter((l) => l.n >= POUCAS)
-  const fracos = confiaveis
+  const maisErros = linhas
     .filter((l) => l.ok < l.n)
-    .sort((a, b) => a.ok / a.n - b.ok / b.n || b.n - a.n)
-    .slice(0, FRACOS)
-  const bons = confiaveis
-    .filter((l) => (l.ok / l.n) * 100 >= BOM)
-    .sort((a, b) => b.n - a.n)
-  const novos = linhas.filter((l) => l.n < POUCAS)
+    .sort((a, b) => b.n - b.ok - (a.n - a.ok) || a.ok / a.n - b.ok / b.n)
+  const maisAcertos = linhas
+    .filter((l) => l.ok > 0)
+    .sort((a, b) => b.ok / b.n - a.ok / a.n || b.n - a.n)
 
   return (
     <>
-      <p className="mb-6 text-center text-muted-foreground tabular-nums">
-        <strong className="text-2xl text-foreground">
-          {Math.round((acertos / itens.length) * 100)}%
-        </strong>{" "}
-        de acerto · {itens.length} mãos · {sessoes.length}{" "}
-        {sessoes.length === 1 ? "sessão" : "sessões"}
-      </p>
+      <div className="mb-6 grid [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] gap-3">
+        {[
+          ["Acerto", `${Math.round((acertos / itens.length) * 100)}%`],
+          ["Mãos", String(itens.length)],
+          ["Sessões", String(sessoes.length)],
+        ].map(([k, v]) => (
+          <Card key={k} className="rounded-[14px] p-[18px]">
+            <div className="text-muted-foreground">{k}</div>
+            <div className="text-3xl font-bold tabular-nums">{v}</div>
+          </Card>
+        ))}
+      </div>
 
-      <section className="rounded-2xl border bg-card p-5">
-        <h3 className="mb-3 font-bold">Estudar primeiro</h3>
-        {fracos.length === 0 ? (
-          <p className="text-muted-foreground">
-            Nenhum ponto fraco por enquanto. Continue treinando para o quadro
-            ficar mais confiável.
-          </p>
-        ) : (
-          <ol className="grid gap-4">
-            {fracos.map((l) => (
-              <li key={l.nome} className="grid gap-1">
-                <div className="flex flex-wrap items-baseline justify-between gap-x-3">
-                  <strong>{l.nome}</strong>
-                  <span className="text-destructive tabular-nums">
-                    {Math.round((l.ok / l.n) * 100)}% · {l.ok} de {l.n}
-                  </span>
-                </div>
-                {l.tipico && (
-                  <span className="text-sm text-muted-foreground">
-                    Mais comum: {l.tipico}
-                  </span>
-                )}
-              </li>
-            ))}
-          </ol>
-        )}
-      </section>
+      <div className="grid gap-4 md:grid-cols-2">
+        <Ranking
+          titulo="Onde você mais errou"
+          vazio="Nenhum erro até agora."
+          linhas={maisErros}
+          erros
+        />
+        <Ranking
+          titulo="Onde você mais acertou"
+          vazio="Nenhum acerto ainda."
+          linhas={maisAcertos}
+          erros={false}
+        />
+      </div>
 
-      {bons.length > 0 && (
-        <p className="mt-4 text-muted-foreground">
-          <strong className="text-primary">Em dia:</strong>{" "}
-          {bons.map((l) => l.nome).join(" · ")}
-        </p>
-      )}
-      {novos.length > 0 && (
-        <p className="mt-2 text-sm text-muted-foreground">
-          Ainda poucas mãos (menos de {POUCAS}):{" "}
-          {novos.map((l) => `${l.nome} (${l.n})`).join(" · ")}
-        </p>
-      )}
-
-      <details className="mt-8">
-        <summary className="cursor-pointer text-muted-foreground">
-          Sessões levadas ({sessoes.length})
-        </summary>
-        <div className="mt-3 grid gap-2.5">
-          {[...sessoes].reverse().map((s) => (
-            <div
-              key={s.id}
-              className="flex flex-wrap items-center gap-3.5 rounded-xl border bg-card px-4 py-3"
-            >
-              <strong className="min-w-32 flex-1">
-                {new Date(s.id).toLocaleDateString("pt-BR")}
-              </strong>
-              <span className="tabular-nums">
-                {s.acertos} de {s.total}
-              </span>
-              <Button variant="outline" onClick={() => tirar(s.id)}>
-                Tirar da análise
-              </Button>
-            </div>
-          ))}
-        </div>
-      </details>
+      <h3 className="mt-10 mb-3 font-bold">Sessões deste módulo</h3>
+      <div className="grid gap-2.5">
+        {[...sessoes].reverse().map((s) => (
+          <div
+            key={s.id}
+            className="flex flex-wrap items-center gap-3.5 rounded-xl border bg-card px-4 py-3.5"
+          >
+            <strong className="min-w-32 flex-1">
+              {new Date(s.id).toLocaleDateString("pt-BR")}
+            </strong>
+            <span className="tabular-nums">
+              {s.acertos} de {s.total}
+            </span>
+            <Button variant="outline" onClick={() => tirar(s.id)}>
+              Tirar da análise
+            </Button>
+          </div>
+        ))}
+      </div>
     </>
   )
 }
