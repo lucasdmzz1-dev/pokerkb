@@ -200,6 +200,80 @@ function Modulo({
   )
 }
 
+const TOTAL = "total"
+
+// Visão geral: acerto, mãos e sessões de tudo, e o acerto de cada tema em barra.
+function Total({
+  porModulo,
+  abrir,
+}: {
+  porModulo: Map<string, Sessao[]>
+  abrir: (m: string) => void
+}) {
+  const linhas = [...porModulo.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([m, ss]) => {
+      const it = ss.flatMap((x) => x.itens)
+      return {
+        m,
+        n: it.length,
+        ok: it.filter((x) => x.ok).length,
+        sessoes: ss.length,
+      }
+    })
+  const n = linhas.reduce((t, l) => t + l.n, 0)
+  const ok = linhas.reduce((t, l) => t + l.ok, 0)
+  const sessoes = linhas.reduce((t, l) => t + l.sessoes, 0)
+  return (
+    <>
+      <div className="mb-6 grid [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] gap-3">
+        {[
+          ["Acerto", `${Math.round((ok / n) * 100)}%`],
+          ["Mãos", String(n)],
+          ["Sessões", String(sessoes)],
+        ].map(([k, v]) => (
+          <Card key={k} className="rounded-[14px] p-[18px]">
+            <div className="text-muted-foreground">{k}</div>
+            <div className="text-3xl font-bold tabular-nums">{v}</div>
+          </Card>
+        ))}
+      </div>
+      <section className="rounded-2xl border bg-card p-5">
+        <h3 className="mb-3 font-bold">Acerto por tema</h3>
+        <ul className="grid gap-3">
+          {linhas.map((l) => {
+            const p = Math.round((l.ok / l.n) * 100)
+            return (
+              <li key={l.m}>
+                <button
+                  type="button"
+                  onClick={() => abrir(l.m)}
+                  className="grid w-full cursor-pointer gap-1.5 text-left"
+                >
+                  <span className="flex flex-wrap items-baseline justify-between gap-x-3">
+                    <span>
+                      {l.m} · {MODULOS[l.m] ?? `Módulo ${l.m}`}
+                    </span>
+                    <span className="text-sm text-muted-foreground tabular-nums">
+                      {l.ok} de {l.n} mãos · {p}%
+                    </span>
+                  </span>
+                  <span className="h-2 overflow-hidden rounded-full bg-secondary">
+                    <i
+                      className="block h-full bg-primary"
+                      style={{ width: `${p}%` }}
+                    />
+                  </span>
+                </button>
+              </li>
+            )
+          })}
+        </ul>
+      </section>
+    </>
+  )
+}
+
 // Aba Treino: uma aba por módulo, só com as sessões levadas para a Análise.
 export function TreinoAnalise({
   levadas,
@@ -214,8 +288,9 @@ export function TreinoAnalise({
     porModulo.set(m, [...(porModulo.get(m) ?? []), s])
   })
   const ids = [...porModulo.keys()].sort()
-  const [escolhido, setEscolhido] = useState<string | null>(null)
-  const atual = escolhido && porModulo.has(escolhido) ? escolhido : ids[0]
+  const [escolhido, setEscolhido] = useState<string>(TOTAL)
+  const atual =
+    escolhido === TOTAL || porModulo.has(escolhido) ? escolhido : TOTAL
 
   return (
     <Secao
@@ -234,7 +309,7 @@ export function TreinoAnalise({
             aria-label="Módulos treinados"
             className="mb-6 flex flex-wrap justify-center gap-2"
           >
-            {ids.map((m) => (
+            {[TOTAL, ...ids].map((m) => (
               <button
                 key={m}
                 type="button"
@@ -248,16 +323,22 @@ export function TreinoAnalise({
                     : "bg-card text-muted-foreground hover:text-foreground"
                 )}
               >
-                {m} · {MODULOS[m] ?? `Módulo ${m}`}
+                {m === TOTAL
+                  ? "Total"
+                  : `${m} · ${MODULOS[m] ?? `Módulo ${m}`}`}
               </button>
             ))}
           </div>
-          <Modulo
-            key={atual}
-            modulo={atual}
-            sessoes={porModulo.get(atual) ?? []}
-            tirar={tirar}
-          />
+          {atual === TOTAL ? (
+            <Total porModulo={porModulo} abrir={setEscolhido} />
+          ) : (
+            <Modulo
+              key={atual}
+              modulo={atual}
+              sessoes={porModulo.get(atual) ?? []}
+              tirar={tirar}
+            />
+          )}
         </>
       )}
     </Secao>
