@@ -22,6 +22,7 @@ import {
 import { Ficha, SeletorTema, type Tema } from "@/pages/pratica-probe"
 import { shuffle, type ItemSessao, type Sessao } from "@/lib/poker"
 import { KEYS, lerSessoes, writeJSON } from "@/lib/storage"
+import { useRefazerPendente } from "@/lib/refazer"
 
 type Fase = "setup" | "jogo" | "fim"
 
@@ -118,6 +119,8 @@ export default function PraticaCbet({ onTema }: { onTema: (t: Tema) => void }) {
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
   }, [fase, responder])
+
+  useRefazerPendente("01", situacoesCbet, comecar)
 
   function iniciar(e: React.FormEvent) {
     e.preventDefault()

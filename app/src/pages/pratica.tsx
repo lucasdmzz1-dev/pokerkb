@@ -41,6 +41,7 @@ import {
   type Sessao,
 } from "@/lib/poker"
 import { KEYS, lerSessoes, writeJSON } from "@/lib/storage"
+import { temaPendente, useRefazerPendente } from "@/lib/refazer"
 import { cn } from "@/lib/utils"
 
 type Fase = "setup" | "jogo" | "fim"
@@ -168,6 +169,8 @@ function PraticaBet({ onTema }: { onTema: (t: Tema) => void }) {
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
   }, [fase, responder])
+
+  useRefazerPendente("15", situacoesTreino, comecar)
 
   function iniciar(e: React.FormEvent) {
     e.preventDefault()
@@ -615,7 +618,7 @@ function PraticaBet({ onTema }: { onTema: (t: Tema) => void }) {
 }
 
 export default function Pratica() {
-  const [tema, setTema] = useState<Tema>("bet")
+  const [tema, setTema] = useState<Tema>(() => temaPendente() ?? "bet")
   if (tema === "probe") return <PraticaProbe onTema={setTema} />
   if (tema === "cbet") return <PraticaCbet onTema={setTema} />
   if (tema === "cbet40") return <PraticaCbet40 onTema={setTema} />

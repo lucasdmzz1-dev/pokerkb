@@ -27,6 +27,7 @@ import {
 } from "@/data/prat14"
 import { shuffle, type ItemSessao, type Sessao } from "@/lib/poker"
 import { KEYS, lerSessoes, writeJSON } from "@/lib/storage"
+import { useRefazerPendente } from "@/lib/refazer"
 import { cn } from "@/lib/utils"
 
 type Fase = "setup" | "jogo" | "fim"
@@ -323,6 +324,8 @@ export default function PraticaProbe({
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
   }, [fase, responder])
+
+  useRefazerPendente("14", situacoesProbe, comecar)
 
   function iniciar(e: React.FormEvent) {
     e.preventDefault()
