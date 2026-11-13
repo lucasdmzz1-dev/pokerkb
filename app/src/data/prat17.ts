@@ -336,6 +336,36 @@ export const BOARDS_BB: BoardBBTreino[] = [
     grupo: "B25",
   },
   {
+    id: "at3",
+    nome: "A-T-3, A high com flush draw",
+    board: ["As", "Tc", "3s"],
+    size: "B25",
+    estrategia: "split25",
+    grupo: "B25",
+    criterio:
+      "A high com a segunda carta conectando e flush draw: B25 (trainer do time, 13/11/2026). Não é board dobrado: o 3 aparece só uma vez.",
+  },
+  {
+    id: "q85",
+    nome: "Q-8-5, semi conectado com flush draw",
+    board: ["Qd", "8d", "5c"],
+    size: "B70",
+    estrategia: "split70",
+    grupo: "B70",
+    criterio:
+      "O 5 conecta com o 8 (sequência 8-7-6-5) e há flush draw: B70, como o T-8-5. Com o 3 no lugar do 5 (Q-8-3) seria B40 (trainer do time, 13/11/2026).",
+  },
+  {
+    id: "832",
+    nome: "8-3-2, low desconectado",
+    board: ["8d", "2h", "3d"],
+    size: "B40",
+    estrategia: "split40",
+    grupo: "B40",
+    criterio:
+      "O 8 é a carta mais alta, e o 8 não conta como baixa: B40, como o 8-4-2. B25 é só para uma carta acima do 8 e duas abaixo (Q-6-3, T-4-2) (trainer do time, 13/11/2026).",
+  },
+  {
     id: "a98",
     nome: "A-9-8, A high carregado",
     board: ["Ah", "9d", "8c"],
