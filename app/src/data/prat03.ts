@@ -132,6 +132,96 @@ export const situacoesBarrel: SituacaoBarrel[] = [
     porque:
       "com dois paus a mão bloqueia o backdoor do vilão, que é uma mão que folda, então dá check.",
   },
+  {
+    id: "bl-k7h",
+    tipo: "blank",
+    pos: "HJ",
+    hero: ["Kh", "7h"],
+    certa: "Geo",
+    classe: "Bluff que desbloqueia os folds",
+    porque:
+      "não bloqueia o flush draw que folda nem o backdoor, e ainda faz fold de rei dama, rei valete e dama valete, então blefa no size geométrico.",
+  },
+  {
+    id: "bl-k7c",
+    tipo: "blank",
+    pos: "HJ",
+    hero: ["Kc", "7c"],
+    certa: "Check",
+    classe: "Bluff que bloqueia o backdoor",
+    porque:
+      "o mesmo K7, mas com dois paus: bloqueia o backdoor do vilão, que é fold natural, então dá check.",
+  },
+  {
+    id: "bl-65h",
+    tipo: "blank",
+    pos: "CO",
+    hero: ["6h", "5h"],
+    certa: "Geo",
+    classe: "Bluff sem nenhum blocker",
+    porque:
+      "não tem showdown e não bloqueia nada do que folda, então é um bom bluff no size geométrico.",
+  },
+  {
+    id: "bl-qjs",
+    tipo: "blank",
+    pos: "BTN",
+    hero: ["Qh", "Js"],
+    certa: "Geo",
+    classe: "Duas pontas off com espada",
+    porque:
+      "a espada bloqueia o flush draw do vilão, que dá menos check-raise, então realiza a equity apostando.",
+  },
+  {
+    id: "bl-qjc",
+    tipo: "blank",
+    pos: "CO",
+    hero: ["Qc", "Jc"],
+    certa: "Check",
+    classe: "Duas pontas com paus",
+    porque:
+      "os paus bloqueiam o backdoor do vilão, que é fold natural, então dá check para realizar a equity.",
+  },
+  {
+    id: "bl-k8",
+    tipo: "blank",
+    pos: "BTN",
+    hero: ["Kd", "8h"],
+    certa: "Check",
+    classe: "Valor médio com showdown",
+    porque:
+      "ganha vezes o suficiente de rei dama, rei valete e dos pares médios dando check, então não aposta.",
+  },
+  {
+    id: "bl-kt",
+    tipo: "blank",
+    pos: "HJ",
+    hero: ["Kh", "Td"],
+    certa: "Geo",
+    classe: "Second pair com top kicker",
+    porque:
+      "o second pair com top kicker aposta por valor: o vilão paga com vários 10x e flush draws.",
+  },
+  {
+    id: "bl-jt",
+    tipo: "blank",
+    pos: "HJ",
+    hero: ["Th", "Jd"],
+    certa: "Check",
+    classe: "Valor médio e valete que bloqueia",
+    porque:
+      "o valete bloqueia o que o vilão folda e a mão tem showdown, então dá check.",
+  },
+  {
+    id: "bl-a5h",
+    tipo: "blank",
+    pos: "CO",
+    hero: ["Ah", "5h"],
+    certa: "Check",
+    classe: "Top pair com kicker fraco",
+    porque:
+      "o ás com kicker fraco tem showdown e fica no range de check para pagar o vilão quando ele blefar.",
+  },
 
   // Turn que conecta (Qh 9s 2h, turn 8d)
   {
@@ -172,6 +262,36 @@ export const situacoesBarrel: SituacaoBarrel[] = [
     porque:
       "o A♠ e o 4♠ bloqueiam o backdoor de espadas, que é uma mão que folda, então dá check.",
   },
+  {
+    id: "co-ath",
+    tipo: "conecta",
+    pos: "HJ",
+    hero: ["Ah", "Th"],
+    certa: "B70",
+    classe: "Flush draw forte com gutshot",
+    porque:
+      "o flush draw nuts é forte o bastante para apostar e pagar all-in, então aposta, em B70.",
+  },
+  {
+    id: "co-kjh",
+    tipo: "conecta",
+    pos: "BTN",
+    hero: ["Kh", "Jh"],
+    certa: "B70",
+    classe: "Flush draw forte com gutshot",
+    porque:
+      "com o flush draw forte e o gutshot a mão aposta e paga o all-in, em B70.",
+  },
+  {
+    id: "co-a4h",
+    tipo: "conecta",
+    pos: "CO",
+    hero: ["Ah", "4h"],
+    certa: "Check",
+    classe: "Flush draw que quer realizar",
+    porque:
+      "flush draw nuts fraco não aposta o turn que conecta: dá check para realizar a equity.",
+  },
 
   // Overcard no turn (9s 7d 5c, turn Kd)
   {
@@ -198,7 +318,7 @@ export const situacoesBarrel: SituacaoBarrel[] = [
     pos: "HJ",
     hero: ["Ah", "7h"],
     certa: "Check",
-    classe: "Second pair com valor de showdown",
+    classe: "Terceiro par com valor de showdown",
     porque:
       "tem valor de showdown e ganha vezes o suficiente dando check, então não vale apostar.",
   },
@@ -211,6 +331,33 @@ export const situacoesBarrel: SituacaoBarrel[] = [
     classe: "Bluff sem showdown",
     porque:
       "sem valor de showdown, e a overcard não conecta com o vilão, então blefa em B70.",
+  },
+  {
+    id: "oc-a9",
+    tipo: "overcard",
+    pos: "CO",
+    hero: ["Ah", "9h"],
+    certa: "B70",
+    classe: "Second pair com ás",
+    porque: "os 9x que conectam com o board apostam por valor, em B70.",
+  },
+  {
+    id: "oc-88",
+    tipo: "overcard",
+    pos: "CO",
+    hero: ["8h", "8d"],
+    certa: "Check",
+    classe: "Par de bolso com showdown",
+    porque: "tem valor de showdown e ganha vezes o suficiente dando check.",
+  },
+  {
+    id: "oc-44",
+    tipo: "overcard",
+    pos: "HJ",
+    hero: ["4h", "4d"],
+    certa: "Check",
+    classe: "Par de bolso com showdown",
+    porque: "tem valor de showdown e ganha vezes o suficiente dando check.",
   },
 
   // Flush completa com carta alta (9s 7s 3d, turn Ks)
@@ -281,5 +428,14 @@ export const situacoesBarrel: SituacaoBarrel[] = [
     classe: "Top pair forte",
     porque:
       "na dobra o size é médio, B70, e o top pair forte aposta por valor.",
+  },
+  {
+    id: "db-kk",
+    tipo: "dobra",
+    pos: "BTN",
+    hero: ["Kh", "Kd"],
+    certa: "B70",
+    classe: "Overpair",
+    porque: "na dobra o overpair aposta por valor, em B70.",
   },
 ]
