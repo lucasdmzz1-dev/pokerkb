@@ -22,6 +22,19 @@ export function shuffle<T>(arr: T[]): T[] {
   return a
 }
 
+// Sorteia as mãos do treino. Com `n` maior que o pool, completa com novas rodadas do pool
+// embaralhado (sem repetir a mesma mão em seguida). `n` 0 é o pool inteiro, uma vez.
+export function sortearMaos<T>(pool: T[], n: number): T[] {
+  let fila = shuffle(pool)
+  if (!n) return fila
+  while (fila.length < n && pool.length > 1) {
+    const rodada = shuffle(pool)
+    if (rodada[0] === fila[fila.length - 1]) rodada.push(rodada.shift() as T)
+    fila = [...fila, ...rodada]
+  }
+  return fila.slice(0, n)
+}
+
 export interface ItemSessao {
   sid: string
   tipo: string

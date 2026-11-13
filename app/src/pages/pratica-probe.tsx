@@ -25,7 +25,7 @@ import {
   type AcaoProbe,
   type SituacaoProbe,
 } from "@/data/prat14"
-import { shuffle, type ItemSessao, type Sessao } from "@/lib/poker"
+import { shuffle, sortearMaos, type ItemSessao, type Sessao } from "@/lib/poker"
 import { KEYS, lerSessoes, writeJSON } from "@/lib/storage"
 import { useRefazerPendente } from "@/lib/refazer"
 import { cn } from "@/lib/utils"
@@ -330,8 +330,7 @@ export default function PraticaProbe({
   function iniciar(e: React.FormEvent) {
     e.preventDefault()
     const n = Number(qty)
-    let pool = shuffle(situacoesProbe)
-    if (n && pool.length > n) pool = pool.slice(0, n)
+    const pool = sortearMaos(situacoesProbe, n)
     comecar(pool)
   }
 
@@ -417,6 +416,7 @@ export default function PraticaProbe({
                 {[
                   ["10", "10"],
                   ["20", "20"],
+                  ["50", "50"],
                   ["0", "Todas"],
                 ].map(([v, label]) => (
                   <Label
