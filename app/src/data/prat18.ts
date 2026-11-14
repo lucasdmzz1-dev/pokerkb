@@ -207,7 +207,7 @@ const variacoes18: SituacaoRiver[] = [
     ],
     [
       "v1-f3",
-      ["8s", "7s"],
+      ["8d", "7d"],
       "B100",
       "Float com backdoor",
       "float com backdoor de flush: bluff em pote.",
