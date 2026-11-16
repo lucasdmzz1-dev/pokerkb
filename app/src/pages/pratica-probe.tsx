@@ -130,6 +130,7 @@ export type Tema =
   | "tbet"
   | "tbarrel"
   | "xc"
+  | "bcb"
 
 // Temas agrupados pela street em que o herói decide. O pré-flop ainda não tem tema.
 const STREETS: { id: string; nome: string; temas: [Tema, string][] }[] = [
@@ -158,6 +159,7 @@ const STREETS: { id: string; nome: string; temas: [Tema, string][] }[] = [
     id: "river",
     nome: "River",
     temas: [
+      ["bcb", "Bet-Check-Bet"],
       ["tbarrel", "Third Barrel e vs Third Barrel"],
       ["xc", "XC e Play River"],
     ],
