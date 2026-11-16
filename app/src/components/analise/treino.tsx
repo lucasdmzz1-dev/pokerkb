@@ -19,7 +19,7 @@ const MODULOS: Record<string, string> = {
   "14": "Probe Turn",
   "15": "Bet vs Missed C-Bet",
   "17": "BB Raise Pot vs SB",
-  "18": "XC no River",
+  "18": "XC e Play River",
 }
 
 // Poucas mãos num tipo: a porcentagem engana, então o número de mãos aparece junto.
