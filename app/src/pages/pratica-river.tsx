@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Mesa } from "@/components/poker/mesa"
 import { situacoes04 } from "@/data/prat04"
+import { situacoes09 } from "@/data/prat09"
 import { situacoes18 } from "@/data/prat18"
 import {
   META,
@@ -82,6 +83,21 @@ const CONFIG_18: Config = {
     { id: "bet", label: "Ataque River", vale: (s) => ehBet(s.certa) },
     // Quando o herói dá check: check-call, check-fold e o call ou fold contra o bet do BTN.
     { id: "check", label: "Defesa River", vale: (s) => !ehBet(s.certa) },
+  ],
+}
+
+const CONFIG_09: Config = {
+  tema: "bcb",
+  modulo: "09",
+  nomeTema: "Bet-Check-Bet",
+  lead: "Treine as decisões do módulo 09. Você abriu do BTN, o BB pagou, você apostou o flop, o turn foi check-check e o BB deu check no river. Escolha a ação.",
+  titulosTipos: "Por tipo de river",
+  situacoes: situacoes09,
+  tituloFiltro: "Mão",
+  filtros: [
+    { id: "todas", label: "Tudo", vale: () => true },
+    { id: "bet", label: "Só apostas", vale: (s) => ehBet(s.certa) },
+    { id: "check", label: "Só checks", vale: (s) => !ehBet(s.certa) },
   ],
 }
 
@@ -503,6 +519,10 @@ function PraticaRiver({
 
 export function PraticaTerceiro({ onTema }: { onTema: (t: Tema) => void }) {
   return <PraticaRiver cfg={CONFIG_04} onTema={onTema} />
+}
+
+export function PraticaBCB({ onTema }: { onTema: (t: Tema) => void }) {
+  return <PraticaRiver cfg={CONFIG_09} onTema={onTema} />
 }
 
 export function PraticaXC({ onTema }: { onTema: (t: Tema) => void }) {
