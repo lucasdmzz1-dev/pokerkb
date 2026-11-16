@@ -15,6 +15,7 @@ const MODULOS: Record<string, string> = {
   "04": "3rd Barrel e vs 3rd Barrel",
   "05": "C-Bet OOP",
   "08": "3Bet Pot OOP no BB",
+  "09": "Bet-Check-Bet",
   "14": "Probe Turn",
   "15": "Bet vs Missed C-Bet",
   "17": "BB Raise Pot vs SB",
