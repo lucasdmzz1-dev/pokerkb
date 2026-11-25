@@ -24,6 +24,8 @@ type Size = "B25" | "B40" | "B70"
 interface Jogada {
   estrategia: EstrategiaOop
   size?: Size
+  // Quantos dos melhores top pairs (por kicker) da metade que não aposta vão de check-raise.
+  xrTopPair?: number
 }
 
 export interface Textura {
@@ -45,7 +47,7 @@ export const TEXTURAS: Record<TexturaOop, Textura> = {
     rainbow: ["As", "7d", "2c"],
     doisNaipes: ["Ah", "7h", "2c"],
     EP: { estrategia: "split", size: "B25" },
-    CO: { estrategia: "split", size: "B25" },
+    CO: { estrategia: "split", size: "B25", xrTopPair: 2 },
   },
   ahighConectado: {
     nome: "A HIGH conectado",
@@ -447,6 +449,23 @@ export function decidir(
     }
 
   if (est === "split") {
+    // Os melhores top pairs (kickers mais altos) da metade que não aposta vão de
+    // check-raise por valor, em vez de check-call.
+    if (L.feita === "topPair" && L.semNaipeBoard && jogada.xrTopPair) {
+      const br = board.map(rk)
+      const par = hero.map(rk).find((x) => br.includes(x))
+      const kicker = hero.map(rk).find((x) => x !== par)
+      const melhores: number[] = []
+      for (let r = 14; r >= 2 && melhores.length < jogada.xrTopPair; r--)
+        if (r !== par && !br.includes(r)) melhores.push(r)
+      if (kicker !== undefined && melhores.includes(kicker))
+        return {
+          acao: "Check-raise",
+          classe: "Melhor top pair sem naipe do board",
+          porque:
+            "Os melhores top pairs da metade que não aposta vão de check-raise por valor.",
+        }
+    }
     if (L.feita === "topPair" || L.feita === "secondPair") {
       const nome = L.feita === "topPair" ? "Top pair" : "Second pair"
       if (doisNaipes) {
