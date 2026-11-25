@@ -703,9 +703,17 @@ function semente(texto: string): () => number {
 // O EP do módulo é o EP2 do Poker Academy (UTG+1), que é o UTG1 da nossa mesa.
 const EP_POS: SituacaoOop["heroPos"][] = ["UTG1"]
 
+// Classe da mão sem os naipes exatos: par (77), suited (AKs) ou off (AKo).
+function classeMao(m: readonly string[]): string {
+  const [a, b] = [m[0], m[1]].sort((x, y) => rk(y) - rk(x))
+  if (a[0] === b[0]) return a[0] + b[0]
+  return a[0] + b[0] + (su(a) === su(b) ? "s" : "o")
+}
+
 function gerar(): SituacaoOop[] {
   const maos = todasAsMaos()
   const lista: SituacaoOop[] = []
+  const usoPorClasse = new Map<string, number>()
   for (const [id, t] of Object.entries(TEXTURAS) as [TexturaOop, Textura][]) {
     const variantes: [SituacaoOop["variante"], string[]][] = []
     if (t.rainbow) variantes.push(["rainbow", t.rainbow])
@@ -745,7 +753,9 @@ function gerar(): SituacaoOop[] {
           g.push(sit)
           grupos.set(chave, g)
         }
-        // Duas mãos de cada categoria, sorteadas sempre do mesmo jeito.
+        // Duas mãos de cada categoria, sorteadas sempre do mesmo jeito. As mãos de uma
+        // categoria são de classes diferentes (um 77, não vários 77 com naipes diferentes),
+        // e cada classe de mão aparece no máximo 2 vezes por board e posição.
         for (const [chave, g] of grupos) {
           const rnd = semente(
             `${id}${cenario}${variante}${board.join("")}${chave}`
@@ -755,10 +765,20 @@ function gerar(): SituacaoOop[] {
             const j = Math.floor(rnd() * (i + 1))
             ;[copia[i], copia[j]] = [copia[j], copia[i]]
           }
-          for (const s of copia.slice(
-            0,
-            jogada.estrategia === "range" ? 3 : 2
-          )) {
+          const max = jogada.estrategia === "range" ? 3 : 2
+          const classesDoGrupo = new Set<string>()
+          const escolhidas: SituacaoOop[] = []
+          for (const s of copia) {
+            if (escolhidas.length >= max) break
+            const cm = classeMao(s.hero)
+            const k = `${id}|${cenario}|${board.map((c) => c[0]).join("")}|${cm}`
+            if (classesDoGrupo.has(cm) || (usoPorClasse.get(k) ?? 0) >= 2)
+              continue
+            classesDoGrupo.add(cm)
+            usoPorClasse.set(k, (usoPorClasse.get(k) ?? 0) + 1)
+            escolhidas.push(s)
+          }
+          for (const s of escolhidas) {
             lista.push({
               ...s,
               heroPos:

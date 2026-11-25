@@ -121,6 +121,16 @@ As regras de decisão de cada textura não mudaram. Cada board entra rainbow e c
 
 **Status:** provisória. Os boards sem textura clara estão na Pendência 8.
 
+---
+
+# Decisão 9 — Menos mãos repetidas no treino (24/11/2026)
+
+A Prática não repete a mesma mão com naipes diferentes. Dentro de uma categoria, cada mão é de uma classe diferente (um 77, não vários 77). Cada classe de mão (77, AKs, AKo) aparece no máximo 2 vezes por board e por posição, somando o board rainbow e o de dois naipes.
+
+Pedido do autor, pois o treino tinha muitos exercícios que eram a mesma coisa. No A high seco, o treino foi de 84 para 68 situações.
+
+**Status:** definitiva para a Prática.
+
 <!-- graphify-links:start -->
 
 ---
