@@ -46,7 +46,7 @@ export const TEXTURAS: Record<TexturaOop, Textura> = {
     nome: "A HIGH seco",
     rainbow: ["As", "7d", "2c"],
     doisNaipes: ["Ah", "7h", "2c"],
-    EP: { estrategia: "split", size: "B25" },
+    EP: { estrategia: "split", size: "B25", xrTopPair: 2 },
     CO: { estrategia: "split", size: "B25", xrTopPair: 2 },
   },
   ahighConectado: {

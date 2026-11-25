@@ -290,7 +290,7 @@ Par com draw, flush draw com draw de sequência, sequência feita e flush feito.
 
 ---
 
-# Regra 15 — A high seco, CO contra BTN: os 2 melhores top pairs vão de check-raise
+# Regra 15 — A high seco, EP e CO contra BTN: os 2 melhores top pairs vão de check-raise
 
 Fonte: esclarecimento do autor do KB (24/11/2026), vindo de uma correção na Prática.
 
@@ -298,7 +298,7 @@ No A high seco (Split Range, B25), a metade dos top pairs que não aposta (sem n
 
 Exemplo: A♥ 7♥ 2♣, CO contra BTN. A♠Q♦ não tem naipe do board e é um dos 2 melhores top pairs: check-raise. A♠J♦ segue no check-call.
 
-**Escopo:** só A high seco, CO contra BTN. EP contra BTN e as outras texturas ficam como estavam até o autor confirmar (Pendência 10).
+**Escopo:** A high seco, nos dois spots (CO contra BTN, e EP contra BTN, confirmado pelo autor no mesmo dia). As outras texturas ficam como estavam até o autor confirmar (Pendência 10).
 
 ---
 

@@ -133,9 +133,9 @@ Os exemplos do coach trazem posições diferentes das do módulo (MP contra HJ, 
 
 # 10. Os melhores top pairs no check-raise (24/11/2026)
 
-A Regra 15 vale só para o A high seco, CO contra BTN (os 2 melhores top pairs, AK e AQ, vão de check-raise).
+A Regra 15 vale só para o A high seco, nos dois spots, EP e CO contra BTN (os 2 melhores top pairs, AK e AQ, vão de check-raise). O autor confirmou o EP em 24/11/2026.
 
-**Falta saber (autor):** se vale também para o EP contra BTN no A high seco e para as outras texturas do Split Range (K-Q high, J-T high etc.). Nelas, o que conta como "2 melhores top pairs" depende do kicker.
+**Falta saber (autor):** se vale também para as outras texturas do Split Range (K-Q high, J-T high etc.). Nelas, o que conta como "2 melhores top pairs" depende do kicker.
 
 **Status:** aberta.
 

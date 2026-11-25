@@ -134,9 +134,9 @@ Fonte: regras da área Prática (`app/src/data/prat05.ts`), corrigidas pelo dono
 
 Fonte: esclarecimento do autor, a partir de uma mão da Prática.
 
-- Regras Consolidadas: Regra 15 (A high seco, CO contra BTN: AK e AQ sem naipe do board vão de check-raise, não de check-call).
-- Pendências: item 10 (escopo da Regra 15: EP e outras texturas).
-- Prática (`prat05.ts`): CO no A high seco passa a usar a Regra 15.
+- Regras Consolidadas: Regra 15 (A high seco: AK e AQ sem naipe do board vão de check-raise, não de check-call). Vale para CO e EP contra BTN (o autor confirmou o EP no mesmo dia).
+- Pendências: item 10 (escopo da Regra 15: outras texturas).
+- Prática (`prat05.ts`): CO e EP no A high seco passam a usar a Regra 15.
 
 ---
 
