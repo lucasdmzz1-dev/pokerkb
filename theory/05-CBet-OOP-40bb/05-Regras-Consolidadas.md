@@ -258,6 +258,38 @@ O size escolhido representa:
 
 ---
 
+# Regra 14 — Mãos feitas fortes na Prática: overpairs, trincas e dois pares
+
+Fonte: regras da área Prática do site (corrigidas pelo dono e pelo coach), registradas aqui em 24/11/2026. Valem para Split Range e Split 25%, antes de olhar os naipes. Não vêm da guideline nem da aula.
+
+## Overpairs
+
+- Melhor overpair (AA): **check-raise** por valor.
+- Primeiro overpair acima do board (ex.: QQ no J-8-3): **bet** no size do board, por valor.
+- Overpairs do meio (ex.: KK no J-8-3): sem regra definida, ficam fora do treino.
+
+Exemplo: J♠ 8♦ 3♣, EP contra BTN (Split Range, B40). A♥A♣ dá check-raise. Os naipes da mão não mudam a jogada.
+
+## Trincas
+
+- Pior trinca: **bet** por valor.
+- Trinca do meio: **check-raise** por valor.
+- Top set: **check-call** (mantém uma mão forte no check e protege o range, Regras 2 e 9).
+
+## Dois pares
+
+- **Bet** por valor.
+
+## Par de bolso abaixo do top pair
+
+- Second pair, third pair e underpair de par de bolso: **check-call**, sem olhar os naipes (Decisão 7).
+
+## Fora das regras (sem jogada definida)
+
+Par com draw, flush draw com draw de sequência, sequência feita e flush feito. A Prática não treina esses casos.
+
+---
+
 # Regra principal do módulo
 
 C-Bet OOP é construir dois ranges funcionais:

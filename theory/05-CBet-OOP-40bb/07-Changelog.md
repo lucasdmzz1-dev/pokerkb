@@ -121,6 +121,15 @@ Pendente:
 
 ---
 
+# Versão 1.3 (24/11/2026)
+
+Fonte: regras da área Prática (`app/src/data/prat05.ts`), corrigidas pelo dono e pelo coach.
+
+- Regras Consolidadas: acrescentada a Regra 14 (overpairs, trincas, dois pares e par de bolso abaixo do top pair).
+- Antes só estavam no código da Prática. Overpair do meio (KK no J-8-3) continua sem regra.
+
+---
+
 # Próximas atualizações
 
 Adicionar:
