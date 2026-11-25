@@ -376,6 +376,27 @@ Entram:
 
 ---
 
+# Size e frequência de bet por textura (nota da aula, 25/11/2026)
+
+Fonte: nota da aula "Cbet OOP 40bbs deep" (outputs do solver). Posições EP e CO contra BTN. A nota escreve BU, que no módulo é BTN. Os links dos Gyazos ficam na nota original, fora do repositório.
+
+| Textura (board do solver) | EP contra BTN | CO contra BTN |
+|---|---|---|
+| A high (A82 rainbow) | B40, 43% | B40, 21% |
+| BBX (KJ7 rainbow) | B40, 70% | B70 teórico (adaptação B40), 36% |
+| High card (Q84 suited) | B40, 53% | B70 teórico (adaptação B40), 21% |
+| High conectado (J97 suited) | B40, 43% | B40, 25% |
+| Low card (853 suited) | B70, 28% | B70, 22% |
+| Dobrado (QQ7 rainbow) | B40, 65% | B70 teórico (adaptação B40), 29% |
+| Monotone (K84 monotone) | B25, 39% | B25, 18% |
+
+- No EP a frequência de aposta sobe e dá para apostar valor com mais mãos. No CO a frequência cai, porque o range é grande e tem muitas mãos fracas, o que deixa o adversário apostar mais contra o check.
+- Os sizes: B25 em boards de frequência alta e no monotone. B40 quando o range é dividido. B70 em board low.
+- Maiores frequências de bet (CO): 9 high e A high seco. Menores: monotone e high card.
+- Conflitos com a guideline em A high seco, BBX no EP e monotone: Pendência 18.
+
+---
+
 # Regras extraídas do Solver
 
 1. O mesmo board pode possuir estratégia diferente entre EP vs BTN e CO vs BTN.

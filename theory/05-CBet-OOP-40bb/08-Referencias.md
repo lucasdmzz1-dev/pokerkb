@@ -84,6 +84,18 @@ Arquivo "CBET OOP EXEMPLOS", enviado pelo coach, com 16 mãos de exemplo e os r�
 
 Os replays estão nos links do arquivo original, que fica fora do repositório.
 
+# 6. Slides e nota do coach (25/11/2026)
+
+Três slides ("Split do Cbet OOP" em duas partes e "Extra") e a nota "Cbet OOP CO vs BTN, 40bb deep". Entram como guideline do coach: dão as mãos de cada linha (bet por valor e por bluff, check-raise por valor e por bluff, check-call) e os extras. Fonte das Regras 16 a 18 e da seção "Split do C-Bet OOP" do guideline.
+
+# 7. Nota da aula "Cbet OOP 40bbs deep" (25/11/2026)
+
+Arquivo de texto da aula, fora do repositório (Downloads): desvantagens de jogar OOP, tabela de size e frequência por textura, a guideline do split e os extras. Entrou na seção "Desvantagens de jogar OOP" de `02-VideoAulas.md` e na tabela de `03-Solver.md`. A guideline do split e os extras dela são os mesmos dos slides do coach (fonte 6). O vídeo "CBet OOP co VS BU - ivan" também está em Downloads, sem transcrição.
+
+# 8. Aula de revisão CO contra BTN (25/11/2026)
+
+Aula do coach, "CBet OOP co VS BU - ivan" (vídeo, `.srt` e `.txt` em Downloads, fora do repositório). Revisa o C-Bet OOP do CO contra o BTN, com MDA, um quiz de boards e a explicação do Split 25%. Entrou na seção "Atualização da aula de revisão" da guideline, nas Regras 19 a 21, na Decisão 11 e em `02-VideoAulas.md`. Os dados de MDA (field) só apoiam, não são regra.
+
 # Critério de Prioridade
 
 Em caso de conflito:

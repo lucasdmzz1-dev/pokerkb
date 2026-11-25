@@ -478,6 +478,129 @@ Range de Check:
 
 ---
 
+# Split do C-Bet OOP — mãos por linha (slides do coach)
+
+Fonte: três slides do coach ("Split do Cbet OOP" em duas partes e "Extra") e a nota "Cbet OOP CO vs BTN, 40bb deep" (registrados em 25/11/2026). Os slides tratam do Split Range. A nota traz o mesmo split e acrescenta o Split 25%. A nota escreve "BU", que no módulo é BTN.
+
+## Bet por valor
+
+- Metade das seguidas (sequências feitas).
+- Pior trinca.
+- Dois pares.
+- Primeiros overpairs acima do board.
+- Top pairs com BDFD e os offs com naipes do board.
+- Melhores PP (pockets pair) sobre o segundo par da mesa.
+- Second pairs com BDFD.
+
+## Bet por bluff
+
+- Duas pontas sem BDFD.
+- Brocas com BDFD.
+- Duas pontas ou brocas da parte off que bloqueia o flush draw.
+- Mãos com BDFD + BDST que façam foldar mãos melhores.
+
+## Check-raise por valor
+
+- Seguida (a outra metade), middle set, melhores overpairs e os 2 melhores top pairs.
+
+## Check-raise por bluff
+
+- Flush draws, draws com BDFD e mãos com uma high card mais BDFD + BDST.
+
+## Check-call
+
+- Top set, todos os pares, mãos com valor de showdown e draws diretos.
+
+## Extra
+
+- Em boards monotones, o bluff OOP é aleatório, com frequência baixa e size small.
+- Em boards carregados, apostamos todos os overpairs em frequência de flop.
+- Em boards carregados, o check-raise não tem a parte polar.
+- EP contra EP: check range no board low.
+
+## Frequência de bet por board (CO contra BTN)
+
+- Maiores frequências de bet: 9 high e A high seco.
+- Menores frequências de bet: monotone e high card.
+- A tabela de textura, size e split da nota é a mesma que já está neste guideline para o CO.
+
+## Split 25%, na nota
+
+- 25% dos top pairs: a parte off com o naipe do flush draw, a parte suited com BDFD e, em board rainbow, os sem o naipe do board.
+- Duas pontas e brocas: usar com o naipe do board e usar o primeiro naipe do board para o check-raise.
+- Mãos com uma overcard, BDFD e BDST.
+
+---
+
+# Atualização da aula de revisão CO contra BTN (25/11/2026)
+
+Fonte: aula de revisão do C-Bet OOP, CO contra BTN, com o coach (vídeo "CBet OOP co VS BU - ivan", transcrição de 25/11/2026). O coach diz que o que mudou nesta revisão foi principalmente a parte dos **conectados consecutivos**. O resto é a mesma estratégia, explicada de novo.
+
+## Boards em check range
+
+- **Monotone** e **conectados consecutivos** (987, 765, 654, T98 e parecidos): check range. Nos consecutivos, a frequência de bet do solver é baixa (cerca de 5%, com exceções de até 20%, como o 987).
+- A razão: o range de abertura quase não interage com esses boards, e eles mudam muito de nuts. Interação é a do range inteiro, não de uma mão isolada.
+- **Q-J-T** (três broadways seguidos) segue o BBX, não o check range.
+- No EP, os lows conectados também são exceção de check range (o coach cita o 765).
+- Quanto mais alto o consecutivo, mais interação: o 987 aposta mais que o 543.
+
+## Estratégia por board, CO contra BTN (os seis números do quiz)
+
+| Board | Estratégia |
+|---|---|
+| Monotone | Check range |
+| Low sem seguida | B70 split range |
+| A high seco | B25 split range |
+| A high conectado | B40 split 25% |
+| J-T high | B70 split 25% |
+| K-Q high e BBX | B40 split 25% |
+| High com seguida | B40 split 25% |
+| Dobrado (JJ9, por exemplo) | B40 split range |
+| Consecutivo (987, 765, 654, T98) | Check range |
+
+- O board low é o único em que o CO usa as mesmas propriedades do EP (split range e size de EP). O A high mais seco também. Todo o resto vai para o Split 25%.
+- No CO contra BTN nunca existe range bet, nem em BBX.
+- A frequência global de bet do CO contra BTN fica perto de 25%. No split padrão as mãos vão perto de 50% e 50%, e no Split 25% as mãos vão perto de 25%.
+
+## Por que a frequência é menor no CO
+
+- O range de abertura é amplo, com muita mão fraca (Q4s, K3s, T7s), que erra o flop. Interage pouco, então checa mais.
+- OOP é preciso ter equity para pôr dinheiro. Com muita mão fraca apostando no flop, falta mão para fazer barrel e sobra check-fold no turn.
+- Com poucas mãos fortes no check, o bet do turn fica cheio de air e pobre de valor.
+
+## Split 25%: como as mãos se distribuem
+
+- **Overpair:** o primeiro overpair aposta, o melhor (AA) vai de check-raise, e o do meio fica no meio-termo, sem definição. É a única mão em frequência alta.
+- **Top pair:** a maior parte vai de check. Aposta a parte que fica na frequência de 25%: em board rainbow, os que não têm o naipe do board, e em board com flush draw, a parte off com o naipe do flush draw. Os melhores top pairs sem essa condição (AJ no J-high, por exemplo) vão de check-raise por valor.
+- **Second pair e third pair:** nunca apostam. Dão check-call. Pares de bolso baixos também (55, 44, 33 no J-6-2).
+- **Trincas:** a pior aposta, a do meio dá check-raise, o top set dá check-call.
+- **Valor de showdown (AK, AQ no J-high):** check-call. Se virar blank, vira bluff no turn.
+- **Mãos sem valor de showdown e sem equity:** check-fold. Exemplos: A6o, Q7s de ouro no J-6-2. Mão solta precisa de conectividade, e em board seco os dois critérios juntos (BDFD e BDST) para apostar.
+- **Draws diretos e brocas:** usar o naipe do board. Check-raise com o primeiro naipe do board. As outras mãos dividem entre bet e check-call. A parte off do check-raise usa o blocker do flush draw (a carta do naipe do flush draw), porque retém mais equity e toma menos raise.
+- **Mãos com BDFD e BDST:** apostam. Com a carta do primeiro naipe do board, vão de check-raise (A5 de espadas no J-6-2). Os outros naipes apostam.
+
+## Check-raise
+
+- Quanto mais seco o board, mais polar (blefe) pode ser o check-raise. Em board seco (J-6-2), A5 com backdoors é um bom check-raise.
+- Quanto mais carregado o board, mais equity o check-raise precisa ter, e ele não tem a parte polar.
+- Em board carregado (J-9-8), os overpairs apostam: não se quer pôr dinheiro no pote com um par só.
+
+## Flush draws com board de flush draw (split padrão)
+
+- **Nut flush draw com valor de showdown** (AQ de copas): check-call.
+- **Flush draws que não são os melhores** (K8, Q9, Q7, K7 de copas): apostam, porque não colorem mãos piores e fazem foldar mãos melhores.
+- **Flush draws de ás e combo draws** (A5 de copas com backdoor de sequência, T9 de copas): check-raise.
+
+## Pares de bolso acima do segundo par (exemplo da aula)
+
+O coach cita 10-10 e 9-9 no check-call e 8-8 e 7-7 no bet, pela necessidade de proteção. Este exemplo diverge do esclarecimento do autor (os 2 melhores apostam), que o autor confirmou de novo e que vale (Pendência 19, resolvida).
+
+## Seguidas
+
+Os slides põem metade das seguidas no bet por valor e a outra metade no check-raise. A aula não define qual metade.
+
+---
+
 # Second Barrel OOP
 
 Fonte: guideline do instrutor (ainda sem aula).

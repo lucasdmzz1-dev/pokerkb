@@ -17,6 +17,7 @@ export type TexturaOop =
   | "highSeguida"
   | "lowSeguida"
   | "lowSemSeguida"
+  | "consecutivo"
   | "monotone"
 
 type Size = "B25" | "B40" | "B70"
@@ -24,8 +25,8 @@ type Size = "B25" | "B40" | "B70"
 interface Jogada {
   estrategia: EstrategiaOop
   size?: Size
-  // Quantos dos melhores top pairs (por kicker) da metade que não aposta vão de check-raise.
-  xrTopPair?: number
+  // Board carregado (com sequência): todos os overpairs apostam, sem check-raise de valor.
+  overpairsBet?: boolean
 }
 
 export interface Textura {
@@ -46,15 +47,15 @@ export const TEXTURAS: Record<TexturaOop, Textura> = {
     nome: "A HIGH seco",
     rainbow: ["As", "7d", "2c"],
     doisNaipes: ["Ah", "7h", "2c"],
-    EP: { estrategia: "split", size: "B25", xrTopPair: 2 },
-    CO: { estrategia: "split", size: "B25", xrTopPair: 2 },
+    EP: { estrategia: "split", size: "B25" },
+    CO: { estrategia: "split", size: "B25" },
   },
   ahighConectado: {
     nome: "A HIGH conectado",
     rainbow: ["As", "Jd", "Tc"],
     doisNaipes: ["Ah", "Jh", "Tc"],
-    EP: { estrategia: "split", size: "B40" },
-    CO: { estrategia: "split25", size: "B40" },
+    EP: { estrategia: "split", size: "B40", overpairsBet: true },
+    CO: { estrategia: "split25", size: "B40", overpairsBet: true },
   },
   bbx: {
     nome: "BBX",
@@ -94,16 +95,28 @@ export const TEXTURAS: Record<TexturaOop, Textura> = {
     nome: "High com sequência",
     rainbow: ["Qs", "Td", "9c"],
     doisNaipes: ["Qh", "Th", "9c"],
-    EP: { estrategia: "split", size: "B40" },
-    CO: { estrategia: "split25", size: "B40" },
+    EP: { estrategia: "split", size: "B40", overpairsBet: true },
+    CO: { estrategia: "split25", size: "B40", overpairsBet: true },
   },
   lowSeguida: {
     nome: "Low com sequência",
     rainbow: ["7s", "6d", "4c"],
     doisNaipes: ["7h", "6h", "4c"],
-    outros: [{ rainbow: ["7s", "6d", "5c"], doisNaipes: ["7h", "6h", "5c"] }],
-    EP: { estrategia: "split", size: "B70" },
-    CO: { estrategia: "split", size: "B40" },
+    EP: { estrategia: "split", size: "B70", overpairsBet: true },
+    CO: { estrategia: "split", size: "B40", overpairsBet: true },
+  },
+  // Conectados consecutivos (987, 765, 654, T98): check range no EP e no CO, junto com o monotone.
+  consecutivo: {
+    nome: "Conectado consecutivo",
+    rainbow: ["9s", "8d", "7c"],
+    doisNaipes: ["9h", "8h", "7c"],
+    outros: [
+      { rainbow: ["Ts", "9d", "8c"], doisNaipes: ["Th", "9h", "8c"] },
+      { rainbow: ["7s", "6d", "5c"], doisNaipes: ["7h", "6h", "5c"] },
+      { rainbow: ["6s", "5d", "4c"], doisNaipes: ["6h", "5h", "4c"] },
+    ],
+    EP: { estrategia: "check" },
+    CO: { estrategia: "check" },
   },
   lowSemSeguida: {
     nome: "Low sem sequência",
@@ -305,6 +318,39 @@ function rotuloGeral(L: Leitura): string {
   return nomes[L.feita]
 }
 
+// Os 2 melhores top pairs, pelo kicker (AK e AQ no A high seco), vão de check-raise por valor
+// em todo board com split. O kicker não pode ser carta do board.
+function melhorTopPair(board: string[], hero: string[]): boolean {
+  const br = board.map(rk)
+  const par = hero.map(rk).find((x) => br.includes(x))
+  const kicker = hero.map(rk).find((x) => x !== par)
+  const melhores: number[] = []
+  for (let r = 14; r >= 2 && melhores.length < 2; r--)
+    if (r !== par && !br.includes(r)) melhores.push(r)
+  return kicker !== undefined && melhores.includes(kicker)
+}
+
+const XR_TOP_PAIR: Decisao = {
+  acao: "Check-raise",
+  classe: "Melhor top pair",
+  porque:
+    "Os 2 melhores top pairs, pelo kicker, vão de check-raise por valor em todo board com split.",
+}
+
+// Draws com BDFD vão de check-raise por bluff. Os outros draws diretos (duas pontas) dão
+// check-call (notas do coach: XR bluff "draws com BDFD", XC "draws diretos").
+const XR_DRAW_BDFD: Decisao = {
+  acao: "Check-raise",
+  classe: "Draw com backdoor flush draw",
+  porque: "Os draws com backdoor flush draw são bluff de check-raise do range.",
+}
+
+const XC_DRAW_DIRETO: Decisao = {
+  acao: "Check-call",
+  classe: "Duas pontas (draw direto)",
+  porque: "Os draws diretos que não apostam nem dão check-raise ficam no check-call.",
+}
+
 export function decidir(
   jogada: Jogada,
   board: string[],
@@ -315,13 +361,18 @@ export function decidir(
   const size = jogada.size
   const est = jogada.estrategia
 
-  // Monotone do CO: check range, e só as mãos com par fecham a regra.
+  // Check range (monotone do CO e conectados consecutivos): só as mãos com par fecham a regra.
   if (est === "check") {
+    const mono = new Set(board.map((c) => c[1])).size === 1
     if (["topPair", "secondPair", "thirdPair", "underpair"].includes(L.feita))
       return {
         acao: "Check-call",
-        classe: rotuloGeral(L) + " no board monotone",
-        porque: "No monotone, de CO contra o BTN, o range inteiro dá check.",
+        classe:
+          rotuloGeral(L) +
+          (mono ? " no board monotone" : " no board consecutivo"),
+        porque: mono
+          ? "No monotone, de CO contra o BTN, o range inteiro dá check."
+          : "Em board conectado consecutivo (987, 765, 654, T98) o range inteiro dá check.",
       }
     return null
   }
@@ -339,7 +390,14 @@ export function decidir(
   const pares = ["topPair", "secondPair", "thirdPair", "underpair"]
   if (pares.includes(L.feita) && (L.oesd || L.gutshot || L.flushDraw))
     return null
-  if (L.flushDraw && (L.oesd || L.gutshot)) return null
+  // Combo draw (flush draw com duas pontas) vai de check-raise por bluff (aula de 25/11/2026).
+  if (L.flushDraw && L.oesd)
+    return {
+      acao: "Check-raise",
+      classe: "Combo draw",
+      porque: "Os combo draws (flush draw com duas pontas) vão de check-raise.",
+    }
+  if (L.flushDraw && L.gutshot) return null
 
   // Mãos que valem igual nos dois splits.
   switch (L.feita) {
@@ -369,6 +427,13 @@ export function decidir(
         porque: "Dois pares apostam por valor.",
       }
     case "overpair":
+      if (jogada.overpairsBet)
+        return {
+          acao: ap(size),
+          classe: "Overpair em board carregado",
+          porque:
+            "Em board carregado (com sequência) todos os overpairs apostam: não se coloca dinheiro no pote com um par só.",
+        }
       if (L.overpairMelhor && !L.overpairPrimeiro)
         return {
           acao: "Check-raise",
@@ -424,13 +489,34 @@ export function decidir(
     }
     if (!L.nutFlushDraw && hero.map(rk).every((x) => x !== 14))
       return {
-        acao: "Check-raise",
-        classe: "Flush draw",
-        porque: "Os flush draws são o bluff de check-raise do range.",
+        acao: ap(size),
+        classe: "Flush draw sem ás",
+        porque:
+          "Os flush draws que não são de ás apostam: não colorem mãos piores e fazem foldar mãos melhores.",
       }
     return null
   }
   if (L.flushDraw) return null
+
+  // No split range, os 2 melhores pares de bolso acima do segundo par do board apostam
+  // por valor (slides do coach: "melhores PP sobre o segundo par").
+  if (
+    est === "split" &&
+    hero[0][0] === hero[1][0] &&
+    L.feita === "secondPair"
+  ) {
+    const br = board.map(rk).sort((a, b) => b - a)
+    const melhores: number[] = []
+    for (let r = br[0] - 1; r > br[1] && melhores.length < 2; r--)
+      melhores.push(r)
+    if (melhores.includes(rk(hero[0])))
+      return {
+        acao: ap(size),
+        classe: "Melhor par de bolso sobre o segundo par",
+        porque:
+          "No split range os 2 melhores pares de bolso acima do segundo par do board apostam por valor.",
+      }
+  }
 
   // Par de bolso abaixo do top pair fica no check-call, sem olhar os naipes.
   if (
@@ -449,23 +535,9 @@ export function decidir(
     }
 
   if (est === "split") {
-    // Os melhores top pairs (kickers mais altos) da metade que não aposta vão de
-    // check-raise por valor, em vez de check-call.
-    if (L.feita === "topPair" && L.semNaipeBoard && jogada.xrTopPair) {
-      const br = board.map(rk)
-      const par = hero.map(rk).find((x) => br.includes(x))
-      const kicker = hero.map(rk).find((x) => x !== par)
-      const melhores: number[] = []
-      for (let r = 14; r >= 2 && melhores.length < jogada.xrTopPair; r--)
-        if (r !== par && !br.includes(r)) melhores.push(r)
-      if (kicker !== undefined && melhores.includes(kicker))
-        return {
-          acao: "Check-raise",
-          classe: "Melhor top pair sem naipe do board",
-          porque:
-            "Os melhores top pairs da metade que não aposta vão de check-raise por valor.",
-        }
-    }
+    // Os 2 melhores top pairs da metade que não aposta vão de check-raise por valor.
+    if (L.feita === "topPair" && L.semNaipeBoard && melhorTopPair(board, hero))
+      return XR_TOP_PAIR
     if (L.feita === "topPair" || L.feita === "secondPair") {
       const nome = L.feita === "topPair" ? "Top pair" : "Second pair"
       if (doisNaipes) {
@@ -522,15 +594,17 @@ export function decidir(
         classe: L.feita === "thirdPair" ? "Third pair" : "Underpair",
         porque: "Pares com valor de showdown ficam no check-call.",
       }
-    if (L.oesd)
-      return L.semNaipeBoard
-        ? {
-            acao: ap(size),
-            classe: "Duas pontas sem naipe do board",
-            porque:
-              "No split range as duas pontas sem o naipe do board apostam como bluff.",
-          }
-        : null
+    if (L.oesd) {
+      if (L.semNaipeBoard)
+        return {
+          acao: ap(size),
+          classe: "Duas pontas sem naipe do board",
+          porque:
+            "No split range as duas pontas sem o naipe do board apostam como bluff.",
+        }
+      if (L.bdfd) return XR_DRAW_BDFD
+      return XC_DRAW_DIRETO
+    }
     if (L.gutshot) {
       if (doisNaipes && L.temNaipeFD)
         return {
@@ -539,6 +613,7 @@ export function decidir(
           porque:
             "No split range a broca com o naipe do board aposta como bluff.",
         }
+      if (L.bdfd) return XR_DRAW_BDFD
       return null
     }
     if (L.feita === "nada" && L.bdfd && L.overcards === 1)
@@ -567,6 +642,7 @@ export function decidir(
           porque:
             "No split 25% o top pair suited com backdoor flush draw está entre os que apostam.",
         }
+      if (melhorTopPair(board, hero)) return XR_TOP_PAIR
       return {
         acao: "Check-call",
         classe: "Top pair",
@@ -588,6 +664,7 @@ export function decidir(
         porque:
           "No split 25% o top pair suited com backdoor flush draw está entre os que apostam.",
       }
+    if (melhorTopPair(board, hero)) return XR_TOP_PAIR
     return {
       acao: "Check-call",
       classe: "Top pair",
@@ -623,6 +700,8 @@ export function decidir(
       classe: "Broca com o naipe do board",
       porque: "No split 25% a broca com o naipe do board vai de check-raise.",
     }
+  if ((L.oesd || L.gutshot) && L.bdfd) return XR_DRAW_BDFD
+  if (L.oesd) return XC_DRAW_DIRETO
   if (L.feita === "nada" && L.bdfd && L.overcards === 1)
     return {
       acao: ap(size),
