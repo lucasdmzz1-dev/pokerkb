@@ -107,8 +107,9 @@ Caso esclarecido pelo dono em 12/11/2026: o flop já tem sequência em formaçã
 
 Não é um conflito com a tabela "sequência no turn" do guideline (B25 e B100): é um caso que o guideline não trata.
 
-**Falta saber (coach):** um board de exemplo desse caso e as mãos exatas (quais pares apostam, em que frequência o último e o quarto par blefam).
-**Status:** aberta. A prática não foi alterada, porque faltam board e mãos. A transcrição do áudio é automática e tem trechos truncados.
+**Board de exemplo (trainer, 26/11/2026):** 4♥ 5♦ 2♦ 3♣ 5♥ (mão 36). O turn 3♣ completa quatro cartas para a sequência, e o único size no river é o B40. Q♠2♣ (quarto ou quinto par) fica em check.
+**Falta saber (coach):** as mãos que apostam o B40 nesse board (quais pares apostam, em que frequência o último e o quarto par blefam).
+**Status:** aberta. A prática tem só a mão 36 (check). A transcrição do áudio é automática e tem trechos truncados.
 
 ---
 
@@ -116,4 +117,4 @@ Não é um conflito com a tabela "sequência no turn" do guideline (B25 e B100):
 
 O estudo guiado manda check, justificado por "third pair abaixo de kicker J fora dos melhores third pairs". Esse corte parecia equívoco, porque com o A e o K no board deixaria só o Q-J. No áudio do coach de 12/11/2026, ele diz que quando bate o ás (lido como "wise" na transcrição) no river é uma carta muito ruim e a estratégia tende a um bet muito alto ou check.
 
-**Status:** resolvida. O check se mantém, pelo motivo do áudio. A mão voltou ao treino. O ponto "ás" vem da transcrição automática, e o dono confirmou ser provável.
+**Status:** resolvida. O check se mantém. Vale também o motivo do estudo: o trainer (mão 39, 26/11/2026) confirma que os melhores third pairs têm kicker J ou maior e compõem o B25, então o T-Q fica fora. O motivo do áudio (ás no river) soma. A prática passou a usar a mesma regra em outras mãos (third pair com kicker A, K ou Q em J-6-T-3-5 e A-4 em J-Q-4-J-3 foram para B25). A mão voltou ao treino. O ponto "ás" vem da transcrição automática, e o dono confirmou ser provável.
