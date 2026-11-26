@@ -815,9 +815,8 @@ export function decidir(
   return d
 }
 
-// Uma overcard com BDFD. Em board seco só aposta com BDST também (aula de 25/11/2026: A5 de espadas
-// e T8 de espadas no J-6-2). O ás suited aposta sempre (A7 de ouro "já daria para apostar"). A
-// carta do primeiro naipe do board vai de check-raise (modelo das lacunas, itens 2 e 7).
+// Uma overcard com BDFD aposta (o dono corrigiu em 26/11/2026: não dá check-fold). Com BDST também
+// em board seco, a carta do primeiro naipe do board vai de check-raise (modelo das lacunas, item 7).
 function overcardBdfd(
   L: Leitura,
   jogada: Jogada,
@@ -825,14 +824,6 @@ function overcardBdfd(
   size: Size
 ): Decisao {
   const seco = !jogada.overpairsBet
-  const asSuited = L.kickerAlto === 14
-  if (seco && !L.bdst && !asSuited)
-    return {
-      acao: "Check-fold",
-      classe: "Uma overcard com BDFD sem BDST",
-      porque:
-        "Em board seco, a mão solta só aposta com backdoor flush draw e backdoor de sequência juntos (modelo, ainda sem validação do coach).",
-    }
   if (seco && L.bdst && !doisNaipes && L.naipeDaAlta)
     return {
       acao: "Check-raise",
