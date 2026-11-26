@@ -342,7 +342,7 @@ const extras: Base[] = [
     hero: ["Td", "Tc"],
     certa: "B70",
     classe: "Second pair",
-    porque: "par de bolso acima do 8 é second pair, e é valor no B70.",
+    porque: "pocket pair acima do 8 é second pair, e é valor no B70.",
   },
   {
     id: "n04",
@@ -433,7 +433,7 @@ const extras: Base[] = [
     hero: ["Qs", "Qd"],
     certa: "B70",
     classe: "Second pair",
-    porque: "par de bolso entre o A e o J é second pair, e é valor no B70.",
+    porque: "pocket pair entre o A e o J é second pair, e é valor no B70.",
   },
   {
     id: "n14",

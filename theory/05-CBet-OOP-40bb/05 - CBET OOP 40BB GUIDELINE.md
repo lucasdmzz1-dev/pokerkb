@@ -489,7 +489,7 @@ Fonte: três slides do coach ("Split do Cbet OOP" em duas partes e "Extra") e a 
 - Dois pares.
 - Primeiros overpairs acima do board.
 - Top pairs com BDFD e os offs com naipes do board.
-- Melhores PP (pockets pair) sobre o segundo par da mesa.
+- Melhores PP (pocket pairs) sobre o segundo par da mesa.
 - Second pairs com BDFD.
 
 ## Bet por bluff
@@ -572,7 +572,7 @@ Fonte: aula de revisão do C-Bet OOP, CO contra BTN, com o coach (vídeo "CBet O
 
 - **Overpair:** o primeiro overpair aposta, o melhor (AA) vai de check-raise, e o do meio fica no meio-termo, sem definição. É a única mão em frequência alta.
 - **Top pair:** a maior parte vai de check. Aposta a parte que fica na frequência de 25%: em board rainbow, os que não têm o naipe do board, e em board com flush draw, a parte off com o naipe do flush draw. Os melhores top pairs sem essa condição (AJ no J-high, por exemplo) vão de check-raise por valor.
-- **Second pair e third pair:** nunca apostam. Dão check-call. Pares de bolso baixos também (55, 44, 33 no J-6-2).
+- **Second pair e third pair:** nunca apostam. Dão check-call. Pocket pairs baixos também (55, 44, 33 no J-6-2).
 - **Trincas:** a pior aposta, a do meio dá check-raise, o top set dá check-call.
 - **Valor de showdown (AK, AQ no J-high):** check-call. Se virar blank, vira bluff no turn.
 - **Mãos sem valor de showdown e sem equity:** check-fold. Exemplos: A6o, Q7s de ouro no J-6-2. Mão solta precisa de conectividade, e em board seco os dois critérios juntos (BDFD e BDST) para apostar.
@@ -591,7 +591,7 @@ Fonte: aula de revisão do C-Bet OOP, CO contra BTN, com o coach (vídeo "CBet O
 - **Flush draws que não são os melhores** (K8, Q9, Q7, K7 de copas): apostam, porque não colorem mãos piores e fazem foldar mãos melhores.
 - **Flush draws de ás e combo draws** (A5 de copas com backdoor de sequência, T9 de copas): check-raise.
 
-## Pares de bolso acima do segundo par (exemplo da aula)
+## Pocket pairs acima do segundo par (exemplo da aula)
 
 O coach cita 10-10 e 9-9 no check-call e 8-8 e 7-7 no bet, pela necessidade de proteção. Este exemplo diverge do esclarecimento do autor (os 2 melhores apostam), que o autor confirmou de novo e que vale (Pendência 19, resolvida).
 

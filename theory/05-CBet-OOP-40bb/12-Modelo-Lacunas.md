@@ -155,7 +155,7 @@ tags:
 - *(modelo)* Classificar a mão pelas duas ranks distintas do board. Para o J-J-9, a rank alta é a do par (J) e a baixa é o 9. Top pair é par com o 9 ou o J do board (trinca com o J). Dois pares é J e 9 (full house).
 - *(modelo)* A trinca (uma carta da rank do par) é mão de valor e entra como o top set do split. O resto segue as linhas do split range.
 
-**Para a Prática.** Textura nova `dobrado` com boards como J-J-9 e Q-Q-7. `ler()` precisa tratar o board com carta repetida (hoje conta o set como par de bolso).
+**Para a Prática.** Textura nova `dobrado` com boards como J-J-9 e Q-Q-7. `ler()` precisa tratar o board com carta repetida (hoje conta o set como pocket pair).
 
 **Confirmar.** Todo o mapeamento de mãos no dobrado. É o item com menos fonte, e o coach ainda não detalhou.
 
@@ -179,9 +179,9 @@ tags:
 
 ---
 
-# 10. Split 25%: pares de bolso (Pendência 15, item 1)
+# 10. Split 25%: pocket pairs (Pendência 15, item 1)
 
-**Problema.** Os 2 melhores pockets pair acima do segundo par apostam no Split Range. No Split 25% a Prática os mantém no check-call, porque a nota não traz esse caso.
+**Problema.** Os 2 melhores pocket pairs acima do segundo par apostam no Split Range. No Split 25% a Prática os mantém no check-call, porque a nota não traz esse caso.
 
 **Fontes.** A aula: no Split 25%, a frequência de bet das mãos de valor médio é muito baixa e o second pair nunca aposta. O autor: os 2 melhores apostam (Split Range).
 
@@ -189,7 +189,7 @@ tags:
 
 - *(modelo)* No Split 25%, o melhor pocket pair acima do segundo par (1 só) aposta, e os demais dão check-call. É o mesmo critério do Split Range com a metade da frequência.
 
-**Para a Prática.** No bloco dos pares de bolso, aceitar `split25` e limitar a 1 par.
+**Para a Prática.** No bloco dos pocket pairs, aceitar `split25` e limitar a 1 par.
 
 **Confirmar.** Se o Split 25% tem 1 par, 2 pares ou nenhum.
 
@@ -216,7 +216,7 @@ As linhas abaixo juntam as regras validadas (sem marca) e o modelo (*modelo*). �
 | Second pair com BDFD | Bet | Check-call |
 | Second pair, outros | Check-call *(modelo)* | Check-call |
 | 2 melhores PP acima do segundo par | Bet | 1 PP bet, o resto check-call *(modelo)* |
-| Demais pares de bolso | Check-call | Check-call |
+| Demais pocket pairs | Check-call | Check-call |
 | Third pair | Check-call | Check-call |
 | Par com draw | Linha do par *(modelo)* | Linha do par *(modelo)* |
 | Flush draw sem ás | Bet | Bet |

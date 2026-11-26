@@ -281,9 +281,9 @@ Exemplo: J♠ 8♦ 3♣, EP contra BTN (Split Range, B40). A♥A♣ dá check-ra
 
 - **Bet** por valor.
 
-## Par de bolso abaixo do top pair
+## Pocket pair abaixo do top pair
 
-- Second pair, third pair e underpair de par de bolso: **check-call**, sem olhar os naipes (Decisão 7).
+- Second pair, third pair e underpair de pocket pair: **check-call**, sem olhar os naipes (Decisão 7).
 
 ## Fora das regras (sem jogada definida)
 
@@ -307,9 +307,9 @@ Exemplo: A♥ 7♥ 2♣, EP ou CO contra BTN. A♠Q♦ não tem naipe do board e
 
 Fonte: slides do coach, 25/11/2026. Vale para o Split Range e, com as frequências menores, para o Split 25%.
 
-**Bet por valor:** metade das seguidas, pior trinca, dois pares, primeiros overpairs, top pairs com BDFD e offs com naipes do board, os melhores PP (pockets pair) sobre o segundo par da mesa, second pairs com BDFD.
+**Bet por valor:** metade das seguidas, pior trinca, dois pares, primeiros overpairs, top pairs com BDFD e offs com naipes do board, os melhores PP (pocket pairs) sobre o segundo par da mesa, second pairs com BDFD.
 
-PP = pockets pair, esclarecido pelo autor em 25/11/2026. São os pockets pair acima do segundo par do board (por exemplo, entre o K e o 8 no K-8-4). Os 2 melhores deles apostam por valor (esclarecimento do autor, 25/11/2026), e os demais seguem no check-call. Exemplo: no K-8-4, QQ e JJ apostam, e TT e 99 dão check-call. Na Prática isso vale no Split Range, nas duas posições. No Split 25% os pares de bolso seguem no check-call até o autor confirmar (Pendência 15).
+PP = pocket pairs, esclarecido pelo autor em 25/11/2026. São os pocket pairs acima do segundo par do board (por exemplo, entre o K e o 8 no K-8-4). Os 2 melhores deles apostam por valor (esclarecimento do autor, 25/11/2026), e os demais seguem no check-call. Exemplo: no K-8-4, QQ e JJ apostam, e TT e 99 dão check-call. Na Prática isso vale no Split Range, nas duas posições. No Split 25% os pocket pairs seguem no check-call até o autor confirmar (Pendência 15).
 
 **Bet por bluff:** duas pontas sem BDFD, brocas com BDFD, duas pontas ou brocas da parte off que bloqueia o flush draw, e mãos com BDFD + BDST que façam foldar mãos melhores.
 

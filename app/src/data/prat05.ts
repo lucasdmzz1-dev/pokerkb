@@ -243,7 +243,7 @@ export function ler(board: string[], hero: string[]): Leitura {
   for (const c of hero) sc[su(c)] = (sc[su(c)] ?? 0) + 1
   if (Object.values(sc).some((n) => n >= 5)) feita = "flush"
   if (feita === "nada" && dobrado) {
-    // Board dobrado: uma carta do par é trinca, e o par de bolso do kicker ou J9 é full house.
+    // Board dobrado: uma carta do par é trinca, e o pocket pair do kicker ou J9 é full house.
     if (hr.includes(par) && hr.includes(kick)) feita = "doisPares"
     else if (hr.includes(par)) feita = "setAlto"
     else if (pocket && h1 === kick) feita = "doisPares"
@@ -256,7 +256,7 @@ export function ler(board: string[], hero: string[]): Leitura {
     } else if (!pocket && br.includes(h1) && br.includes(h2)) {
       feita = "doisPares"
     } else if (pocket) {
-      // Par de bolso: overpair acima do board; segundo par entre a primeira e a segunda
+      // Pocket pair: overpair acima do board; segundo par entre a primeira e a segunda
       // carta; terceiro par entre a segunda e a terceira; underpair abaixo de todas.
       feita =
         h1 > br[0]
@@ -570,7 +570,7 @@ function decidirRegras(
     return null
   }
 
-  // No split range, os 2 melhores pares de bolso acima do segundo par do board apostam
+  // No split range, os 2 melhores pocket pairs acima do segundo par do board apostam
   // por valor (slides do coach: "melhores PP sobre o segundo par").
   if (
     est === "split" &&
@@ -584,13 +584,13 @@ function decidirRegras(
     if (melhores.includes(rk(hero[0])))
       return {
         acao: ap(size),
-        classe: "Melhor par de bolso sobre o segundo par",
+        classe: "Melhor pocket pair sobre o segundo par",
         porque:
-          "No split range os 2 melhores pares de bolso acima do segundo par do board apostam por valor.",
+          "No split range os 2 melhores pocket pairs acima do segundo par do board apostam por valor.",
       }
   }
 
-  // Par de bolso abaixo do top pair fica no check-call, sem olhar os naipes.
+  // Pocket pair abaixo do top pair fica no check-call, sem olhar os naipes.
   if (
     hero[0][0] === hero[1][0] &&
     ["secondPair", "thirdPair", "underpair"].includes(L.feita)
@@ -599,9 +599,9 @@ function decidirRegras(
       acao: "Check-call",
       classe:
         L.feita === "secondPair"
-          ? "Second pair (par de bolso)"
+          ? "Second pair (pocket pair)"
           : L.feita === "thirdPair"
-            ? "Third pair (par de bolso)"
+            ? "Third pair (pocket pair)"
             : "Underpair",
       porque: "Pares com valor de showdown ficam no check-call.",
     }
