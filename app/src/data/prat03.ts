@@ -347,7 +347,7 @@ export const situacoesBarrel: SituacaoBarrel[] = [
     pos: "CO",
     hero: ["8h", "8d"],
     certa: "Check",
-    classe: "Par de bolso com showdown",
+    classe: "Pocket pair com showdown",
     porque: "tem valor de showdown e ganha vezes o suficiente dando check.",
   },
   {
@@ -356,7 +356,7 @@ export const situacoesBarrel: SituacaoBarrel[] = [
     pos: "HJ",
     hero: ["4h", "4d"],
     certa: "Check",
-    classe: "Par de bolso com showdown",
+    classe: "Pocket pair com showdown",
     porque: "tem valor de showdown e ganha vezes o suficiente dando check.",
   },
 
