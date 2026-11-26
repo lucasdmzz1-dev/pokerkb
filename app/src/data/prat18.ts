@@ -1091,6 +1091,156 @@ const coach18: SituacaoRiver[] = [
     "Par abaixo da faixa de valor",
     PAR_ABAIXO
   ),
+  // Mãos 26 a 50 do trainer (BB XC-XX-B, as que o dono mandou em 26/11/2026). Os naipes
+  // foram lidos pela cor das cartas nos prints.
+  coach(
+    "t26-trinca-board",
+    "Dobra",
+    ["2s", "6s", "6h", "6c", "Tc"],
+    ["3d", "Js"],
+    "B100",
+    "Trinca do board com kicker J",
+    "trinca ou melhor usa B100. A trinca de 6 está no board e você joga com o J de kicker."
+  ),
+  coach(
+    "t27-dois-pares-flush",
+    "Flush",
+    ["3h", "7h", "Ad", "Kh", "8s"],
+    ["7s", "3s"],
+    "B100",
+    "Dois pares reais",
+    "correção final do professor: top pairs ou melhor pertencem ao valor de size alto, e dois pares reais usam B100."
+  ),
+  coach(
+    "t28-sequencia-dobra",
+    "Flush",
+    ["2d", "3d", "6d", "Ks", "2h"],
+    ["4d", "5s"],
+    "B100",
+    "Sequência em board dobrado",
+    "trinca ou melhor usa B100, com a reserva de check-raise. A melhor sequência possível aposta 50% e dá check 50%, para buscar o check-raise se o vilão apostar.",
+    { ate: 50, acao: "B100", senao: "CHECK" }
+  ),
+  coach(
+    "t30-k-high-ases",
+    "Flush",
+    ["Ac", "Qc", "Tc", "As", "9h"],
+    ["7d", "Ks"],
+    "CHECK",
+    "K high com A no board",
+    "A high, K high com A no board e Q high com A e K no board só blefam na exceção: flush e sequência juntos, ou quatro cartas para sequência. Fora disso, check."
+  ),
+  coach(
+    "t31-j-high",
+    "High card no river",
+    ["5c", "2d", "3d", "2s", "Kh"],
+    ["9d", "Jh"],
+    "B70",
+    "Bluff sem par",
+    "J high ou Q high sem par blefa no size alto, que aqui é B70."
+  ),
+  coach(
+    "t32-par-baixo",
+    "High card no river",
+    ["2d", "6s", "7h", "Th", "Qd"],
+    ["2s", "5d"],
+    "CHECK",
+    "Par abaixo da faixa de valor",
+    PAR_ABAIXO
+  ),
+  coach(
+    "t33-flush-q",
+    "Flush",
+    ["5c", "5d", "2c", "Jc", "Th"],
+    ["Qc", "4c"],
+    "B100",
+    "Flush com a dama do naipe",
+    "os melhores flushes, com carta própria A, K ou Q do naipe, apostam 50% B100 e dão check 50%, para buscar o check-raise se o vilão apostar.",
+    { ate: 50, acao: "B100", senao: "CHECK" }
+  ),
+  coach(
+    "t34-sequencia",
+    "Sequência",
+    ["7c", "8s", "Tc", "5s", "6d"],
+    ["9h", "8d"],
+    "B100",
+    "Sequência com quatro cartas abertas, sem flush",
+    "sequência para cima ou mão superior: 50% B100 e 50% B40. Sem check nesse split.",
+    { ate: 50, acao: "B100", senao: "B40" }
+  ),
+  coach(
+    "t35-flush-air",
+    "Flush",
+    ["Tc", "7s", "3c", "Ac", "6c"],
+    ["9d", "Js"],
+    "B25",
+    "Air sem blocker",
+    "river de flush: sem blocker para apostar alto, os outros blefes elegíveis usam o size baixo, B25. Não exigir blocker para o blefe baixo."
+  ),
+  coach(
+    "t36-sequencia-par",
+    "Sequência",
+    ["4h", "5d", "2d", "3c", "5h"],
+    ["Qs", "2c"],
+    "CHECK",
+    "Fora do ranking da sequência",
+    "a sequência ficou possível no turn e o B40 é o único size no river. Quarto ou quinto par e as demais mãos fora do ranking ficam em check."
+  ),
+  coach(
+    "t37-flush-par",
+    "Flush",
+    ["4d", "Qd", "Ad", "8d", "3c"],
+    ["3h", "5c"],
+    "CHECK",
+    "Um par",
+    FLUSH_UM_PAR
+  ),
+  coach(
+    "t39-third-pair",
+    "Blank",
+    ["Td", "Tc", "Ks", "9c", "4h"],
+    ["9s", "Qs"],
+    "B25",
+    "Third pair",
+    "os melhores third pairs têm kicker J ou maior e compõem o B25, sem completar draws do board."
+  ),
+  coach(
+    "t41-flush-k",
+    "Flush",
+    ["8c", "7c", "3c", "5c", "Qs"],
+    ["8s", "Kc"],
+    "B100",
+    "Flush com o rei do naipe",
+    "os melhores flushes, com carta própria A, K ou Q do naipe, apostam 50% B100 e dão check 50%, para buscar o check-raise se o vilão apostar.",
+    { ate: 50, acao: "B100", senao: "CHECK" }
+  ),
+  coach(
+    "t42-top-pair-dobra",
+    "Dobra",
+    ["As", "5s", "5d", "Qs", "3h"],
+    ["Ah", "2d"],
+    "B25",
+    "Top pair na dobra",
+    "dobra simples no board: top pair ou overpair usa B25."
+  ),
+  coach(
+    "t45-top-pair-flush",
+    "Flush",
+    ["Tc", "7c", "Jh", "6c", "3h"],
+    ["Jc", "Qh"],
+    "B100",
+    "Top pair",
+    "top pair usa o size alto, B100, nesse board."
+  ),
+  coach(
+    "t50-flush-air",
+    "Flush",
+    ["Tc", "7c", "8c", "8h", "7h"],
+    ["5h", "Jd"],
+    "B25",
+    "Air sem blocker",
+    "river de flush: sem blocker para apostar alto, os outros blefes elegíveis usam o size baixo, B25. Não exigir blocker para o blefe baixo."
+  ),
 ]
 
 export const situacoes18: SituacaoRiver[] = [
