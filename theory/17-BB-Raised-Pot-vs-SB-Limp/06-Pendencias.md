@@ -257,9 +257,9 @@ Fontes: resposta do coach no Discord (colada pelo autor do KB), nota do Yago no 
 
 **Status:** resolvida em parte. Dois pares no B70: o Yago diz que a prioridade, quando o size é muito alto, são as mãos fortes e vulneráveis nas próximas streets (dois pares, overpair e top pair forte), então dois pares vão em 75% (IMG1) e não em 50% (IMG2). No Q-6-3 e no 7-5-2 do IMG1, dois pares e overpair vão em 100%, e trinca, top pair e air em 75%. As outras divergências da lista continuam abertas.
 
-## Item 30 — Pares de bolso (novo)
+## Item 30 — Pocket pairs (novo)
 
-**Status:** resolvida (autor do KB). Underpair é o par de bolso abaixo do terceiro par, ou seja, abaixo da carta mais baixa do board. Par de bolso entre cartas do board conta como segundo ou terceiro par: no J-9-6, TT é segundo par, 77 é terceiro par e 55 é underpair. Overpair é acima de todas as cartas.
+**Status:** resolvida (autor do KB). Underpair é o pocket pair abaixo do terceiro par, ou seja, abaixo da carta mais baixa do board. Pocket pair entre cartas do board conta como segundo ou terceiro par: no J-9-6, TT é segundo par, 77 é terceiro par e 55 é underpair. Overpair é acima de todas as cartas.
 
 ## Item 31 — Boards com flush draw em B70 (novo)
 

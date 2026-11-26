@@ -106,9 +106,9 @@ Nos 10 boards do IMG1 valem os buckets do próprio board. Nos demais boards vale
 
 ---
 
-# Decisão 14 — Definição de pares de bolso (02/11/2026)
+# Decisão 14 — Definição de pocket pairs (02/11/2026)
 
-Underpair é o par de bolso abaixo do terceiro par. Par de bolso entre cartas do board conta como segundo ou terceiro par. A decisão vale também para os módulos 05 e 15.
+Underpair é o pocket pair abaixo do terceiro par. Pocket pair entre cartas do board conta como segundo ou terceiro par. A decisão vale também para os módulos 05 e 15.
 
 **Status:** definitiva (autor do KB).
 

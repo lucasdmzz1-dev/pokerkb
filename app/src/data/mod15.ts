@@ -155,7 +155,7 @@ export const mod15 = {
     "Thin value pede B25, e a falta dele pede B50.",
     "A pior trinca vai em 100% onde existe bucket de 100%.",
     "Segundo e terceiro par: ficam em 25% (e 50% nos boards secos).",
-    "Pares de bolso: acima de todas as cartas é overpair. No J-9-6, TT é segundo par, 77 é terceiro par e só 55 é underpair.",
+    "Pocket pairs: acima de todas as cartas é overpair. No J-9-6, TT é segundo par, 77 é terceiro par e só 55 é underpair.",
     "Draw no meio: o com backdoor aposta, o sem dá check.",
     "Naipe do board ou randomizador, sempre com a mão inteira.",
     "Turn e river: não se frequenciam, seguem o que você já faz.",

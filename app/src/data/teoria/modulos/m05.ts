@@ -265,7 +265,7 @@ const m05: ModuloTeoria = {
         "Split 25%: só uma parte menor aposta, com os naipes do flush draw.",
         "Nut flush draws: AK a AT dão check-call, A9 a A6 apostam, A5 a A2 dão check-raise.",
         "Turn: blank em B100 com os melhores top pairs. Turn dinâmico em B40.",
-        "Pares de bolso: acima de todas as cartas é overpair, entre as cartas é segundo ou terceiro par, abaixo de todas é underpair. Par de bolso abaixo do top pair dá check-call.",
+        "Pocket pairs: acima de todas as cartas é overpair, entre as cartas é segundo ou terceiro par, abaixo de todas é underpair. Pocket pair abaixo do top pair dá check-call.",
       ],
     },
   ],

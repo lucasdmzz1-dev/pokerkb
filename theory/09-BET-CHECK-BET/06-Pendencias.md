@@ -14,7 +14,7 @@ tags:
 - Adicionar frequências do solver.
 - Adicionar árvores completas.
 - Separar BTN e BB quando houver diferença.
-- Exercício 05 (8♥8♣ no 6♣ A♠ K♠ 2♦ A♦, river que dobra) aposta B70 por valor, mas o Guideline (Dinâmico Dobra de Carta, B70) só lista top pair e second pair como valor. O 88 não é nenhum dos dois. A explicação do exercício (valor relativo ao range que chega capado) não está escrita no Guideline. Confirmar com o coach se o value do B70 no river que dobra inclui pares de bolso abaixo do second pair e, se sim, ampliar o Guideline. Conflito registrado na leitura completa da teoria (MAIN CHAT TEORIA, 28/10/2026).
+- Exercício 05 (8♥8♣ no 6♣ A♠ K♠ 2♦ A♦, river que dobra) aposta B70 por valor, mas o Guideline (Dinâmico Dobra de Carta, B70) só lista top pair e second pair como valor. O 88 não é nenhum dos dois. A explicação do exercício (valor relativo ao range que chega capado) não está escrita no Guideline. Confirmar com o coach se o value do B70 no river que dobra inclui pocket pairs abaixo do second pair e, se sim, ampliar o Guideline. Conflito registrado na leitura completa da teoria (MAIN CHAT TEORIA, 28/10/2026).
 
 - Regras do professor de 03 e 04/11/2026 (trainer, mensagens do Yago e print do painel "Bet Check Bet") divergem do Guideline no B70 contra B100. Registrado em 16/11/2026, a partir da prática do site; o Guideline não foi alterado, e a decisão de ampliar é do MAIN CHAT TEORIA:
   - O size passa a depender do que o river mudou, e não só do tipo de mão. Blank usa B70. Carta alta nova, flush, sequência alta ou dobra usam B100 (o Guideline mandava low cards no B70 nos dinâmicos).
