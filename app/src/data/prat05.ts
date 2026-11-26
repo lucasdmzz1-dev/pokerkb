@@ -481,7 +481,7 @@ function decidirRegras(
           porque:
             "Em board carregado (com sequência) todos os overpairs apostam: não se coloca dinheiro no pote com um par só.",
         }
-      if (L.overpairMelhor && !L.overpairPrimeiro)
+      if (L.overpairMelhor)
         return {
           acao: "Check-raise",
           classe: "Melhor overpair",
