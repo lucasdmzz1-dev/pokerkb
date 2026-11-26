@@ -388,6 +388,14 @@ const XR_TOP_PAIR: Decisao = {
     "Os 2 melhores top pairs, pelo kicker, vão de check-raise por valor em todo board com split.",
 }
 
+// Broca com um naipe do board em board rainbow aposta como bluff (Regra 5; o dono corrigiu em
+// 26/11/2026: T9 no J-7-3 tem mérito para apostar).
+const BROCA_NAIPE_BOARD = (size: Size): Decisao => ({
+  acao: ap(size),
+  classe: "Broca com naipe do board",
+  porque: "A broca com um naipe do board aposta como bluff.",
+})
+
 // Draws com BDFD vão de check-raise por bluff. Os outros draws diretos (duas pontas) dão
 // check-call (notas do coach: XR bluff "draws com BDFD", XC "draws diretos").
 const XR_DRAW_BDFD: Decisao = {
@@ -678,6 +686,7 @@ function decidirRegras(
             "No split range a broca com o naipe do board aposta como bluff.",
         }
       if (L.bdfd) return XR_DRAW_BDFD
+      if (!doisNaipes && !L.semNaipeBoard) return BROCA_NAIPE_BOARD(size)
       return null
     }
     if (L.feita === "nada" && L.bdfd && L.overcards === 1)
@@ -761,6 +770,8 @@ function decidirRegras(
       porque: "No split 25% a broca com o naipe do board vai de check-raise.",
     }
   if ((L.oesd || L.gutshot) && L.bdfd) return XR_DRAW_BDFD
+  if (L.gutshot && !doisNaipes && !L.semNaipeBoard)
+    return BROCA_NAIPE_BOARD(size)
   if (L.oesd) return XC_DRAW_DIRETO
   if (L.feita === "nada" && L.bdfd && L.overcards === 1)
     return overcardBdfd(L, jogada, doisNaipes, size)
@@ -803,7 +814,7 @@ export function decidir(
     !L.flushDraw &&
     !L.oesd &&
     !L.bdfd &&
-    !(L.gutshot && L.temNaipeFD) &&
+    !(L.gutshot && !L.semNaipeBoard) &&
     L.overcards < 2
   )
     return {
