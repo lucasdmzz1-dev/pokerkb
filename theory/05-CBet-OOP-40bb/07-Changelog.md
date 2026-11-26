@@ -191,6 +191,18 @@ Fonte: pedido do autor para modelar o que falta, para a Prática implementar.
 
 ---
 
+# Versão 1.9 (26/11/2026)
+
+Prática aplicou parte do modelo das lacunas (`12-Modelo-Lacunas.md`), sem mudar nenhuma regra validada:
+
+- Seguidas: RNG de 1 a 50 check-raise e de 51 a 100 aposta, critério do autor (Decisão 10).
+- Check-fold: botão novo, para mão aberta sem par, sem draw e sem equity (itens 1 e 7 do modelo).
+- Itens 3, 4 e 6 do modelo: top pair e second pair fora da metade que aposta, overpair do meio e par com draw seguem a linha do par.
+- Item 9: consecutivos 8-7-6, 5-4-3 e 4-3-2 no check range.
+- Fora da Prática por ora: BDST (item 2), bluffs por linha (item 7), board dobrado (item 8) e pockets pair no Split 25% (item 10), por falta de fonte.
+
+---
+
 # Próximas atualizações
 
 Adicionar:

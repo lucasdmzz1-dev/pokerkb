@@ -148,7 +148,7 @@ Os slides do coach (Regras 16 a 18), a nota da aula "Cbet OOP 40bbs deep" e a Pr
 | Uma high card mais BDFD + BDST no check-raise por bluff | Na Prática, uma overcard com BDFD aposta (já corrigida pelo autor e pelo coach). A Prática não modela o BDST, então a diferença não dá para testar | Mantido |
 | Boards carregados: todos os overpairs apostam e o check-raise não tem bluff | A Prática segue a Regra 14 (melhor overpair de check-raise). O módulo não define quais texturas são "carregadas" | Mantido |
 | EP contra EP no board low: check range | Spot fora das relações do módulo. Fica como nota da aula | Não |
-| Seguidas: metade aposta, metade vai de check-raise | Nenhuma fonte diz qual metade | Não (única dúvida aberta, Pendência 15) |
+| Seguidas: metade aposta, metade vai de check-raise | Nenhuma fonte diz qual metade. O autor deixou a critério (26/11/2026) e usa RNG: de 1 a 50 check-raise, de 51 a 100 aposta | Sim: a Prática sorteia o RNG nas seguidas (Pendência 15) |
 | Tabela de size e frequência da aula (Gyazos) | Conflita com a guideline em A high seco, BBX no EP e monotone. Mantém a guideline e a Prática, e o conflito fica na Pendência 18 | Não |
 
 **Status:** provisória nas linhas marcadas como inferência. Definitiva nas demais.

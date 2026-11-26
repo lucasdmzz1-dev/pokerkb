@@ -220,7 +220,7 @@ Os slides (Regras 16 e 17) e a Prática não batem em alguns pontos. Nada foi so
 6. **Draws diretos no check-call:** o slide põe no check-call. A Prática deixa a maior parte dos draws sem regra.
 7. **"2 melhores top pairs" no XR por valor** vale para o split em geral. A Prática só tem isso no A high seco (Pendência 10).
 
-**Status:** resolvida em 25/11/2026, exceto as seguidas (item 2). A Decisão 10 diz como cada divergência foi conciliada. Nenhuma fonte diz qual metade das seguidas aposta e qual vai de check-raise, e a Prática segue sem regra para a sequência feita.
+**Status:** resolvida em 26/11/2026. A Decisão 10 diz como cada divergência foi conciliada. Seguidas (item 2): o coach deixa a critério, e o autor usa RNG (1 a 50 check-raise, 51 a 100 aposta). A Prática mostra o RNG nas seguidas.
 
 ---
 

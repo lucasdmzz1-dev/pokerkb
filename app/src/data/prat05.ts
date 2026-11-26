@@ -7,7 +7,8 @@ import { abre } from "@/data/ranges"
 
 export type Cenario = "EP" | "CO"
 export type EstrategiaOop = "range" | "split" | "split25" | "check"
-export type AcaoOop = "Check-call" | "Check-raise" | "B25" | "B40" | "B70"
+export type AcaoOop =
+  "Check-call" | "Check-raise" | "Check-fold" | "B25" | "B40" | "B70"
 export type TexturaOop =
   | "ahighSeco"
   | "ahighConectado"
@@ -114,6 +115,9 @@ export const TEXTURAS: Record<TexturaOop, Textura> = {
       { rainbow: ["Ts", "9d", "8c"], doisNaipes: ["Th", "9h", "8c"] },
       { rainbow: ["7s", "6d", "5c"], doisNaipes: ["7h", "6h", "5c"] },
       { rainbow: ["6s", "5d", "4c"], doisNaipes: ["6h", "5h", "4c"] },
+      { rainbow: ["8s", "7d", "6c"], doisNaipes: ["8h", "7h", "6c"] },
+      { rainbow: ["5s", "4d", "3c"], doisNaipes: ["5h", "4h", "3c"] },
+      { rainbow: ["4s", "3d", "2c"], doisNaipes: ["4h", "3h", "2c"] },
     ],
     EP: { estrategia: "check" },
     CO: { estrategia: "check" },
@@ -288,6 +292,8 @@ export interface Decisao {
   acao: AcaoOop
   classe: string
   porque: string
+  // Mão de estratégia mista: a ação sai do RNG sorteado (seguidas).
+  mista?: boolean
 }
 
 function ap(size: Size): AcaoOop {
@@ -348,10 +354,11 @@ const XR_DRAW_BDFD: Decisao = {
 const XC_DRAW_DIRETO: Decisao = {
   acao: "Check-call",
   classe: "Duas pontas (draw direto)",
-  porque: "Os draws diretos que não apostam nem dão check-raise ficam no check-call.",
+  porque:
+    "Os draws diretos que não apostam nem dão check-raise ficam no check-call.",
 }
 
-export function decidir(
+function decidirRegras(
   jogada: Jogada,
   board: string[],
   hero: string[],
@@ -386,10 +393,6 @@ export function decidir(
       porque: "É range bet: o range inteiro aposta, em " + size + ".",
     }
 
-  // Par com draw e flush draw com draw de sequência são combos que as regras não cobrem.
-  const pares = ["topPair", "secondPair", "thirdPair", "underpair"]
-  if (pares.includes(L.feita) && (L.oesd || L.gutshot || L.flushDraw))
-    return null
   // Combo draw (flush draw com duas pontas) vai de check-raise por bluff (aula de 25/11/2026).
   if (L.flushDraw && L.oesd)
     return {
@@ -397,7 +400,6 @@ export function decidir(
       classe: "Combo draw",
       porque: "Os combo draws (flush draw com duas pontas) vão de check-raise.",
     }
-  if (L.flushDraw && L.gutshot) return null
 
   // Mãos que valem igual nos dois splits.
   switch (L.feita) {
@@ -446,8 +448,24 @@ export function decidir(
           classe: "Primeiro overpair",
           porque: "Os primeiros overpairs acima do board apostam por valor.",
         }
-      return null
+      return {
+        acao: "Check-call",
+        classe: "Overpair do meio",
+        porque:
+          "O overpair do meio dá check-call: é mão forte que protege o range de check (modelo, ainda sem validação do coach).",
+      }
     case "sequencia":
+      // Seguidas: metade aposta e metade vai de check-raise por valor. Nenhuma fonte diz qual
+      // metade, então vale o critério do autor (25/11/2026): RNG baixo (1 a 50) é check-raise.
+      return {
+        acao: ap(size),
+        classe: "Sequência",
+        porque:
+          "Nas seguidas, metade aposta e metade vai de check-raise por valor. Com RNG de 1 a 50 é check-raise, de 51 a 100 aposta em " +
+          size +
+          ".",
+        mista: true,
+      }
     case "flush":
       return null
     default:
@@ -456,7 +474,9 @@ export function decidir(
   // Flush draw: a regra do instrutor para os nut flush draws e XR com os demais.
   if (
     L.flushDraw &&
-    !["topPair", "secondPair", "doisPares"].includes(L.feita)
+    !["topPair", "secondPair", "thirdPair", "underpair", "doisPares"].includes(
+      L.feita
+    )
   ) {
     // Com o ás do naipe no board o nut flush draw muda de dono, e a regra não cobre.
     if (L.aceNoNaipeFD) return null
@@ -496,7 +516,6 @@ export function decidir(
       }
     return null
   }
-  if (L.flushDraw) return null
 
   // No split range, os 2 melhores pares de bolso acima do segundo par do board apostam
   // por valor (slides do coach: "melhores PP sobre o segundo par").
@@ -566,7 +585,7 @@ export function decidir(
               nome.toLowerCase() +
               " fica no check-call: a metade que não aposta.",
           }
-        return null
+        return paresDeCheck(L, board, hero, nome)
       }
       if (L.bdfd)
         return {
@@ -586,7 +605,7 @@ export function decidir(
             nome.toLowerCase() +
             " fica no check-call: a metade que não aposta.",
         }
-      return null
+      return paresDeCheck(L, board, hero, nome)
     }
     if (L.feita === "thirdPair" || L.feita === "underpair")
       return {
@@ -711,6 +730,54 @@ export function decidir(
   return null
 }
 
+// Top pair e second pair que não são da metade que aposta ficam no check: os 2 melhores top pairs
+// vão de check-raise e o resto de check-call (modelo das lacunas, item 3).
+function paresDeCheck(
+  L: Leitura,
+  board: string[],
+  hero: string[],
+  nome: string
+): Decisao {
+  if (L.feita === "topPair" && melhorTopPair(board, hero)) return XR_TOP_PAIR
+  return {
+    acao: "Check-call",
+    classe: nome + " com um naipe do board",
+    porque:
+      "Fora da metade que aposta, o " +
+      nome.toLowerCase() +
+      " fica no check-call (modelo, ainda sem validação do coach).",
+  }
+}
+
+// Mão aberta que não entra em nenhuma linha e não tem par nem draw: check-fold. Na aula, mão sem
+// valor de showdown e sem equity dá check-fold (A6o e Q7s de ouro no J-6-2). Autor: 02/11/2026.
+export function decidir(
+  jogada: Jogada,
+  board: string[],
+  hero: string[],
+  doisNaipes: boolean
+): Decisao | null {
+  const d = decidirRegras(jogada, board, hero, doisNaipes)
+  if (d || jogada.estrategia === "check" || jogada.estrategia === "range")
+    return d
+  const L = ler(board, hero)
+  if (
+    L.feita === "nada" &&
+    !L.flushDraw &&
+    !L.oesd &&
+    !L.bdfd &&
+    !(L.gutshot && L.temNaipeFD) &&
+    L.overcards < 2
+  )
+    return {
+      acao: "Check-fold",
+      classe: L.gutshot ? "Broca sem naipe do board" : "Sem par e sem draw",
+      porque:
+        "Sem valor de showdown e sem equity, a mão dá check-fold (modelo, ainda sem validação do coach).",
+    }
+  return d
+}
+
 // ---------- situações ----------
 
 const SIMBOLO: Record<string, string> = { s: "♠", h: "♥", d: "♦", c: "♣" }
@@ -753,6 +820,8 @@ export interface SituacaoOop {
   naipes: string
   estrategia: EstrategiaOop
   size?: Size
+  // RNG sorteado das seguidas (estratégia mista): 1 a 50 check-raise, 51 a 100 aposta.
+  rng?: number
 }
 
 const NAIPES = ["s", "h", "d", "c"]
@@ -827,6 +896,11 @@ function gerar(): SituacaoOop[] {
             naipes: descreverNaipes(board, m),
             estrategia: jogada.estrategia,
             size: jogada.size,
+          }
+          if (d.mista) {
+            const r = 1 + Math.floor(semente(sit.id)() * 100)
+            sit.rng = r
+            sit.certa = r <= 50 ? "Check-raise" : d.acao
           }
           const g = grupos.get(chave) ?? []
           g.push(sit)
