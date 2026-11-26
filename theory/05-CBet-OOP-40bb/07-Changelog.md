@@ -205,6 +205,18 @@ Prática aplicou parte do modelo das lacunas (`12-Modelo-Lacunas.md`), sem mudar
 
 ---
 
+# Versão 1.10 (26/11/2026)
+
+Esclarecimento do autor aplicado na Prática:
+
+- Overpair sempre na divisão de check: os mais baixos em check-raise, os mais altos em check-call (Regra 14). Substitui melhor overpair em check-raise e primeiro overpair em bet.
+- Underpair (pocket pair abaixo do terceiro par) dá check-fold, em vez de check-call.
+- Top pair sem o naipe do board: os melhores kickers em check-raise e os piores em check-call (já era assim).
+- Board dobrado: os overpairs passam a seguir a regra geral dos overpairs.
+- O autor vai fazer mais exercícios e corrigir o que estiver errado. Os itens de modelo continuam sem validação do coach.
+
+---
+
 # Próximas atualizações
 
 Adicionar:
