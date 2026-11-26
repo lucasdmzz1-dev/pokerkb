@@ -288,17 +288,6 @@ const lista: Base[] = [
     classe: "Trinca",
     porque: "na dobra do river, trincas ou melhor usam B100.",
   },
-  // Mão 51 do trainer (26/11/2026).
-  {
-    id: "t26",
-    tipo: T_DOBRA,
-    board: ["Js", "7s", "4s", "8c", "8s"],
-    hero: ["8h", "Qc"],
-    certa: "B100",
-    classe: "Trinca",
-    porque:
-      "na dobra, trincas ou melhor usam B100, mesmo num board com quatro cartas do mesmo naipe.",
-  },
 ]
 
 // Mãos montadas a partir das mesmas regras (n01 em diante). O que decide o size é o que o
