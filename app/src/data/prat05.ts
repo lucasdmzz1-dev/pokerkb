@@ -424,7 +424,13 @@ function decidirRegras(
   // Check range (monotone do CO e conectados consecutivos): só as mãos com par fecham a regra.
   if (est === "check") {
     const mono = new Set(board.map((c) => c[1])).size === 1
-    if (["topPair", "secondPair", "thirdPair", "underpair"].includes(L.feita))
+    if (L.feita === "underpair")
+      return {
+        acao: "Check-fold",
+        classe: "Underpair",
+        porque: "O pocket pair abaixo do terceiro par dá check-fold.",
+      }
+    if (["topPair", "secondPair", "thirdPair"].includes(L.feita))
       return {
         acao: "Check-call",
         classe:
@@ -481,31 +487,7 @@ function decidirRegras(
         classe: "Dois pares",
         porque: "Dois pares apostam por valor.",
       }
-    case "overpair":
-      // Board dobrado: só o Q-Q-7 tem fonte (solver GTO Wizard, CO contra BTN, print do dono em
-      // 26/11/2026): AA dá check-call e KK vai de check-raise. Nos outros dobrados fica fora.
-      if (
-        board
-          .map(rk)
-          .sort((x, y) => y - x)
-          .join() !== "12,12,7" &&
-        new Set(board.map(rk)).size < 3
-      )
-        return null
-      if (new Set(board.map(rk)).size < 3)
-        return L.overpairMelhor
-          ? {
-              acao: "Check-call",
-              classe: "AA no board dobrado",
-              porque:
-                "No Q-Q-7 o solver (GTO Wizard) dá check-call com o AA contra o bet do BTN.",
-            }
-          : {
-              acao: "Check-raise",
-              classe: "KK no board dobrado",
-              porque:
-                "No Q-Q-7 o solver (GTO Wizard) dá check-raise com o KK contra o bet do BTN.",
-            }
+    case "overpair": {
       if (jogada.overpairsBet)
         return {
           acao: ap(size),
@@ -513,24 +495,26 @@ function decidirRegras(
           porque:
             "Em board carregado (com sequência) todos os overpairs apostam: não se coloca dinheiro no pote com um par só.",
         }
-      if (L.overpairMelhor)
-        return {
-          acao: "Check-raise",
-          classe: "Melhor overpair",
-          porque: "Os melhores overpairs vão de check-raise por valor.",
-        }
-      if (L.overpairPrimeiro && !L.overpairMelhor)
-        return {
-          acao: ap(size),
-          classe: "Primeiro overpair",
-          porque: "Os primeiros overpairs acima do board apostam por valor.",
-        }
-      return {
-        acao: "Check-call",
-        classe: "Overpair do meio",
-        porque:
-          "O overpair do meio dá check-call: é mão forte que protege o range de check (modelo, ainda sem validação do coach).",
-      }
+      // Overpair sempre entra na divisão de check: os que mais precisam de proteção (os mais baixos)
+      // vão de check-raise e os que menos precisam (os mais altos) de check-call. Regra do dono,
+      // 26/11/2026; no Q-Q-7 bate com o solver (KK check-raise, AA check-call).
+      const topo = Math.max(...board.map(rk))
+      const total = 14 - topo
+      const pos = rk(hero[0]) - topo - 1
+      return pos < Math.floor(total / 2)
+        ? {
+            acao: "Check-raise",
+            classe: "Overpair que mais precisa de proteção",
+            porque:
+              "Os overpairs mais baixos precisam de mais proteção e vão de check-raise por valor.",
+          }
+        : {
+            acao: "Check-call",
+            classe: "Overpair que menos precisa de proteção",
+            porque:
+              "Os overpairs mais altos precisam de menos proteção e ficam no check-call.",
+          }
+    }
     case "sequencia":
       // Seguidas: metade aposta e metade vai de check-raise por valor. Nenhuma fonte diz qual
       // metade, então vale o critério do autor (25/11/2026): RNG baixo (1 a 50) é check-raise.
@@ -614,10 +598,19 @@ function decidirRegras(
       }
   }
 
+  // Pocket pair abaixo do terceiro par (underpair) dá check-fold, como 33 no 9-7-4.
+  if (hero[0][0] === hero[1][0] && L.feita === "underpair")
+    return {
+      acao: "Check-fold",
+      classe: "Underpair",
+      porque:
+        "O pocket pair abaixo do terceiro par não tem showdown nem equity: dá check-fold.",
+    }
+
   // Pocket pair abaixo do top pair fica no check-call, sem olhar os naipes.
   if (
     hero[0][0] === hero[1][0] &&
-    ["secondPair", "thirdPair", "underpair"].includes(L.feita)
+    ["secondPair", "thirdPair"].includes(L.feita)
   )
     return {
       acao: "Check-call",

@@ -264,12 +264,15 @@ Fonte: regras da área Prática do site (corrigidas pelo dono e pelo coach), reg
 
 ## Overpairs
 
-- Melhor overpair (AA): **check-raise** por valor.
-- Primeiro overpair acima do board (ex.: QQ no J-8-3): **bet** no size do board, por valor.
-- Overpairs do meio (ex.: KK no J-8-3): sem regra definida, ficam fora do treino.
-- **Exceção, boards carregados** (com sequência): todos os overpairs apostam, sem check-raise de valor (Regra 21, aula de 25/11/2026). Isso inclui o overpair do meio.
+Atualizado em 26/11/2026 por esclarecimento do autor: o overpair **sempre** entra na divisão de check. Os que mais precisam de proteção (os mais baixos) vão de **check-raise** por valor, e os que menos precisam (os mais altos) de **check-call**. Com N overpairs possíveis, a metade de baixo (N dividido por 2, arredondado para baixo) dá check-raise e o resto dá check-call. Exemplo: no Q-Q-7 só há KK e AA, então KK dá check-raise e AA dá check-call, o que bate com o solver (GTO Wizard, CO contra BTN). Num board com K alto só há o AA, e ele dá check-call.
 
-Exemplo: J♠ 8♦ 3♣, EP contra BTN (Split Range, B40). A♥A♣ dá check-raise. Os naipes da mão não mudam a jogada.
+Isso substitui a regra anterior (melhor overpair em check-raise e primeiro overpair em bet), que vinha da Prática e não tinha fonte.
+
+- **Exceção, boards carregados** (com sequência): todos os overpairs apostam, sem check-raise de valor (Regra 21, aula de 25/11/2026). A exceção está mantida, mas o autor disse "sempre", então confirmar se ela vale.
+
+Exemplo: J♠ 8♦ 3♣, EP contra BTN (Split Range, B40). Os overpairs são QQ, KK e AA: QQ dá check-raise, KK e AA dão check-call. Os naipes da mão não mudam a jogada.
+
+---
 
 ## Trincas
 
@@ -283,7 +286,8 @@ Exemplo: J♠ 8♦ 3♣, EP contra BTN (Split Range, B40). A♥A♣ dá check-ra
 
 ## Pocket pair abaixo do top pair
 
-- Second pair, third pair e underpair de pocket pair: **check-call**, sem olhar os naipes (Decisão 7).
+- Second pair e third pair de pocket pair: **check-call**, sem olhar os naipes (Decisão 7).
+- Underpair (pocket pair abaixo do terceiro par, como 33 no 9-7-4): **check-fold** (esclarecimento do autor, 26/11/2026).
 
 ## Fora das regras (sem jogada definida)
 
