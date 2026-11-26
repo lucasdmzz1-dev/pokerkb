@@ -385,7 +385,13 @@ const variacoes18: SituacaoRiver[] = [
       "4-x",
       "4-x com kicker que não bloqueia bluff paga, de 4-2 a 4-8.",
     ],
-    ["v4-c4", ["Ah", "4c"], "CHECKCALL", "A-4", "o A-4 paga sempre."],
+    [
+      "v4-c4",
+      ["Ah", "4c"],
+      "B25",
+      "Third pair com kicker A",
+      "os melhores third pairs têm kicker J ou maior e compõem o B25, sem completar draws do board. Abaixo do J, o third pair fica em check.",
+    ],
     ["v4-f1", ["Ac", "9h"], "CHECKFOLD", "A high", "o A-9 off é check-fold."],
     [
       "v4-f2",
@@ -535,16 +541,16 @@ const variacoes18: SituacaoRiver[] = [
     [
       "v6-a1",
       ["Ac", "6c"],
-      "CHECKCALL",
-      "A-6",
-      "o A-6 é ótimo: não bloqueia nenhum bluff.",
+      "B25",
+      "Third pair com kicker A",
+      "os melhores third pairs têm kicker J ou maior e compõem o B25, sem completar draws do board. Abaixo do J, o third pair fica em check.",
     ],
     [
       "v6-a2",
       ["Ad", "6h"],
-      "CHECKCALL",
-      "A-6",
-      "o A-6 é ótimo: não bloqueia nenhum bluff.",
+      "B25",
+      "Third pair com kicker A",
+      "os melhores third pairs têm kicker J ou maior e compõem o B25, sem completar draws do board. Abaixo do J, o third pair fica em check.",
     ],
     [
       "v6-f1",
@@ -556,16 +562,16 @@ const variacoes18: SituacaoRiver[] = [
     [
       "v6-f2",
       ["Qh", "6c"],
-      "CHECKFOLD",
-      "6-Q",
-      "a dama é carta que o BTN blefa: o 6-Q é fold.",
+      "B25",
+      "Third pair com kicker Q",
+      "os melhores third pairs têm kicker J ou maior e compõem o B25, sem completar draws do board. Abaixo do J, o third pair fica em check.",
     ],
     [
       "v6-f3",
       ["Kc", "6h"],
-      "CHECKFOLD",
-      "6-K",
-      "o 6-K também é ruim para pagar.",
+      "B25",
+      "Third pair com kicker K",
+      "os melhores third pairs têm kicker J ou maior e compõem o B25, sem completar draws do board. Abaixo do J, o third pair fica em check.",
     ],
   ]),
   // Guideline por runout. Os boards a partir daqui são ilustrativos, só a regra vem da aula.
@@ -852,7 +858,7 @@ const coach18: SituacaoRiver[] = [
     ["Td", "Qs"],
     "CHECK",
     "Third pair em board com ás no river",
-    "o ás no river é uma carta muito ruim para o BB: a estratégia tende a ir para um bet muito alto ou check. O third pair com T fica em check."
+    "o kicker T está abaixo do J, então esse third pair fica fora dos melhores third pairs, que compõem o B25. O ás no river também é uma carta muito ruim para o BB: a estratégia tende a ir para um bet muito alto ou check."
   ),
   coach(
     "t10-trinca",
