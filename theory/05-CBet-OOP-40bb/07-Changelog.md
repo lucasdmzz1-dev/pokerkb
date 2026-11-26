@@ -182,6 +182,15 @@ Fonte: aula de revisão CO contra BTN (transcrição de 25/11/2026).
 
 ---
 
+# Versão 1.8 (25/11/2026)
+
+Fonte: pedido do autor para modelar o que falta, para a Prática implementar.
+
+- Novo arquivo `12-Modelo-Lacunas.md`: modelo de check-fold, BDST, top pair e second pair com naipe do board, overpair do meio, sequência feita, par com draw, mãos sem par, board dobrado, boards carregados e consecutivos, PP no Split 25%, mais a matriz completa de linhas e a ordem sugerida na Prática.
+- Tudo marcado como *(modelo)*, ou seja, inferência. Nenhuma regra nova e nenhum código alterado.
+
+---
+
 # Próximas atualizações
 
 Adicionar:

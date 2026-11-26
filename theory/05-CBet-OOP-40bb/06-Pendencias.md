@@ -149,6 +149,8 @@ A Regra 15 vale só para o A high seco, nos dois spots, EP e CO contra BTN (os 2
 
 # 11. Mãos feitas e combos sem regra (25/11/2026)
 
+**Modelo proposto (25/11/2026):** todas as lacunas das Pendências 7, 8, 11, 12, 13, 15 (seguidas e PP no Split 25%), 18, 20 e 21 têm um modelo em `12-Modelo-Lacunas.md`. Os modelos são propostas marcadas como inferência, e nenhum é regra até o autor ou o coach confirmar.
+
 Revisão do módulo contra a Prática (ver `10-Como-Jogar.md`). Estas mãos não têm linha definida e ficam fora do treino:
 
 - Overpair do meio (KK no J-8-3). No 9-4-2, três classes de overpair ficam sem regra (JJ, QQ, KK).
