@@ -482,6 +482,30 @@ function decidirRegras(
         porque: "Dois pares apostam por valor.",
       }
     case "overpair":
+      // Board dobrado: só o Q-Q-7 tem fonte (solver GTO Wizard, CO contra BTN, print do dono em
+      // 26/11/2026): AA dá check-call e KK vai de check-raise. Nos outros dobrados fica fora.
+      if (
+        board
+          .map(rk)
+          .sort((x, y) => y - x)
+          .join() !== "12,12,7" &&
+        new Set(board.map(rk)).size < 3
+      )
+        return null
+      if (new Set(board.map(rk)).size < 3)
+        return L.overpairMelhor
+          ? {
+              acao: "Check-call",
+              classe: "AA no board dobrado",
+              porque:
+                "No Q-Q-7 o solver (GTO Wizard) dá check-call com o AA contra o bet do BTN.",
+            }
+          : {
+              acao: "Check-raise",
+              classe: "KK no board dobrado",
+              porque:
+                "No Q-Q-7 o solver (GTO Wizard) dá check-raise com o KK contra o bet do BTN.",
+            }
       if (jogada.overpairsBet)
         return {
           acao: ap(size),
