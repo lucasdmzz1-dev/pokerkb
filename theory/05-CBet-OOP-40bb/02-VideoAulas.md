@@ -63,6 +63,27 @@ Precisamos pensar em como o range inteiro será construído.
 
 ---
 
+# Desvantagens de jogar OOP (nota da aula, 25/11/2026)
+
+- **Menos controle do pote:** o IP escolhe o tipo de mão e o size da aposta. OOP não controla o size nem a frequência de aposta que enfrenta.
+- **Menos equity realizada:** OOP chega menos vezes ao showdown. O IP realiza equity dando check no flop ou no turn e pressiona a parte média e fraca do nosso range.
+- **Mais difícil de pressionar:** o IP seleciona melhor o grupo de mãos que continua. O c-bet e o second barrel OOP precisam ser voltados para equity: no flop, draws e mãos com backdoors, e no turn, draws diretos.
+- **Mais sujeito a erro:** uma estratégia linear no flop abre buracos no turn e no river (bet no flop e check no turn, por exemplo). Check range no flop ganha menos fichas, não gera fold equity e joga potes maiores, e precisaria ser compensado com muito mais check-raise. Linhas extremas OOP não trazem benefício claro e custam EV.
+
+---
+
+# Aula de revisão CO contra BTN (25/11/2026)
+
+A aula revisa o C-Bet OOP do CO contra o BTN. As regras e os boards estão na guideline (seção "Atualização da aula de revisão") e nas Regras 19 a 21. Em resumo:
+
+- O CO abre um range amplo, com muita mão fraca que erra o flop, então a frequência de bet cai (cerca de 25%, contra cerca de 50% no EP). Por isso existe o Split 25%.
+- O C-Bet OOP é uma estratégia simplificada por naipes, que o coach ainda joga e defende. Vai migrar para uma linguagem de frequência (buckets) e randomizador, mas a estratégia por naipes dá frequências muito parecidas. A parte 2 da revisão deve vir em janeiro.
+- Mudança desta revisão: conectados consecutivos (987, 765, 654, T98) viram check range, junto com o monotone.
+- MDA do field (apoio, não regra): o field aposta cerca de 50% contra o miss, perto do solver, mas não ajusta por posição. O recreativo usa size baixo de bet no flop e no turn, e dá muito fold ao probe. Contra recreativo, o size de até 70% ganha mais com valor, e os sizes baixos (25% a 40%) servem de bluff.
+- Em potes em que o IP dá check back, o range dele fica capado, e o probe do OOP ganha valor.
+
+---
+
 # Range de Bet e Range de Check
 
 A aula reforça que o check faz parte da estratégia.

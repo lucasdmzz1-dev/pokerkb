@@ -7,7 +7,8 @@ import { abre } from "@/data/ranges"
 
 export type Cenario = "EP" | "CO"
 export type EstrategiaOop = "range" | "split" | "split25" | "check"
-export type AcaoOop = "Check-call" | "Check-raise" | "B25" | "B40" | "B70"
+export type AcaoOop =
+  "Check-call" | "Check-raise" | "Check-fold" | "B25" | "B40" | "B70"
 export type TexturaOop =
   | "ahighSeco"
   | "ahighConectado"
@@ -17,6 +18,8 @@ export type TexturaOop =
   | "highSeguida"
   | "lowSeguida"
   | "lowSemSeguida"
+  | "consecutivo"
+  | "dobrado"
   | "monotone"
 
 type Size = "B25" | "B40" | "B70"
@@ -24,6 +27,8 @@ type Size = "B25" | "B40" | "B70"
 interface Jogada {
   estrategia: EstrategiaOop
   size?: Size
+  // Board carregado (com sequência): todos os overpairs apostam, sem check-raise de valor.
+  overpairsBet?: boolean
 }
 
 export interface Textura {
@@ -51,8 +56,8 @@ export const TEXTURAS: Record<TexturaOop, Textura> = {
     nome: "A HIGH conectado",
     rainbow: ["As", "Jd", "Tc"],
     doisNaipes: ["Ah", "Jh", "Tc"],
-    EP: { estrategia: "split", size: "B40" },
-    CO: { estrategia: "split25", size: "B40" },
+    EP: { estrategia: "split", size: "B40", overpairsBet: true },
+    CO: { estrategia: "split25", size: "B40", overpairsBet: true },
   },
   bbx: {
     nome: "BBX",
@@ -92,15 +97,42 @@ export const TEXTURAS: Record<TexturaOop, Textura> = {
     nome: "High com sequência",
     rainbow: ["Qs", "Td", "9c"],
     doisNaipes: ["Qh", "Th", "9c"],
-    EP: { estrategia: "split", size: "B40" },
-    CO: { estrategia: "split25", size: "B40" },
+    EP: { estrategia: "split", size: "B40", overpairsBet: true },
+    CO: { estrategia: "split25", size: "B40", overpairsBet: true },
   },
   lowSeguida: {
     nome: "Low com sequência",
     rainbow: ["7s", "6d", "4c"],
     doisNaipes: ["7h", "6h", "4c"],
-    outros: [{ rainbow: ["7s", "6d", "5c"], doisNaipes: ["7h", "6h", "5c"] }],
-    EP: { estrategia: "split", size: "B70" },
+    EP: { estrategia: "split", size: "B70", overpairsBet: true },
+    CO: { estrategia: "split", size: "B40", overpairsBet: true },
+  },
+  // Conectados consecutivos (987, 765, 654, T98): check range no EP e no CO, junto com o monotone.
+  consecutivo: {
+    nome: "Conectado consecutivo",
+    rainbow: ["9s", "8d", "7c"],
+    doisNaipes: ["9h", "8h", "7c"],
+    outros: [
+      { rainbow: ["Ts", "9d", "8c"], doisNaipes: ["Th", "9h", "8c"] },
+      { rainbow: ["7s", "6d", "5c"], doisNaipes: ["7h", "6h", "5c"] },
+      { rainbow: ["6s", "5d", "4c"], doisNaipes: ["6h", "5h", "4c"] },
+      { rainbow: ["8s", "7d", "6c"], doisNaipes: ["8h", "7h", "6c"] },
+      { rainbow: ["5s", "4d", "3c"], doisNaipes: ["5h", "4h", "3c"] },
+      { rainbow: ["4s", "3d", "2c"], doisNaipes: ["4h", "3h", "2c"] },
+    ],
+    EP: { estrategia: "check" },
+    CO: { estrategia: "check" },
+  },
+  // Board dobrado (JJ9): B40 split range no EP e no CO (aula de 25/11/2026 e tabela do solver).
+  dobrado: {
+    nome: "Board dobrado",
+    rainbow: ["Js", "Jd", "9c"],
+    doisNaipes: ["Jh", "Jd", "9h"],
+    outros: [
+      { rainbow: ["Qs", "Qd", "7c"], doisNaipes: ["Qh", "Qd", "7h"] },
+      { rainbow: ["Ks", "Kd", "5c"], doisNaipes: ["Kh", "Kd", "5h"] },
+    ],
+    EP: { estrategia: "split", size: "B40" },
     CO: { estrategia: "split", size: "B40" },
   },
   lowSemSeguida: {
@@ -174,6 +206,20 @@ interface Leitura {
   acimaBoard: boolean
   // O ás do naipe do flush draw está no board.
   aceNoNaipeFD: boolean
+  // Backdoor de sequência: as duas cartas da mão e uma do board cabem em 5 ranks seguidos.
+  bdst: boolean
+  // Suited no naipe da carta mais alta do board.
+  naipeDaAlta: boolean
+}
+
+function temBDST(br: number[], hr: number[]): boolean {
+  if (hr[0] === hr[1]) return false
+  const vale = (x: number, baixa: number) =>
+    (x >= baixa && x <= baixa + 4) || (x === 14 && baixa === 1)
+  for (let baixa = 1; baixa <= 10; baixa++)
+    if (hr.every((x) => vale(x, baixa)) && br.some((x) => vale(x, baixa)))
+      return true
+  return false
 }
 
 export function ler(board: string[], hero: string[]): Leitura {
@@ -189,11 +235,22 @@ export function ler(board: string[], hero: string[]): Leitura {
 
   let feita: Leitura["feita"] = "nada"
   const pocket = h1 === h2
+  const dobrado = br[0] === br[1] || br[1] === br[2]
+  const par = dobrado ? (br[0] === br[1] ? br[0] : br[1]) : 0
+  const kick = dobrado ? br.find((x) => x !== par)! : 0
   if (maiorSequencia(todas) && maiorSequencia(br) === 0) feita = "sequencia"
   const sc: Record<string, number> = { ...contagemSuit }
   for (const c of hero) sc[su(c)] = (sc[su(c)] ?? 0) + 1
   if (Object.values(sc).some((n) => n >= 5)) feita = "flush"
-  if (feita === "nada") {
+  if (feita === "nada" && dobrado) {
+    // Board dobrado: uma carta do par é trinca, e o par de bolso do kicker ou J9 é full house.
+    if (hr.includes(par) && hr.includes(kick)) feita = "doisPares"
+    else if (hr.includes(par)) feita = "setAlto"
+    else if (pocket && h1 === kick) feita = "doisPares"
+    else if (hr.includes(kick)) feita = "topPair"
+    else if (pocket)
+      feita = h1 > par ? "overpair" : h1 > kick ? "secondPair" : "underpair"
+  } else if (feita === "nada") {
     if (pocket && br.includes(h1)) {
       feita = h1 === br[0] ? "setAlto" : h1 === br[1] ? "setMeio" : "setBaixo"
     } else if (!pocket && br.includes(h1) && br.includes(h2)) {
@@ -248,8 +305,15 @@ export function ler(board: string[], hero: string[]): Leitura {
     suited && contagemSuit[su(hero[0])] === 1 && su(hero[0]) !== naipeFD
   const semNaipeBoard = hero.every((c) => !naipesBoard.has(su(c)))
 
+  const bdst = temBDST(br, hr)
+  const naipeAlta = su(
+    board.reduce((a, b) => (rk(b) > rk(a) ? b : a), board[0])
+  )
+
   return {
     feita,
+    bdst,
+    naipeDaAlta: suited && su(hero[0]) === naipeAlta,
     overpairPrimeiro,
     overpairMelhor,
     flushDraw,
@@ -273,6 +337,8 @@ export interface Decisao {
   acao: AcaoOop
   classe: string
   porque: string
+  // Mão de estratégia mista: a ação sai do RNG sorteado (seguidas).
+  mista?: boolean
 }
 
 function ap(size: Size): AcaoOop {
@@ -303,7 +369,41 @@ function rotuloGeral(L: Leitura): string {
   return nomes[L.feita]
 }
 
-export function decidir(
+// Os 2 melhores top pairs, pelo kicker (AK e AQ no A high seco), vão de check-raise por valor
+// em todo board com split. O kicker não pode ser carta do board.
+function melhorTopPair(board: string[], hero: string[]): boolean {
+  const br = board.map(rk)
+  const par = hero.map(rk).find((x) => br.includes(x))
+  const kicker = hero.map(rk).find((x) => x !== par)
+  const melhores: number[] = []
+  for (let r = 14; r >= 2 && melhores.length < 2; r--)
+    if (r !== par && !br.includes(r)) melhores.push(r)
+  return kicker !== undefined && melhores.includes(kicker)
+}
+
+const XR_TOP_PAIR: Decisao = {
+  acao: "Check-raise",
+  classe: "Melhor top pair",
+  porque:
+    "Os 2 melhores top pairs, pelo kicker, vão de check-raise por valor em todo board com split.",
+}
+
+// Draws com BDFD vão de check-raise por bluff. Os outros draws diretos (duas pontas) dão
+// check-call (notas do coach: XR bluff "draws com BDFD", XC "draws diretos").
+const XR_DRAW_BDFD: Decisao = {
+  acao: "Check-raise",
+  classe: "Draw com backdoor flush draw",
+  porque: "Os draws com backdoor flush draw são bluff de check-raise do range.",
+}
+
+const XC_DRAW_DIRETO: Decisao = {
+  acao: "Check-call",
+  classe: "Duas pontas (draw direto)",
+  porque:
+    "Os draws diretos que não apostam nem dão check-raise ficam no check-call.",
+}
+
+function decidirRegras(
   jogada: Jogada,
   board: string[],
   hero: string[],
@@ -313,13 +413,18 @@ export function decidir(
   const size = jogada.size
   const est = jogada.estrategia
 
-  // Monotone do CO: check range, e só as mãos com par fecham a regra.
+  // Check range (monotone do CO e conectados consecutivos): só as mãos com par fecham a regra.
   if (est === "check") {
+    const mono = new Set(board.map((c) => c[1])).size === 1
     if (["topPair", "secondPair", "thirdPair", "underpair"].includes(L.feita))
       return {
         acao: "Check-call",
-        classe: rotuloGeral(L) + " no board monotone",
-        porque: "No monotone, de CO contra o BTN, o range inteiro dá check.",
+        classe:
+          rotuloGeral(L) +
+          (mono ? " no board monotone" : " no board consecutivo"),
+        porque: mono
+          ? "No monotone, de CO contra o BTN, o range inteiro dá check."
+          : "Em board conectado consecutivo (987, 765, 654, T98) o range inteiro dá check.",
       }
     return null
   }
@@ -333,11 +438,13 @@ export function decidir(
       porque: "É range bet: o range inteiro aposta, em " + size + ".",
     }
 
-  // Par com draw e flush draw com draw de sequência são combos que as regras não cobrem.
-  const pares = ["topPair", "secondPair", "thirdPair", "underpair"]
-  if (pares.includes(L.feita) && (L.oesd || L.gutshot || L.flushDraw))
-    return null
-  if (L.flushDraw && (L.oesd || L.gutshot)) return null
+  // Combo draw (flush draw com duas pontas) vai de check-raise por bluff (aula de 25/11/2026).
+  if (L.flushDraw && L.oesd)
+    return {
+      acao: "Check-raise",
+      classe: "Combo draw",
+      porque: "Os combo draws (flush draw com duas pontas) vão de check-raise.",
+    }
 
   // Mãos que valem igual nos dois splits.
   switch (L.feita) {
@@ -367,6 +474,13 @@ export function decidir(
         porque: "Dois pares apostam por valor.",
       }
     case "overpair":
+      if (jogada.overpairsBet)
+        return {
+          acao: ap(size),
+          classe: "Overpair em board carregado",
+          porque:
+            "Em board carregado (com sequência) todos os overpairs apostam: não se coloca dinheiro no pote com um par só.",
+        }
       if (L.overpairMelhor && !L.overpairPrimeiro)
         return {
           acao: "Check-raise",
@@ -379,8 +493,24 @@ export function decidir(
           classe: "Primeiro overpair",
           porque: "Os primeiros overpairs acima do board apostam por valor.",
         }
-      return null
+      return {
+        acao: "Check-call",
+        classe: "Overpair do meio",
+        porque:
+          "O overpair do meio dá check-call: é mão forte que protege o range de check (modelo, ainda sem validação do coach).",
+      }
     case "sequencia":
+      // Seguidas: metade aposta e metade vai de check-raise por valor. Nenhuma fonte diz qual
+      // metade, então vale o critério do autor (25/11/2026): RNG baixo (1 a 50) é check-raise.
+      return {
+        acao: ap(size),
+        classe: "Sequência",
+        porque:
+          "Nas seguidas, metade aposta e metade vai de check-raise por valor. Com RNG de 1 a 50 é check-raise, de 51 a 100 aposta em " +
+          size +
+          ".",
+        mista: true,
+      }
     case "flush":
       return null
     default:
@@ -389,7 +519,9 @@ export function decidir(
   // Flush draw: a regra do instrutor para os nut flush draws e XR com os demais.
   if (
     L.flushDraw &&
-    !["topPair", "secondPair", "doisPares"].includes(L.feita)
+    !["topPair", "secondPair", "thirdPair", "underpair", "doisPares"].includes(
+      L.feita
+    )
   ) {
     // Com o ás do naipe no board o nut flush draw muda de dono, e a regra não cobre.
     if (L.aceNoNaipeFD) return null
@@ -422,13 +554,33 @@ export function decidir(
     }
     if (!L.nutFlushDraw && hero.map(rk).every((x) => x !== 14))
       return {
-        acao: "Check-raise",
-        classe: "Flush draw",
-        porque: "Os flush draws são o bluff de check-raise do range.",
+        acao: ap(size),
+        classe: "Flush draw sem ás",
+        porque:
+          "Os flush draws que não são de ás apostam: não colorem mãos piores e fazem foldar mãos melhores.",
       }
     return null
   }
-  if (L.flushDraw) return null
+
+  // No split range, os 2 melhores pares de bolso acima do segundo par do board apostam
+  // por valor (slides do coach: "melhores PP sobre o segundo par").
+  if (
+    est === "split" &&
+    hero[0][0] === hero[1][0] &&
+    L.feita === "secondPair"
+  ) {
+    const br = board.map(rk).sort((a, b) => b - a)
+    const melhores: number[] = []
+    for (let r = br[0] - 1; r > br[1] && melhores.length < 2; r--)
+      melhores.push(r)
+    if (melhores.includes(rk(hero[0])))
+      return {
+        acao: ap(size),
+        classe: "Melhor par de bolso sobre o segundo par",
+        porque:
+          "No split range os 2 melhores pares de bolso acima do segundo par do board apostam por valor.",
+      }
+  }
 
   // Par de bolso abaixo do top pair fica no check-call, sem olhar os naipes.
   if (
@@ -447,6 +599,9 @@ export function decidir(
     }
 
   if (est === "split") {
+    // Os 2 melhores top pairs da metade que não aposta vão de check-raise por valor.
+    if (L.feita === "topPair" && L.semNaipeBoard && melhorTopPair(board, hero))
+      return XR_TOP_PAIR
     if (L.feita === "topPair" || L.feita === "secondPair") {
       const nome = L.feita === "topPair" ? "Top pair" : "Second pair"
       if (doisNaipes) {
@@ -475,7 +630,7 @@ export function decidir(
               nome.toLowerCase() +
               " fica no check-call: a metade que não aposta.",
           }
-        return null
+        return paresDeCheck(L, board, hero, nome)
       }
       if (L.bdfd)
         return {
@@ -495,7 +650,7 @@ export function decidir(
             nome.toLowerCase() +
             " fica no check-call: a metade que não aposta.",
         }
-      return null
+      return paresDeCheck(L, board, hero, nome)
     }
     if (L.feita === "thirdPair" || L.feita === "underpair")
       return {
@@ -503,15 +658,17 @@ export function decidir(
         classe: L.feita === "thirdPair" ? "Third pair" : "Underpair",
         porque: "Pares com valor de showdown ficam no check-call.",
       }
-    if (L.oesd)
-      return L.semNaipeBoard
-        ? {
-            acao: ap(size),
-            classe: "Duas pontas sem naipe do board",
-            porque:
-              "No split range as duas pontas sem o naipe do board apostam como bluff.",
-          }
-        : null
+    if (L.oesd) {
+      if (L.semNaipeBoard)
+        return {
+          acao: ap(size),
+          classe: "Duas pontas sem naipe do board",
+          porque:
+            "No split range as duas pontas sem o naipe do board apostam como bluff.",
+        }
+      if (L.bdfd) return XR_DRAW_BDFD
+      return XC_DRAW_DIRETO
+    }
     if (L.gutshot) {
       if (doisNaipes && L.temNaipeFD)
         return {
@@ -520,14 +677,11 @@ export function decidir(
           porque:
             "No split range a broca com o naipe do board aposta como bluff.",
         }
+      if (L.bdfd) return XR_DRAW_BDFD
       return null
     }
     if (L.feita === "nada" && L.bdfd && L.overcards === 1)
-      return {
-        acao: ap(size),
-        classe: "Uma overcard com backdoor flush draw",
-        porque: "Uma overcard com backdoor flush draw entra no range de bet.",
-      }
+      return overcardBdfd(L, jogada, doisNaipes, size)
     return null
   }
 
@@ -548,6 +702,7 @@ export function decidir(
           porque:
             "No split 25% o top pair suited com backdoor flush draw está entre os que apostam.",
         }
+      if (melhorTopPair(board, hero)) return XR_TOP_PAIR
       return {
         acao: "Check-call",
         classe: "Top pair",
@@ -569,6 +724,7 @@ export function decidir(
         porque:
           "No split 25% o top pair suited com backdoor flush draw está entre os que apostam.",
       }
+    if (melhorTopPair(board, hero)) return XR_TOP_PAIR
     return {
       acao: "Check-call",
       classe: "Top pair",
@@ -604,13 +760,94 @@ export function decidir(
       classe: "Broca com o naipe do board",
       porque: "No split 25% a broca com o naipe do board vai de check-raise.",
     }
+  if ((L.oesd || L.gutshot) && L.bdfd) return XR_DRAW_BDFD
+  if (L.oesd) return XC_DRAW_DIRETO
   if (L.feita === "nada" && L.bdfd && L.overcards === 1)
-    return {
-      acao: ap(size),
-      classe: "Uma overcard com backdoor flush draw",
-      porque: "Uma overcard com backdoor flush draw entra no range de bet.",
-    }
+    return overcardBdfd(L, jogada, doisNaipes, size)
   return null
+}
+
+// Top pair e second pair que não são da metade que aposta ficam no check: os 2 melhores top pairs
+// vão de check-raise e o resto de check-call (modelo das lacunas, item 3).
+function paresDeCheck(
+  L: Leitura,
+  board: string[],
+  hero: string[],
+  nome: string
+): Decisao {
+  if (L.feita === "topPair" && melhorTopPair(board, hero)) return XR_TOP_PAIR
+  return {
+    acao: "Check-call",
+    classe: nome + " com um naipe do board",
+    porque:
+      "Fora da metade que aposta, o " +
+      nome.toLowerCase() +
+      " fica no check-call (modelo, ainda sem validação do coach).",
+  }
+}
+
+// Mão aberta que não entra em nenhuma linha e não tem par nem draw: check-fold. Na aula, mão sem
+// valor de showdown e sem equity dá check-fold (A6o e Q7s de ouro no J-6-2). Autor: 02/11/2026.
+export function decidir(
+  jogada: Jogada,
+  board: string[],
+  hero: string[],
+  doisNaipes: boolean
+): Decisao | null {
+  const d = decidirRegras(jogada, board, hero, doisNaipes)
+  if (d || jogada.estrategia === "check" || jogada.estrategia === "range")
+    return d
+  const L = ler(board, hero)
+  if (
+    L.feita === "nada" &&
+    !L.flushDraw &&
+    !L.oesd &&
+    !L.bdfd &&
+    !(L.gutshot && L.temNaipeFD) &&
+    L.overcards < 2
+  )
+    return {
+      acao: "Check-fold",
+      classe: L.gutshot ? "Broca sem naipe do board" : "Sem par e sem draw",
+      porque:
+        "Sem valor de showdown e sem equity, a mão dá check-fold (modelo, ainda sem validação do coach).",
+    }
+  return d
+}
+
+// Uma overcard com BDFD. Em board seco só aposta com BDST também (aula de 25/11/2026: A5 de espadas
+// e T8 de espadas no J-6-2). O ás suited aposta sempre (A7 de ouro "já daria para apostar"). A
+// carta do primeiro naipe do board vai de check-raise (modelo das lacunas, itens 2 e 7).
+function overcardBdfd(
+  L: Leitura,
+  jogada: Jogada,
+  doisNaipes: boolean,
+  size: Size
+): Decisao {
+  const seco = !jogada.overpairsBet
+  const asSuited = L.kickerAlto === 14
+  if (seco && !L.bdst && !asSuited)
+    return {
+      acao: "Check-fold",
+      classe: "Uma overcard com BDFD sem BDST",
+      porque:
+        "Em board seco, a mão solta só aposta com backdoor flush draw e backdoor de sequência juntos (modelo, ainda sem validação do coach).",
+    }
+  if (seco && L.bdst && !doisNaipes && L.naipeDaAlta)
+    return {
+      acao: "Check-raise",
+      classe: "BDFD e BDST no primeiro naipe do board",
+      porque:
+        "Em board seco, a mão com backdoor flush draw e backdoor de sequência no naipe da carta mais alta do board vai de check-raise por bluff (modelo, ainda sem validação do coach).",
+    }
+  return {
+    acao: ap(size),
+    classe:
+      seco && L.bdst
+        ? "Uma overcard com BDFD e BDST"
+        : "Uma overcard com backdoor flush draw",
+    porque: "Uma overcard com backdoor flush draw entra no range de bet.",
+  }
 }
 
 // ---------- situações ----------
@@ -655,6 +892,8 @@ export interface SituacaoOop {
   naipes: string
   estrategia: EstrategiaOop
   size?: Size
+  // RNG sorteado das seguidas (estratégia mista): 1 a 50 check-raise, 51 a 100 aposta.
+  rng?: number
 }
 
 const NAIPES = ["s", "h", "d", "c"]
@@ -684,9 +923,17 @@ function semente(texto: string): () => number {
 // O EP do módulo é o EP2 do Poker Academy (UTG+1), que é o UTG1 da nossa mesa.
 const EP_POS: SituacaoOop["heroPos"][] = ["UTG1"]
 
+// Classe da mão sem os naipes exatos: par (77), suited (AKs) ou off (AKo).
+function classeMao(m: readonly string[]): string {
+  const [a, b] = [m[0], m[1]].sort((x, y) => rk(y) - rk(x))
+  if (a[0] === b[0]) return a[0] + b[0]
+  return a[0] + b[0] + (su(a) === su(b) ? "s" : "o")
+}
+
 function gerar(): SituacaoOop[] {
   const maos = todasAsMaos()
   const lista: SituacaoOop[] = []
+  const usoPorClasse = new Map<string, number>()
   for (const [id, t] of Object.entries(TEXTURAS) as [TexturaOop, Textura][]) {
     const variantes: [SituacaoOop["variante"], string[]][] = []
     if (t.rainbow) variantes.push(["rainbow", t.rainbow])
@@ -722,11 +969,18 @@ function gerar(): SituacaoOop[] {
             estrategia: jogada.estrategia,
             size: jogada.size,
           }
+          if (d.mista) {
+            const r = 1 + Math.floor(semente(sit.id)() * 100)
+            sit.rng = r
+            sit.certa = r <= 50 ? "Check-raise" : d.acao
+          }
           const g = grupos.get(chave) ?? []
           g.push(sit)
           grupos.set(chave, g)
         }
-        // Duas mãos de cada categoria, sorteadas sempre do mesmo jeito.
+        // Duas mãos de cada categoria, sorteadas sempre do mesmo jeito. As mãos de uma
+        // categoria são de classes diferentes (um 77, não vários 77 com naipes diferentes),
+        // e cada classe de mão aparece no máximo 2 vezes por board e posição.
         for (const [chave, g] of grupos) {
           const rnd = semente(
             `${id}${cenario}${variante}${board.join("")}${chave}`
@@ -736,10 +990,20 @@ function gerar(): SituacaoOop[] {
             const j = Math.floor(rnd() * (i + 1))
             ;[copia[i], copia[j]] = [copia[j], copia[i]]
           }
-          for (const s of copia.slice(
-            0,
-            jogada.estrategia === "range" ? 3 : 2
-          )) {
+          const max = jogada.estrategia === "range" ? 3 : 2
+          const classesDoGrupo = new Set<string>()
+          const escolhidas: SituacaoOop[] = []
+          for (const s of copia) {
+            if (escolhidas.length >= max) break
+            const cm = classeMao(s.hero)
+            const k = `${id}|${cenario}|${board.map((c) => c[0]).join("")}|${cm}`
+            if (classesDoGrupo.has(cm) || (usoPorClasse.get(k) ?? 0) >= 2)
+              continue
+            classesDoGrupo.add(cm)
+            usoPorClasse.set(k, (usoPorClasse.get(k) ?? 0) + 1)
+            escolhidas.push(s)
+          }
+          for (const s of escolhidas) {
             lista.push({
               ...s,
               heroPos:

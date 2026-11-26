@@ -57,6 +57,13 @@ const ACOES: {
     cor: "bg-[#6d4aa8] hover:bg-[#7d5ab8]",
   },
   {
+    a: "Check-fold",
+    rotulo: "CHECK-FOLD",
+    sub: "",
+    tecla: "F",
+    cor: "bg-[#5b6470] hover:bg-[#6b7480]",
+  },
+  {
     a: "B25",
     rotulo: "BET 25%",
     sub: `${bb(0.25)} bb`,
@@ -82,6 +89,7 @@ const ACOES: {
 const NOME_ACAO: Record<AcaoOop, string> = {
   "Check-call": "check-call",
   "Check-raise": "check-raise",
+  "Check-fold": "check-fold",
   B25: "bet 25%",
   B40: "bet 40%",
   B70: "bet 70%",
@@ -128,7 +136,7 @@ export default function PraticaOop({ onTema }: { onTema: (t: Tema) => void }) {
           sid: atual.id,
           tipo: `${TEXTURAS[atual.textura].nome} · ${atual.cenario}`,
           bucket: 0,
-          rng: 0,
+          rng: atual.rng ?? 0,
           resp: a,
           esperado: atual.certa,
           ok: a === atual.certa,
@@ -417,6 +425,7 @@ export default function PraticaOop({ onTema }: { onTema: (t: Tema) => void }) {
         opener="HJ"
         board={atual.board}
         hero={atual.hero}
+        roll={atual.rng}
         mao={i + 1}
         total={fila.length}
         sequencia={sequencia}
@@ -433,7 +442,7 @@ export default function PraticaOop({ onTema }: { onTema: (t: Tema) => void }) {
         }}
       />
 
-      <div className="mx-auto mt-4 grid max-w-[880px] grid-cols-2 gap-2 sm:grid-cols-5 md:gap-3">
+      <div className="mx-auto mt-4 grid max-w-[880px] grid-cols-2 gap-2 sm:grid-cols-6 md:gap-3">
         {ACOES.map(({ a, rotulo, sub, tecla, cor }) => (
           <BotaoResposta
             key={a}

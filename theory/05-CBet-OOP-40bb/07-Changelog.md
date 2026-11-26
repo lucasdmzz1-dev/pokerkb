@@ -121,6 +121,90 @@ Pendente:
 
 ---
 
+# Versão 1.3 (24/11/2026)
+
+Fonte: regras da área Prática (`app/src/data/prat05.ts`), corrigidas pelo dono e pelo coach.
+
+- Regras Consolidadas: acrescentada a Regra 14 (overpairs, trincas, dois pares e par de bolso abaixo do top pair).
+- Antes só estavam no código da Prática. Overpair do meio (KK no J-8-3) continua sem regra.
+
+---
+
+# Versão 1.4 (24/11/2026)
+
+Fonte: esclarecimento do autor, a partir de uma mão da Prática.
+
+- Regras Consolidadas: Regra 15 (A high seco: AK e AQ sem naipe do board vão de check-raise, não de check-call). Vale para CO e EP contra BTN (o autor confirmou o EP no mesmo dia).
+- Pendências: item 10 (escopo da Regra 15: outras texturas).
+- Prática (`prat05.ts`): CO e EP no A high seco passam a usar a Regra 15.
+
+---
+
+# Versão 1.5 (25/11/2026)
+
+Fonte: revisão do módulo contra as regras da Prática, a pedido do autor (faltavam as mãos de cada linha).
+
+- Novo arquivo `10-Como-Jogar.md`: mapa de mãos por linha (bet por valor, bet por bluff, check-raise por valor, check-raise por bluff, check-call), por Split Range e Split 25%, com exemplo completo no A high seco (A♠ 7♦ 2♣, EP e CO).
+- Novo arquivo `11-Mapa-por-Textura.md`: as mesmas linhas para as 9 texturas, EP e CO, boards rainbow e com dois naipes, com as classes de mão de cada categoria e a tabela de quanto fica sem regra em cada uma.
+- Pendências: itens 11 a 14 (mãos sem regra, top pair e second pair com naipe do board, mãos sem par e sem draw, "primeiro naipe do board").
+- Sem mudança de regra. A função de cada mão (valor, bluff, proteção) está marcada como inferência onde a fonte não a diz.
+
+---
+
+# Versão 1.6 (25/11/2026)
+
+Fonte: três slides do coach ("Split do Cbet OOP" e "Extra") e a nota "Cbet OOP CO vs BTN, 40bb deep".
+
+- Guideline: nova seção "Split do C-Bet OOP — mãos por linha" (bet por valor e por bluff, check-raise por valor e por bluff, check-call, extras, frequência de bet por board e Split 25%).
+- Regras Consolidadas: Regras 16 (bet por valor e por bluff), 17 (check-raise por valor, por bluff e check-call) e 18 (extras: monotone, boards carregados, EP contra EP).
+- Referências: fonte 6.
+- Pendências: itens 15 (divergências dos slides com a Prática), 16 (boards carregados) e 17 (EP contra EP); atualizações nos itens 10, 11 e 13.
+- Esclarecimento do autor (25/11/2026): PP = pockets pair acima do segundo par da mesa, e os 2 melhores apostam por valor no Split Range. Aplicado na Prática (`prat05.ts`), EP e CO. Split 25% segue com check-call (Pendência 15).
+- Esclarecimento do autor (25/11/2026): os 2 melhores top pairs vão de check-raise em todo board com split. Regra 15 ampliada e aplicada na Prática em todas as texturas.
+- Decisão 10: como cada divergência entre slides, nota da aula e Prática foi conciliada. Na Prática, draws com BDFD vão de check-raise por bluff e as outras duas pontas dão check-call (inferência).
+- Nota da aula "Cbet OOP 40bbs deep": seção "Desvantagens de jogar OOP" em `02-VideoAulas.md` e tabela de size e frequência em `03-Solver.md`. Conflitos com a guideline na Pendência 18.
+- Pendências 10, 14, 15 (exceto as seguidas), 16 e 17 resolvidas.
+- Conflitos: nada foi sobrescrito. A Regra 14 e a guideline seguem como estavam.
+
+---
+
+# Versão 1.7 (25/11/2026)
+
+Fonte: aula de revisão CO contra BTN (transcrição de 25/11/2026).
+
+- Guideline: seção "Atualização da aula de revisão CO contra BTN" (boards em check range, estratégia por board, Split 25%, check-raise, flush draws).
+- Regras Consolidadas: Regras 19 (conectados consecutivos em check range), 20 (Split 25%) e 21 (check-raise seco e carregado). Nota na Regra 14 sobre boards carregados.
+- Decisão 11: o que a aula confirmou e o que mudou na Prática.
+- Prática (`prat05.ts`): textura nova "Conectado consecutivo" em check range (987, T98, 765, 654; o 765 saiu do Low com sequência) e todos os overpairs apostando nas texturas com sequência.
+- Pendências: itens 19 (pares de bolso acima do segundo par), 20 (flush draws sem ás), 21 (BDST e check-fold). Atualizados os itens 7, 8, 16, 17 e 18.
+- Decisões do autor (25/11/2026): os 2 melhores pockets pair acima do segundo par apostam (Pendência 19), e o flush draw sem ás aposta, com combo draw no check-raise (Pendência 20). Aplicado na Prática (`prat05.ts`).
+- Conflitos: nada foi sobrescrito sem decisão registrada.
+
+---
+
+# Versão 1.8 (25/11/2026)
+
+Fonte: pedido do autor para modelar o que falta, para a Prática implementar.
+
+- Novo arquivo `12-Modelo-Lacunas.md`: modelo de check-fold, BDST, top pair e second pair com naipe do board, overpair do meio, sequência feita, par com draw, mãos sem par, board dobrado, boards carregados e consecutivos, PP no Split 25%, mais a matriz completa de linhas e a ordem sugerida na Prática.
+- Tudo marcado como *(modelo)*, ou seja, inferência. Nenhuma regra nova e nenhum código alterado.
+
+---
+
+# Versão 1.9 (26/11/2026)
+
+Prática aplicou parte do modelo das lacunas (`12-Modelo-Lacunas.md`), sem mudar nenhuma regra validada:
+
+- Seguidas: RNG de 1 a 50 check-raise e de 51 a 100 aposta, critério do autor (Decisão 10).
+- Check-fold: botão novo, para mão aberta sem par, sem draw e sem equity (itens 1 e 7 do modelo).
+- Itens 3, 4 e 6 do modelo: top pair e second pair fora da metade que aposta, overpair do meio e par com draw seguem a linha do par.
+- Item 9: consecutivos 8-7-6, 5-4-3 e 4-3-2 no check range.
+- Item 2 (BDST): overcard com BDFD em board seco só aposta com BDST também; o ás suited aposta sempre (A7 de ouro, da aula). Item 7: BDFD e BDST no naipe da carta mais alta do board, em board rainbow seco, vão de check-raise. Os dois são modelo, sem validação.
+- Item 8: textura nova "Board dobrado" (JJ9, QQ7, KK5), B40 split range no EP e no CO. Trinca (uma carta do par) dá check-call como o top set, full house (J9 e 99 no JJ9) aposta como dois pares.
+- Fora da Prática: pockets pair no Split 25% (item 10), porque a Regra 20 da aula diz que second e third pair nunca apostam no Split 25%.
+
+---
+
 # Próximas atualizações
 
 Adicionar:
