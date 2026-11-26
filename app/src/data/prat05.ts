@@ -19,6 +19,7 @@ export type TexturaOop =
   | "lowSeguida"
   | "lowSemSeguida"
   | "consecutivo"
+  | "dobrado"
   | "monotone"
 
 type Size = "B25" | "B40" | "B70"
@@ -122,6 +123,18 @@ export const TEXTURAS: Record<TexturaOop, Textura> = {
     EP: { estrategia: "check" },
     CO: { estrategia: "check" },
   },
+  // Board dobrado (JJ9): B40 split range no EP e no CO (aula de 25/11/2026 e tabela do solver).
+  dobrado: {
+    nome: "Board dobrado",
+    rainbow: ["Js", "Jd", "9c"],
+    doisNaipes: ["Jh", "Jd", "9h"],
+    outros: [
+      { rainbow: ["Qs", "Qd", "7c"], doisNaipes: ["Qh", "Qd", "7h"] },
+      { rainbow: ["Ks", "Kd", "5c"], doisNaipes: ["Kh", "Kd", "5h"] },
+    ],
+    EP: { estrategia: "split", size: "B40" },
+    CO: { estrategia: "split", size: "B40" },
+  },
   lowSemSeguida: {
     nome: "Low sem sequência",
     rainbow: ["9s", "4d", "2c"],
@@ -193,6 +206,20 @@ interface Leitura {
   acimaBoard: boolean
   // O ás do naipe do flush draw está no board.
   aceNoNaipeFD: boolean
+  // Backdoor de sequência: as duas cartas da mão e uma do board cabem em 5 ranks seguidos.
+  bdst: boolean
+  // Suited no naipe da carta mais alta do board.
+  naipeDaAlta: boolean
+}
+
+function temBDST(br: number[], hr: number[]): boolean {
+  if (hr[0] === hr[1]) return false
+  const vale = (x: number, baixa: number) =>
+    (x >= baixa && x <= baixa + 4) || (x === 14 && baixa === 1)
+  for (let baixa = 1; baixa <= 10; baixa++)
+    if (hr.every((x) => vale(x, baixa)) && br.some((x) => vale(x, baixa)))
+      return true
+  return false
 }
 
 export function ler(board: string[], hero: string[]): Leitura {
@@ -208,11 +235,22 @@ export function ler(board: string[], hero: string[]): Leitura {
 
   let feita: Leitura["feita"] = "nada"
   const pocket = h1 === h2
+  const dobrado = br[0] === br[1] || br[1] === br[2]
+  const par = dobrado ? (br[0] === br[1] ? br[0] : br[1]) : 0
+  const kick = dobrado ? br.find((x) => x !== par)! : 0
   if (maiorSequencia(todas) && maiorSequencia(br) === 0) feita = "sequencia"
   const sc: Record<string, number> = { ...contagemSuit }
   for (const c of hero) sc[su(c)] = (sc[su(c)] ?? 0) + 1
   if (Object.values(sc).some((n) => n >= 5)) feita = "flush"
-  if (feita === "nada") {
+  if (feita === "nada" && dobrado) {
+    // Board dobrado: uma carta do par é trinca, e o par de bolso do kicker ou J9 é full house.
+    if (hr.includes(par) && hr.includes(kick)) feita = "doisPares"
+    else if (hr.includes(par)) feita = "setAlto"
+    else if (pocket && h1 === kick) feita = "doisPares"
+    else if (hr.includes(kick)) feita = "topPair"
+    else if (pocket)
+      feita = h1 > par ? "overpair" : h1 > kick ? "secondPair" : "underpair"
+  } else if (feita === "nada") {
     if (pocket && br.includes(h1)) {
       feita = h1 === br[0] ? "setAlto" : h1 === br[1] ? "setMeio" : "setBaixo"
     } else if (!pocket && br.includes(h1) && br.includes(h2)) {
@@ -267,8 +305,15 @@ export function ler(board: string[], hero: string[]): Leitura {
     suited && contagemSuit[su(hero[0])] === 1 && su(hero[0]) !== naipeFD
   const semNaipeBoard = hero.every((c) => !naipesBoard.has(su(c)))
 
+  const bdst = temBDST(br, hr)
+  const naipeAlta = su(
+    board.reduce((a, b) => (rk(b) > rk(a) ? b : a), board[0])
+  )
+
   return {
     feita,
+    bdst,
+    naipeDaAlta: suited && su(hero[0]) === naipeAlta,
     overpairPrimeiro,
     overpairMelhor,
     flushDraw,
@@ -636,11 +681,7 @@ function decidirRegras(
       return null
     }
     if (L.feita === "nada" && L.bdfd && L.overcards === 1)
-      return {
-        acao: ap(size),
-        classe: "Uma overcard com backdoor flush draw",
-        porque: "Uma overcard com backdoor flush draw entra no range de bet.",
-      }
+      return overcardBdfd(L, jogada, doisNaipes, size)
     return null
   }
 
@@ -722,11 +763,7 @@ function decidirRegras(
   if ((L.oesd || L.gutshot) && L.bdfd) return XR_DRAW_BDFD
   if (L.oesd) return XC_DRAW_DIRETO
   if (L.feita === "nada" && L.bdfd && L.overcards === 1)
-    return {
-      acao: ap(size),
-      classe: "Uma overcard com backdoor flush draw",
-      porque: "Uma overcard com backdoor flush draw entra no range de bet.",
-    }
+    return overcardBdfd(L, jogada, doisNaipes, size)
   return null
 }
 
@@ -776,6 +813,41 @@ export function decidir(
         "Sem valor de showdown e sem equity, a mão dá check-fold (modelo, ainda sem validação do coach).",
     }
   return d
+}
+
+// Uma overcard com BDFD. Em board seco só aposta com BDST também (aula de 25/11/2026: A5 de espadas
+// e T8 de espadas no J-6-2). O ás suited aposta sempre (A7 de ouro "já daria para apostar"). A
+// carta do primeiro naipe do board vai de check-raise (modelo das lacunas, itens 2 e 7).
+function overcardBdfd(
+  L: Leitura,
+  jogada: Jogada,
+  doisNaipes: boolean,
+  size: Size
+): Decisao {
+  const seco = !jogada.overpairsBet
+  const asSuited = L.kickerAlto === 14
+  if (seco && !L.bdst && !asSuited)
+    return {
+      acao: "Check-fold",
+      classe: "Uma overcard com BDFD sem BDST",
+      porque:
+        "Em board seco, a mão solta só aposta com backdoor flush draw e backdoor de sequência juntos (modelo, ainda sem validação do coach).",
+    }
+  if (seco && L.bdst && !doisNaipes && L.naipeDaAlta)
+    return {
+      acao: "Check-raise",
+      classe: "BDFD e BDST no primeiro naipe do board",
+      porque:
+        "Em board seco, a mão com backdoor flush draw e backdoor de sequência no naipe da carta mais alta do board vai de check-raise por bluff (modelo, ainda sem validação do coach).",
+    }
+  return {
+    acao: ap(size),
+    classe:
+      seco && L.bdst
+        ? "Uma overcard com BDFD e BDST"
+        : "Uma overcard com backdoor flush draw",
+    porque: "Uma overcard com backdoor flush draw entra no range de bet.",
+  }
 }
 
 // ---------- situações ----------

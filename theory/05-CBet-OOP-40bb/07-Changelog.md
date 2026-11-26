@@ -199,7 +199,9 @@ Prática aplicou parte do modelo das lacunas (`12-Modelo-Lacunas.md`), sem mudar
 - Check-fold: botão novo, para mão aberta sem par, sem draw e sem equity (itens 1 e 7 do modelo).
 - Itens 3, 4 e 6 do modelo: top pair e second pair fora da metade que aposta, overpair do meio e par com draw seguem a linha do par.
 - Item 9: consecutivos 8-7-6, 5-4-3 e 4-3-2 no check range.
-- Fora da Prática por ora: BDST (item 2), bluffs por linha (item 7), board dobrado (item 8) e pockets pair no Split 25% (item 10), por falta de fonte.
+- Item 2 (BDST): overcard com BDFD em board seco só aposta com BDST também; o ás suited aposta sempre (A7 de ouro, da aula). Item 7: BDFD e BDST no naipe da carta mais alta do board, em board rainbow seco, vão de check-raise. Os dois são modelo, sem validação.
+- Item 8: textura nova "Board dobrado" (JJ9, QQ7, KK5), B40 split range no EP e no CO. Trinca (uma carta do par) dá check-call como o top set, full house (J9 e 99 no JJ9) aposta como dois pares.
+- Fora da Prática: pockets pair no Split 25% (item 10), porque a Regra 20 da aula diz que second e third pair nunca apostam no Split 25%.
 
 ---
 
