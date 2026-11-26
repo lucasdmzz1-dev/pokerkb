@@ -155,9 +155,9 @@ T-7-4 é B40, T-7-5 "piora um pouco" e T-8-5 com flush draw é B70.
 
 ---
 
-# Regra 24 — Pares de bolso (02/11/2026)
+# Regra 24 — Pocket pairs (02/11/2026)
 
-**Faça:** classifique o par de bolso pela posição no board. Acima de todas as cartas é overpair. Entre a primeira e a segunda, segundo par. Entre a segunda e a terceira, terceiro par. Abaixo de todas, underpair.
+**Faça:** classifique o pocket pair pela posição no board. Acima de todas as cartas é overpair. Entre a primeira e a segunda, segundo par. Entre a segunda e a terceira, terceiro par. Abaixo de todas, underpair.
 
 **Exemplo:** no J-9-6, TT é segundo par, 77 é terceiro par e 55 é underpair. **[Autor]**
 

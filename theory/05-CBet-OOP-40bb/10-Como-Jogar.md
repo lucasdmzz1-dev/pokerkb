@@ -29,7 +29,7 @@ tags:
 
 # 2. Mãos feitas
 
-Valem igual no Split Range e no Split 25% (sets, dois pares, overpairs e pares de bolso).
+Valem igual no Split Range e no Split 25% (sets, dois pares, overpairs e pocket pairs).
 
 | Mão | Linha | Função |
 |---|---|---|
@@ -41,8 +41,8 @@ Valem igual no Split Range e no Split 25% (sets, dois pares, overpairs e pares d
 | **Trinca do meio** | **Check-raise** | Valor |
 | **Trinca baixa** | **Bet** | Valor |
 | **Dois pares** | **Bet** | Valor |
-| **2 melhores pockets pair acima do segundo par** (QQ e JJ no K-8-4), só no Split Range | **Bet** | Valor (slides do coach, Regra 16) |
-| Demais pares de bolso abaixo do top pair (second, third, underpair) | **Check-call** | Showdown value, sem olhar os naipes |
+| **2 melhores pocket pairs acima do segundo par** (QQ e JJ no K-8-4), só no Split Range | **Bet** | Valor (slides do coach, Regra 16) |
+| Demais pocket pairs abaixo do top pair (second, third, underpair) | **Check-call** | Showdown value, sem olhar os naipes |
 | Sequência ou flush feitos | Sem regra | Pendência 11 |
 
 ## Top pair e second pair (aqui os naipes decidem)
@@ -55,7 +55,7 @@ Valem igual no Split Range e no Split 25% (sets, dois pares, overpairs e pares d
 | **2 melhores top pairs** pelo kicker (AK e AQ no A high seco; AK e KQ no K-8-4), na metade que não aposta | **Check-raise** (valor, Regra 15) | **Check-raise** (os que ficariam no check-call) |
 | **Second pair com BDFD** | **Bet** (valor e proteção) | **Check-call** |
 | **Second pair sem naipe do board** | **Check-call** (a metade que não aposta) | **Check-call** |
-| **Third pair** (sem ser par de bolso) | **Check-call** | **Check-call** |
+| **Third pair** (sem ser pocket pair) | **Check-call** | **Check-call** |
 | Top pair ou second pair com um naipe do board que não é do flush draw nem suited (e second pair off com o naipe do flush draw) | Sem regra | Pendência 12 |
 
 No range bet (BBX no EP) todo o range aposta, e no check range (monotone no CO) as mãos com par dão check-call.
@@ -92,11 +92,11 @@ Casos sem regra: par com draw, flush draw com draw de sequência, brocas em boar
 
 **Check-raise por bluff:** draws com BDFD, combo draws (flush draw com duas pontas), nut flush draw baixo (A5 a A2, semi-bluff), e no Split 25% as duas pontas e as brocas com o naipe do flush draw.
 
-**Check-call:** top set, pares de bolso abaixo do top pair, top pair e second pair sem naipe do board, third pair, nut flush draw forte (AK a AT), as duas pontas que não apostam nem dão check-raise (draws diretos) e todas as mãos com par no monotone do CO.
+**Check-call:** top set, pocket pairs abaixo do top pair, top pair e second pair sem naipe do board, third pair, nut flush draw forte (AK a AT), as duas pontas que não apostam nem dão check-raise (draws diretos) e todas as mãos com par no monotone do CO.
 
 *(Inferência)* A função de cada linha (valor ou bluff) vem do texto das regras da Prática e da guideline. Onde a fonte diz só "aposta" ou "check-call", o rótulo "valor e proteção" segue a Regra 8.
 
-**Slides do coach (Regras 16 e 17).** Os slides e a nota da aula dão a mesma divisão em valor e bluff. As diferenças com a Prática foram conciliadas na Decisão 10. O que mudou nas tabelas acima: os 2 melhores top pairs no check-raise em todo split, os 2 melhores pockets pair acima do segundo par apostando no Split Range (QQ e JJ no K-8-4), os draws com BDFD no check-raise e as outras duas pontas no check-call. Os slides falam de boards carregados (todos os overpairs apostam), e a tabela segue a Regra 14. Só as seguidas (metade aposta, metade check-raise) seguem sem regra, porque nenhuma fonte diz qual metade.
+**Slides do coach (Regras 16 e 17).** Os slides e a nota da aula dão a mesma divisão em valor e bluff. As diferenças com a Prática foram conciliadas na Decisão 10. O que mudou nas tabelas acima: os 2 melhores top pairs no check-raise em todo split, os 2 melhores pocket pairs acima do segundo par apostando no Split Range (QQ e JJ no K-8-4), os draws com BDFD no check-raise e as outras duas pontas no check-call. Os slides falam de boards carregados (todos os overpairs apostam), e a tabela segue a Regra 14. Só as seguidas (metade aposta, metade check-raise) seguem sem regra, porque nenhuma fonte diz qual metade.
 
 ---
 

@@ -95,7 +95,7 @@ A Prática do módulo não tem a ação check-fold: só entram mãos com regra d
 
 **Indiferentes entre check-call e check-fold (autor):**
 
-- Os underpairs (par de bolso abaixo do terceiro par) ficam indiferentes em várias situações.
+- Os underpairs (pocket pair abaixo do terceiro par) ficam indiferentes em várias situações.
 - Exemplo do GTO Wizard (CO contra BTN, flop 9-8-4, 43,9bb), em frente à aposta do BTN: fold 46,4%, call 27,8% e raise 25,8%. O 33 e o 22 aparecem misturados entre call e fold, numa situação de 50% de stack restante.
 - Com ICM maior os pares baixos já foldariam mais. O treino não modela ICM.
 
@@ -212,7 +212,7 @@ A guideline diz, no Split 25%, para usar "o primeiro naipe do board" no check-ra
 
 Os slides (Regras 16 e 17) e a Prática não batem em alguns pontos. Nada foi sobrescrito: a Prática segue como estava, e cada ponto abaixo espera decisão.
 
-1. **"Melhores PP sobre o segundo par"** está em bet por valor. A Prática dá check-call para todo par de bolso abaixo do top pair. O autor esclareceu (25/11/2026) que PP = pockets pair, acima do segundo par da mesa, e que os **2 melhores** apostam por valor. Resolvido no Split Range (Regra 16, aplicado na Prática, EP e CO). Falta saber se vale também no Split 25%, onde a Prática segue com check-call.
+1. **"Melhores PP sobre o segundo par"** está em bet por valor. A Prática dá check-call para todo pocket pair abaixo do top pair. O autor esclareceu (25/11/2026) que PP = pocket pairs, acima do segundo par da mesa, e que os **2 melhores** apostam por valor. Resolvido no Split Range (Regra 16, aplicado na Prática, EP e CO). Falta saber se vale também no Split 25%, onde a Prática segue com check-call.
 2. **Seguidas:** metade aposta por valor e a outra metade vai de check-raise por valor. A Prática não tem regra para sequência feita. Falta saber qual metade é qual.
 3. **Duas pontas:** o slide diz "sem BDFD", e a nota e a Prática dizem "sem naipe do board". Pode ser a mesma coisa ou não.
 4. **Brocas com BDFD:** o slide de bet por bluff põe brocas com BDFD no bet, e o de check-raise por bluff põe "draws com BDFD" no check-raise. A Prática usa a broca com o naipe do flush draw. Falta saber: broca com BDFD vai para bet ou para check-raise?
@@ -264,9 +264,9 @@ Mantive a guideline e a Prática, que já foram corrigidas pelo autor e pelo coa
 
 ---
 
-# 19. Pares de bolso acima do segundo par: a aula contra o esclarecimento (25/11/2026)
+# 19. Pocket pairs acima do segundo par: a aula contra o esclarecimento (25/11/2026)
 
-O autor disse que os 2 melhores pockets pair acima do segundo par apostam (QQ e JJ no K-8-4), e a Prática segue isso no Split Range. Na aula de revisão, o coach dá o exemplo oposto num board com J alto e 6 e 2: 10-10 e 9-9 no check-call, 8-8 e 7-7 no bet, "os que precisam de mais proteção apostam". A transcrição está truncada nesse trecho.
+O autor disse que os 2 melhores pocket pairs acima do segundo par apostam (QQ e JJ no K-8-4), e a Prática segue isso no Split Range. Na aula de revisão, o coach dá o exemplo oposto num board com J alto e 6 e 2: 10-10 e 9-9 no check-call, 8-8 e 7-7 no bet, "os que precisam de mais proteção apostam". A transcrição está truncada nesse trecho.
 
 **Falta saber (autor/coach):** se os pares que apostam são os melhores ou os mais baixos do grupo. Até lá, vale o esclarecimento do autor.
 

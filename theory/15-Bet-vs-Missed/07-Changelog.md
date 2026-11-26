@@ -22,7 +22,7 @@ tags:
 
 # Versão 1.1 (02/11/2026)
 
-- 12-Padroes: boards T-7-3, T-7-5, 8-3-2 e 8-7-2 como secos, definição dos pares de bolso, top set em 75% e o range do treino (seção 9).
+- 12-Padroes: boards T-7-3, T-7-5, 8-3-2 e 8-7-2 como secos, definição dos pocket pairs, top set em 75% e o range do treino (seção 9).
 - Decisões: acrescentada a Decisão 11.
 
 ---

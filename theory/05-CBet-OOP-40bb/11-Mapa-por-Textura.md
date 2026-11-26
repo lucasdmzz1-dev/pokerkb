@@ -27,14 +27,14 @@ tags:
 | Linha | Categoria (combos) | Classes |
 |---|---|---|
 | Bet | Top pair com backdoor flush draw (20) | AKs, AQs, AJs, ATs, A9s, A8s, A6s, A5s, A4s, A3s |
-| Bet | Melhor par de bolso sobre o segundo par (12) | KK, QQ |
+| Bet | Melhor pocket pair sobre o segundo par (12) | KK, QQ |
 | Bet | Second pair com backdoor flush draw (4) | 87s, 76s |
 | Bet | Dois pares (2) | A7s |
 | Check-raise | Trinca do meio (3) | 77 |
 | Check-raise | Draw com backdoor flush draw (3) | 54s |
 | Check-raise | Melhor top pair (2) | AKs, AQs |
-| Check-call | Second pair (par de bolso) (24) | JJ, TT, 99, 88 |
-| Check-call | Third pair (par de bolso) (12) | 66, 55 |
+| Check-call | Second pair (pocket pair) (24) | JJ, TT, 99, 88 |
+| Check-call | Third pair (pocket pair) (12) | 66, 55 |
 | Check-call | Top pair sem naipe do board (8) | AJs, ATs, A9s, A8s, A6s, A5s, A4s, A3s |
 | Check-call | Top set (3) | AA |
 | Check-call | Second pair sem naipe do board (2) | 87s, 76s |
@@ -46,13 +46,13 @@ tags:
 |---|---|---|
 | Bet | Top pair com backdoor flush draw (20) | AKs, AQs, AJs, ATs, A9s, A8s, A6s, A5s, A4s, A3s |
 | Bet | Second pair com backdoor flush draw (16) | K7s, Q7s, J7s, T7s, 97s, 87s, 76s, 75s |
-| Bet | Melhor par de bolso sobre o segundo par (12) | KK, QQ |
+| Bet | Melhor pocket pair sobre o segundo par (12) | KK, QQ |
 | Bet | Dois pares (11) | A7o, A7s, A2s |
 | Check-raise | Trinca do meio (3) | 77 |
 | Check-raise | Draw com backdoor flush draw (3) | 54s |
 | Check-raise | Melhor top pair (2) | AKs, AQs |
-| Check-call | Second pair (par de bolso) (24) | JJ, TT, 99, 88 |
-| Check-call | Third pair (par de bolso) (24) | 66, 55, 44, 33 |
+| Check-call | Second pair (pocket pair) (24) | JJ, TT, 99, 88 |
+| Check-call | Third pair (pocket pair) (24) | 66, 55, 44, 33 |
 | Check-call | Top pair sem naipe do board (8) | AJs, ATs, A9s, A8s, A6s, A5s, A4s, A3s |
 | Check-call | Second pair sem naipe do board (8) | K7s, Q7s, J7s, T7s, 97s, 87s, 76s, 75s |
 | Check-call | Top set (3) | AA |
@@ -66,16 +66,16 @@ tags:
 | Linha | Categoria (combos) | Classes |
 |---|---|---|
 | Bet | Top pair com o naipe do flush draw (12) | AKo, AQo, AJo, ATo |
-| Bet | Melhor par de bolso sobre o segundo par (12) | KK, QQ |
+| Bet | Melhor pocket pair sobre o segundo par (12) | KK, QQ |
 | Bet | Top pair com backdoor flush draw (10) | AKs, AQs, AJs, ATs, A9s, A8s, A6s, A5s, A4s, A3s |
 | Bet | Dois pares (3) | A7s |
 | Bet | Second pair com backdoor flush draw (2) | 87s, 76s |
 | Check-raise | Melhor top pair (8) | AKs, AKo, AQs, AQo |
 | Check-raise | Trinca do meio (3) | 77 |
 | Check-raise | Draw com backdoor flush draw (1) | 54s |
-| Check-call | Second pair (par de bolso) (24) | JJ, TT, 99, 88 |
+| Check-call | Second pair (pocket pair) (24) | JJ, TT, 99, 88 |
 | Check-call | Top pair sem naipe do board (20) | AJs, AJo, ATs, ATo, A9s, A8s, A6s, A5s, A4s, A3s |
-| Check-call | Third pair (par de bolso) (12) | 66, 55 |
+| Check-call | Third pair (pocket pair) (12) | 66, 55 |
 | Check-call | Second pair sem naipe do board (4) | 87s, 76s |
 | Check-call | Top set (3) | AA |
 | Sem regra | 123 combos, 90 sem par e sem draw | |
@@ -85,7 +85,7 @@ tags:
 | Linha | Categoria (combos) | Classes |
 |---|---|---|
 | Bet | Top pair com o naipe do flush draw (24) | AKo, AQo, AJo, ATo, A9o, A8o, A6o, A5o |
-| Bet | Melhor par de bolso sobre o segundo par (12) | KK, QQ |
+| Bet | Melhor pocket pair sobre o segundo par (12) | KK, QQ |
 | Bet | Dois pares (11) | A7s, A7o, A2s |
 | Bet | Top pair com backdoor flush draw (10) | AKs, AQs, AJs, ATs, A9s, A8s, A6s, A5s, A4s, A3s |
 | Bet | Second pair com backdoor flush draw (8) | K7s, Q7s, J7s, T7s, 97s, 87s, 76s, 75s |
@@ -93,8 +93,8 @@ tags:
 | Check-raise | Trinca do meio (3) | 77 |
 | Check-raise | Draw com backdoor flush draw (1) | 54s |
 | Check-call | Top pair sem naipe do board (28) | AJs, AJo, ATs, ATo, A9s, A9o, A8s, A8o, A6s, A6o, A5s, A5o, A4s, A3s |
-| Check-call | Second pair (par de bolso) (24) | JJ, TT, 99, 88 |
-| Check-call | Third pair (par de bolso) (24) | 66, 55, 44, 33 |
+| Check-call | Second pair (pocket pair) (24) | JJ, TT, 99, 88 |
+| Check-call | Third pair (pocket pair) (24) | 66, 55, 44, 33 |
 | Check-call | Second pair sem naipe do board (16) | K7s, Q7s, J7s, T7s, 97s, 87s, 76s, 75s |
 | Check-call | Top set (3) | AA |
 | Check-call | Third pair (2) | K2s |
@@ -203,7 +203,7 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 | Check-raise | Draw com backdoor flush draw (15) | AJs, ATs, JTs, J9s, T9s |
 | Check-raise | Trinca do meio (3) | QQ |
 | Check-call | Second pair (60) | AQs, AQo, QJs, QJo, QTs, QTo, Q9s, Q9o, Q8s, Q7s, Q6s, Q4s |
-| Check-call | Third pair (par de bolso) (36) | JJ, TT, 99, 88, 77, 66 |
+| Check-call | Third pair (pocket pair) (36) | JJ, TT, 99, 88, 77, 66 |
 | Check-call | Top pair (27) | KTo, K9o, K8o |
 | Check-call | Third pair (24) | A5s, A5o, 85s, 75s, 65s, 54s |
 | Check-call | Duas pontas (draw direto) (13) | JTo, JTs |
@@ -236,7 +236,7 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 | Check-raise | Trinca do meio (3) | QQ |
 | Check-raise | Combo draw (1) | JTs |
 | Check-call | Second pair (60) | AQs, AQo, QJs, QJo, QTs, QTo, Q9s, Q9o, Q8s, Q7s, Q6s, Q4s |
-| Check-call | Third pair (par de bolso) (36) | JJ, TT, 99, 88, 77, 66 |
+| Check-call | Third pair (pocket pair) (36) | JJ, TT, 99, 88, 77, 66 |
 | Check-call | Top pair (34) | KTs, KTo, K9s, K9o, K8s, K8o, K7s, K6s, K4s, K3s, K2s |
 | Check-call | Third pair (19) | A5s, A5o, 85s, 75s, 65s, 54s |
 | Check-call | Underpair (12) | 44, 33 |
@@ -253,15 +253,15 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 | Linha | Categoria (combos) | Classes |
 |---|---|---|
 | Bet | Uma overcard com backdoor flush draw (24) | AQs, AJs, ATs, A9s, A7s, A6s, A5s, A3s |
-| Bet | Melhor par de bolso sobre o segundo par (12) | QQ, JJ |
+| Bet | Melhor pocket pair sobre o segundo par (12) | QQ, JJ |
 | Bet | Top pair com backdoor flush draw (10) | AKs, KQs, KJs, KTs, K9s |
 | Bet | Second pair com backdoor flush draw (8) | A8s, T8s, 98s, 87s |
 | Bet | Dois pares (2) | K8s |
 | Check-raise | Draw com backdoor flush draw (6) | 76s, 65s |
 | Check-raise | Trinca do meio (3) | 88 |
 | Check-raise | Melhor top pair (2) | AKs, KQs |
-| Check-call | Third pair (par de bolso) (18) | 77, 66, 55 |
-| Check-call | Second pair (par de bolso) (12) | TT, 99 |
+| Check-call | Third pair (pocket pair) (18) | 77, 66, 55 |
+| Check-call | Second pair (pocket pair) (12) | TT, 99 |
 | Check-call | Third pair (6) | A4s, 54s |
 | Check-call | Second pair sem naipe do board (4) | A8s, T8s, 98s, 87s |
 | Check-call | Top set (3) | KK |
@@ -282,8 +282,8 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 | Check-raise | Trinca do meio (3) | 88 |
 | Check-call | Second pair (33) | A8s, A8o, Q8s, J8s, T8s, 98s, 87s, 86s, 85s |
 | Check-call | Top pair (27) | KJo, KTo, K9o |
-| Check-call | Second pair (par de bolso) (24) | QQ, JJ, TT, 99 |
-| Check-call | Third pair (par de bolso) (18) | 77, 66, 55 |
+| Check-call | Second pair (pocket pair) (24) | QQ, JJ, TT, 99 |
+| Check-call | Third pair (pocket pair) (18) | 77, 66, 55 |
 | Check-call | Third pair (9) | A4s, Q4s, 54s |
 | Check-call | Underpair (6) | 33 |
 | Check-call | Top set (3) | KK |
@@ -296,7 +296,7 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 | Linha | Categoria (combos) | Classes |
 |---|---|---|
 | Bet | Top pair com o naipe do flush draw (12) | AKo, KQo, KJo, KTo |
-| Bet | Melhor par de bolso sobre o segundo par (12) | QQ, JJ |
+| Bet | Melhor pocket pair sobre o segundo par (12) | QQ, JJ |
 | Bet | Uma overcard com backdoor flush draw (8) | AQs, AJs, ATs, A9s, A7s, A6s, A5s, A3s |
 | Bet | Flush draw sem ás (6) | QJs, QTs, Q9s, JTs, J9s, T9s |
 | Bet | Top pair com backdoor flush draw (5) | AKs, KQs, KJs, KTs, K9s |
@@ -307,8 +307,8 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 | Check-raise | Trinca do meio (3) | 88 |
 | Check-raise | Nut flush draw baixo (A5 a A2) (2) | A5s, A3s |
 | Check-raise | Draw com backdoor flush draw (2) | 76s, 65s |
-| Check-call | Third pair (par de bolso) (18) | 77, 66, 55 |
-| Check-call | Second pair (par de bolso) (12) | TT, 99 |
+| Check-call | Third pair (pocket pair) (18) | 77, 66, 55 |
+| Check-call | Second pair (pocket pair) (12) | TT, 99 |
 | Check-call | Top pair sem naipe do board (10) | KJs, KJo, KTs, KTo, K9s |
 | Check-call | Second pair sem naipe do board (8) | A8s, T8s, 98s, 87s |
 | Check-call | Third pair (4) | A4s, 54s |
@@ -333,8 +333,8 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 | Check-raise | Draw com backdoor flush draw (3) | 76s, 75s, 65s |
 | Check-call | Top pair (34) | KJs, KJo, KTs, KTo, K9s, K9o, K7s, K6s, K5s, K3s, K2s |
 | Check-call | Second pair (33) | A8s, A8o, Q8s, J8s, T8s, 98s, 87s, 86s, 85s |
-| Check-call | Second pair (par de bolso) (24) | QQ, JJ, TT, 99 |
-| Check-call | Third pair (par de bolso) (18) | 77, 66, 55 |
+| Check-call | Second pair (pocket pair) (24) | QQ, JJ, TT, 99 |
+| Check-call | Third pair (pocket pair) (18) | 77, 66, 55 |
 | Check-call | Third pair (6) | A4s, Q4s, 54s |
 | Check-call | Underpair (6) | 33 |
 | Check-call | Nut flush draw forte (AK a AT) (3) | AQs, AJs, ATs |
@@ -350,7 +350,7 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 | Linha | Categoria (combos) | Classes |
 |---|---|---|
 | Bet | Uma overcard com backdoor flush draw (33) | ATs, A9s, A8s, A6s, A5s, A4s, KTs, K9s, K8s, QTs, Q9s |
-| Bet | Melhor par de bolso sobre o segundo par (12) | TT, 99 |
+| Bet | Melhor pocket pair sobre o segundo par (12) | TT, 99 |
 | Bet | Top pair com backdoor flush draw (10) | AJs, KJs, QJs, JTs, J9s |
 | Bet | Second pair com backdoor flush draw (6) | A7s, 87s, 76s |
 | Bet | Primeiro overpair (6) | QQ |
@@ -358,8 +358,8 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 | Check-raise | Melhor overpair (6) | AA |
 | Check-raise | Trinca do meio (3) | 77 |
 | Check-raise | Melhor top pair (2) | AJs, KJs |
-| Check-call | Third pair (par de bolso) (12) | 66, 55 |
-| Check-call | Second pair (par de bolso) (6) | 88 |
+| Check-call | Third pair (pocket pair) (12) | 66, 55 |
+| Check-call | Second pair (pocket pair) (6) | 88 |
 | Check-call | Third pair (3) | A3s |
 | Check-call | Second pair sem naipe do board (3) | A7s, 87s, 76s |
 | Check-call | Top pair sem naipe do board (3) | QJs, JTs, J9s |
@@ -382,8 +382,8 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 | Check-raise | Trinca do meio (3) | 77 |
 | Check-call | Second pair (33) | A7s, A7o, K7s, Q7s, T7s, 97s, 87s, 76s, 75s |
 | Check-call | Top pair (27) | QJo, JTo, J9o |
-| Check-call | Second pair (par de bolso) (18) | TT, 99, 88 |
-| Check-call | Third pair (par de bolso) (18) | 66, 55, 44 |
+| Check-call | Second pair (pocket pair) (18) | TT, 99, 88 |
+| Check-call | Third pair (pocket pair) (18) | 66, 55, 44 |
 | Check-call | Third pair (6) | A3s, K3s |
 | Check-call | Top set (3) | JJ |
 | Sem regra | 227 combos, 204 sem par e sem draw | |
@@ -394,7 +394,7 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 
 | Linha | Categoria (combos) | Classes |
 |---|---|---|
-| Bet | Melhor par de bolso sobre o segundo par (12) | TT, 99 |
+| Bet | Melhor pocket pair sobre o segundo par (12) | TT, 99 |
 | Bet | Uma overcard com backdoor flush draw (11) | ATs, A9s, A8s, A6s, A5s, A4s, KTs, K9s, K8s, QTs, Q9s |
 | Bet | Top pair com o naipe do flush draw (9) | AJo, KJo, QJo |
 | Bet | Flush draw sem ás (6) | KQs, KTs, K9s, K8s, QTs, Q9s |
@@ -407,10 +407,10 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 | Check-raise | Draw com backdoor flush draw (5) | T9s, T8s, 98s, 65s, 54s |
 | Check-raise | Trinca do meio (3) | 77 |
 | Check-raise | Nut flush draw baixo (A5 a A2) (2) | A5s, A4s |
-| Check-call | Third pair (par de bolso) (12) | 66, 55 |
+| Check-call | Third pair (pocket pair) (12) | 66, 55 |
 | Check-call | Top pair sem naipe do board (8) | QJs, QJo, JTs, J9s |
 | Check-call | Second pair sem naipe do board (6) | A7s, 87s, 76s |
-| Check-call | Second pair (par de bolso) (6) | 88 |
+| Check-call | Second pair (pocket pair) (6) | 88 |
 | Check-call | Nut flush draw forte (AK a AT) (3) | AKs, AQs, ATs |
 | Check-call | Top set (3) | JJ |
 | Check-call | Third pair (2) | A3s |
@@ -436,8 +436,8 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 | Check-raise | Trinca do meio (3) | 77 |
 | Check-call | Second pair (33) | A7s, A7o, K7s, Q7s, T7s, 97s, 87s, 76s, 75s |
 | Check-call | Top pair (28) | QJs, QJo, JTs, JTo, J9s, J9o, J8s, J6s |
-| Check-call | Second pair (par de bolso) (18) | TT, 99, 88 |
-| Check-call | Third pair (par de bolso) (18) | 66, 55, 44 |
+| Check-call | Second pair (pocket pair) (18) | TT, 99, 88 |
+| Check-call | Third pair (pocket pair) (18) | 66, 55, 44 |
 | Check-call | Third pair (4) | A3s, K3s |
 | Check-call | Nut flush draw forte (AK a AT) (3) | AKs, AQs, ATs |
 | Check-call | Top set (3) | JJ |
@@ -693,13 +693,13 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 |---|---|---|
 | Bet | Uma overcard com backdoor flush draw (15) | A8s, A7s, A6s, K8s, T8s |
 | Bet | Top pair com backdoor flush draw (12) | A9s, K9s, Q9s, J9s, T9s, 98s |
-| Bet | Melhor par de bolso sobre o segundo par (12) | 88, 77 |
+| Bet | Melhor pocket pair sobre o segundo par (12) | 88, 77 |
 | Bet | Primeiro overpair (6) | TT |
 | Bet | Second pair com backdoor flush draw (4) | A4s, 54s |
 | Check-raise | Draw com backdoor flush draw (9) | A5s, A3s, 65s |
 | Check-raise | Melhor overpair (6) | AA |
 | Check-raise | Melhor top pair (2) | A9s, K9s |
-| Check-call | Second pair (par de bolso) (12) | 66, 55 |
+| Check-call | Second pair (pocket pair) (12) | 66, 55 |
 | Check-call | Top pair sem naipe do board (4) | Q9s, J9s, T9s, 98s |
 | Check-call | Top set (3) | 99 |
 | Check-call | Second pair sem naipe do board (2) | A4s, 54s |
@@ -711,17 +711,17 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 |---|---|---|
 | Bet | Uma overcard com backdoor flush draw (54) | A8s, A7s, A6s, K8s, K7s, K6s, K5s, K3s, Q8s, Q7s, Q6s, Q5s, J8s, J7s, J6s, T8s, T7s, T6s |
 | Bet | Top pair com backdoor flush draw (16) | A9s, K9s, Q9s, J9s, T9s, 98s, 97s, 96s |
-| Bet | Melhor par de bolso sobre o segundo par (12) | 88, 77 |
+| Bet | Melhor pocket pair sobre o segundo par (12) | 88, 77 |
 | Bet | Second pair com backdoor flush draw (8) | A4s, K4s, Q4s, 54s |
 | Bet | Primeiro overpair (6) | TT |
 | Check-raise | Draw com backdoor flush draw (9) | A5s, A3s, 65s |
 | Check-raise | Melhor overpair (6) | AA |
 | Check-raise | Trinca do meio (3) | 44 |
 | Check-raise | Melhor top pair (2) | A9s, K9s |
-| Check-call | Second pair (par de bolso) (12) | 66, 55 |
+| Check-call | Second pair (pocket pair) (12) | 66, 55 |
 | Check-call | Third pair (6) | A2s, K2s |
 | Check-call | Top pair sem naipe do board (6) | Q9s, J9s, T9s, 98s, 97s, 96s |
-| Check-call | Third pair (par de bolso) (6) | 33 |
+| Check-call | Third pair (pocket pair) (6) | 33 |
 | Check-call | Second pair sem naipe do board (4) | A4s, K4s, Q4s, 54s |
 | Check-call | Top set (3) | 99 |
 | Sem regra | 324 combos, 246 sem par e sem draw | |
@@ -732,7 +732,7 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 
 | Linha | Categoria (combos) | Classes |
 |---|---|---|
-| Bet | Melhor par de bolso sobre o segundo par (12) | 88, 77 |
+| Bet | Melhor pocket pair sobre o segundo par (12) | 88, 77 |
 | Bet | Flush draw sem ás (10) | KQs, KJs, KTs, K8s, QJs, QTs, JTs, T8s, 87s, 76s |
 | Bet | Top pair com backdoor flush draw (6) | A9s, K9s, Q9s, J9s, T9s, 98s |
 | Bet | Primeiro overpair (6) | TT |
@@ -742,7 +742,7 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 | Check-raise | Melhor overpair (6) | AA |
 | Check-raise | Melhor top pair (4) | A9s, K9s |
 | Check-raise | Draw com backdoor flush draw (3) | A5s, A3s, 65s |
-| Check-call | Second pair (par de bolso) (12) | 66, 55 |
+| Check-call | Second pair (pocket pair) (12) | 66, 55 |
 | Check-call | Top pair sem naipe do board (8) | Q9s, J9s, T9s, 98s |
 | Check-call | Second pair sem naipe do board (4) | A4s, 54s |
 | Check-call | Nut flush draw forte (AK a AT) (4) | AKs, AQs, AJs, ATs |
@@ -756,7 +756,7 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 | Bet | Flush draw sem ás (26) | KQs, KJs, KTs, K8s, K7s, K6s, K5s, K3s, QJs, QTs, Q8s, Q7s, Q6s, Q5s, JTs, J8s, J7s, J6s, T8s, T7s, T6s, 87s, 86s, 85s, 76s, 75s |
 | Bet | Uma overcard com backdoor flush draw (18) | A8s, A7s, A6s, K8s, K7s, K6s, K5s, K3s, Q8s, Q7s, Q6s, Q5s, J8s, J7s, J6s, T8s, T7s, T6s |
 | Bet | Top pair com o naipe do flush draw (15) | A9o, K9o, Q9o, J9o, T9o |
-| Bet | Melhor par de bolso sobre o segundo par (12) | 88, 77 |
+| Bet | Melhor pocket pair sobre o segundo par (12) | 88, 77 |
 | Bet | Top pair com backdoor flush draw (8) | A9s, K9s, Q9s, J9s, T9s, 98s, 97s, 96s |
 | Bet | Broca com o naipe do board (6) | A5o |
 | Bet | Primeiro overpair (6) | TT |
@@ -767,9 +767,9 @@ O range inteiro aposta B25. Não há check-raise nem check-call.
 | Check-raise | Draw com backdoor flush draw (3) | A5s, A3s, 65s |
 | Check-raise | Trinca do meio (3) | 44 |
 | Check-call | Top pair sem naipe do board (18) | Q9s, Q9o, J9s, J9o, T9s, T9o, 98s, 97s, 96s |
-| Check-call | Second pair (par de bolso) (12) | 66, 55 |
+| Check-call | Second pair (pocket pair) (12) | 66, 55 |
 | Check-call | Second pair sem naipe do board (8) | A4s, K4s, Q4s, 54s |
-| Check-call | Third pair (par de bolso) (6) | 33 |
+| Check-call | Third pair (pocket pair) (6) | 33 |
 | Check-call | Third pair (4) | A2s, K2s |
 | Check-call | Nut flush draw forte (AK a AT) (4) | AKs, AQs, AJs, ATs |
 | Check-call | Top set (3) | 99 |

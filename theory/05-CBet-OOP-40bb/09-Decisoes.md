@@ -100,7 +100,7 @@ Com:
 
 # Decisão 7 — EP no treino da Prática (02/11/2026)
 
-Na Prática, o "EP" do módulo é o EP2 do Poker Academy (UTG+1 de uma mesa de 9 jogadores, o UTG1 da mesa do site). O CO é o CO do Poker Academy. Os ranges de abertura estão em `theory/tools/ranges-poker-academy.md`. Par de bolso abaixo do top pair dá check-call e segue a definição do módulo 17 (Decisão 14).
+Na Prática, o "EP" do módulo é o EP2 do Poker Academy (UTG+1 de uma mesa de 9 jogadores, o UTG1 da mesa do site). O CO é o CO do Poker Academy. Os ranges de abertura estão em `theory/tools/ranges-poker-academy.md`. Pocket pair abaixo do top pair dá check-call e segue a definição do módulo 17 (Decisão 14).
 
 **Status:** definitiva para a Prática.
 
@@ -139,7 +139,7 @@ Os slides do coach (Regras 16 a 18), a nota da aula "Cbet OOP 40bbs deep" e a Pr
 
 | Ponto | Decisão | Aplicado na Prática |
 |---|---|---|
-| Melhores PP (pockets pair) sobre o segundo par | Os 2 melhores apostam por valor (autor). Vale no Split Range | Sim, no Split Range. No Split 25% segue check-call, porque a nota não traz |
+| Melhores PP (pocket pairs) sobre o segundo par | Os 2 melhores apostam por valor (autor). Vale no Split Range | Sim, no Split Range. No Split 25% segue check-call, porque a nota não traz |
 | 2 melhores top pairs no XR por valor | Vale em todo board com split (autor, Regra 15) | Sim |
 | Duas pontas "sem BDFD" (slide) × "sem naipe do board" (nota e guideline) | Vale "sem naipe do board": tem duas fontes e já estava na Prática. Quem não tem naipe do board também não tem BDFD | Mantido |
 | Brocas "com BDFD" (slide) × "com naipe do board" (nota) | Vale a nota: broca com o naipe do flush draw (bet por bluff no Split Range, check-raise no Split 25%). A broca suited com BDFD é um draw com BDFD (linha abaixo) | Mantido |
@@ -165,7 +165,7 @@ A transcrição da aula de revisão (CO contra BTN) confirmou boa parte do módu
 | Boards carregados: todos os overpairs apostam | Confirmado pela aula (J-9-8). Vale a Regra 21, e a Regra 14 vale nos outros boards | Sim, nas texturas com sequência (High com sequência, Low com sequência e A high conectado) |
 | Overpair do meio (KK) | Nos boards carregados aposta. Nos outros segue sem regra | Parcial |
 | Top pair: os melhores no check-raise | A aula confirma no Split 25%: com A♥J♥ apostando, os outros AJ vão de check-raise | Já aplicado (Regra 15) |
-| Pares de bolso acima do segundo par | A aula cita 10-10 e 9-9 no check-call e 8-8 e 7-7 no bet. O autor disse que os 2 melhores apostam | Mantido como o autor disse, e o autor confirmou de novo (Pendência 19 resolvida) |
+| Pocket pairs acima do segundo par | A aula cita 10-10 e 9-9 no check-call e 8-8 e 7-7 no bet. O autor disse que os 2 melhores apostam | Mantido como o autor disse, e o autor confirmou de novo (Pendência 19 resolvida) |
 | Flush draws que não são de ás | A aula manda apostar (K8, Q9, Q7, K7 de copas). A Prática dá check-raise | Sim, por decisão do autor: flush draw sem ás aposta, e o combo draw (flush draw com duas pontas) vai de check-raise (Pendência 20 resolvida) |
 | Check-fold | A aula confirma: mão sem valor de showdown e sem equity dá check-fold | Não (o botão segue adiado, Pendência 7) |
 | BDFD e BDST juntos | A aula pede os dois critérios em board seco. A Prática não modela o BDST | Não (Pendência 21) |

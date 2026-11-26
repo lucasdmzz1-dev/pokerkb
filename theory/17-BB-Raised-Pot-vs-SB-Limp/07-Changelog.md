@@ -20,7 +20,7 @@ Fonte: dois áudios de voz sobre uma mão no T-8-4, transcritos automaticamente.
 
 Fontes: resposta do coach e nota do Yago no Discord, IMG1 e IMG2 com todos os naipes e esclarecimentos do autor do KB.
 
-- Regras: acrescentadas as Regras 21 a 25 (range off do SB, altas e baixas no board, prioridade no B70, pares de bolso e boards de B70 com flush draw).
+- Regras: acrescentadas as Regras 21 a 25 (range off do SB, altas e baixas no board, prioridade no B70, pocket pairs e boards de B70 com flush draw).
 - Decisões: acrescentadas as Decisões 11 a 14.
 - Pendências: seção "Atualizações de 02/11/2026" com o novo status dos itens 11, 13, 14, 16, 17, 23 e 25 e os itens novos 30, 31 e 32.
 
