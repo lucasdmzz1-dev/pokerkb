@@ -356,6 +356,10 @@ Na Prática, o board consecutivo é uma textura própria em check range. O 765 s
 
 ---
 
+**Como dividir o check range (decisão do autor, 26/11/2026).** A aula explica por que o range dá check (o range de abertura quase não interage com o board, a interação é a do range como um todo), mas não detalha a divisão entre check-raise e check-call. O autor decidiu: nunca apostar nesses boards e dividir o resto pelas regras gerais, sem a parte de bet. Os 2 melhores top pairs, trincas (a do meio e a pior), overpairs mais baixos, combo draws e flush draws de ás dão check-raise. Top set, dois pares, demais top pairs, second e third pair e overpairs mais altos dão check-call. Seguidas: RNG de 1 a 50 check-raise, de 51 a 100 check-call. Underpair dá check-fold. O solver do 9-8-7 (CO contra BTN, print do autor) mostra um range que vai muito de check-raise, e essa divisão é inferência do autor, não regra da aula.
+
+---
+
 # Regra 20 — Split 25%: como as mãos se distribuem (aula)
 
 Fonte: aula de revisão CO contra BTN, 25/11/2026. Confirma e detalha as Regras 6, 15, 16 e 17.

@@ -369,6 +369,28 @@ function rotuloGeral(L: Leitura): string {
   return nomes[L.feita]
 }
 
+// Overpair sempre entra na divisão de check: os que mais precisam de proteção (os mais baixos)
+// vão de check-raise e os que menos precisam (os mais altos) de check-call. Regra do dono,
+// 26/11/2026; no Q-Q-7 bate com o solver (KK check-raise, AA check-call).
+function divisaoOverpair(board: string[], hero: string[]): Decisao {
+  const topo = Math.max(...board.map(rk))
+  const total = 14 - topo
+  const pos = rk(hero[0]) - topo - 1
+  return pos < Math.floor(total / 2)
+    ? {
+        acao: "Check-raise",
+        classe: "Overpair que mais precisa de proteção",
+        porque:
+          "Os overpairs mais baixos precisam de mais proteção e vão de check-raise por valor.",
+      }
+    : {
+        acao: "Check-call",
+        classe: "Overpair que menos precisa de proteção",
+        porque:
+          "Os overpairs mais altos precisam de menos proteção e ficam no check-call.",
+      }
+}
+
 // Os 2 melhores top pairs, pelo kicker (AK e AQ no A high seco), vão de check-raise por valor
 // em todo board com split. O kicker não pode ser carta do board.
 function melhorTopPair(board: string[], hero: string[]): boolean {
@@ -421,25 +443,71 @@ function decidirRegras(
   const size = jogada.size
   const est = jogada.estrategia
 
-  // Check range (monotone do CO e conectados consecutivos): só as mãos com par fecham a regra.
+  // Check range (monotone do CO e conectados consecutivos): nunca aposta. O resto se divide pelas
+  // regras gerais, sem a parte de bet (decisão do dono, 26/11/2026; a aula não detalha essa
+  // divisão e o solver do 9-8-7 mostra um range que vai muito de check-raise).
   if (est === "check") {
     const mono = new Set(board.map((c) => c[1])).size === 1
+    const onde = mono ? " no board monotone" : " no board consecutivo"
+    const CR = (classe: string, porque: string): Decisao => ({
+      acao: "Check-raise",
+      classe: classe + onde,
+      porque,
+    })
+    const CC = (classe: string, porque: string): Decisao => ({
+      acao: "Check-call",
+      classe: classe + onde,
+      porque,
+    })
     if (L.feita === "underpair")
       return {
         acao: "Check-fold",
-        classe: "Underpair",
+        classe: "Underpair" + onde,
         porque: "O pocket pair abaixo do terceiro par dá check-fold.",
       }
-    if (["topPair", "secondPair", "thirdPair"].includes(L.feita))
+    if (L.feita === "overpair") {
+      const d = divisaoOverpair(board, hero)
+      return { ...d, classe: d.classe + onde }
+    }
+    if (L.feita === "setMeio" || L.feita === "setBaixo")
+      return CR(
+        L.feita === "setMeio" ? "Trinca do meio" : "Trinca baixa",
+        "Sem bet no check range, a trinca do meio e a pior trinca vão de check-raise por valor."
+      )
+    if (L.feita === "setAlto")
+      return CC(
+        "Top set",
+        "O top set dá check-call e protege o range de check."
+      )
+    if (L.feita === "doisPares")
+      return CC("Dois pares", "Dois pares ficam no check-call.")
+    if (L.feita === "sequencia")
       return {
         acao: "Check-call",
-        classe:
-          rotuloGeral(L) +
-          (mono ? " no board monotone" : " no board consecutivo"),
-        porque: mono
-          ? "No monotone, de CO contra o BTN, o range inteiro dá check."
-          : "Em board conectado consecutivo (987, 765, 654, T98) o range inteiro dá check.",
+        classe: "Sequência" + onde,
+        porque:
+          "Nas seguidas, metade vai de check-raise e metade de check-call. Com RNG de 1 a 50 é check-raise, de 51 a 100 é check-call.",
+        mista: true,
       }
+    if (L.feita === "topPair")
+      return melhorTopPair(board, hero)
+        ? { ...XR_TOP_PAIR, classe: XR_TOP_PAIR.classe + onde }
+        : CC(
+            "Top pair",
+            "Os top pairs fora dos 2 melhores kickers ficam no check-call."
+          )
+    if (L.feita === "secondPair" || L.feita === "thirdPair")
+      return CC(
+        rotuloGeral(L),
+        "Pares com valor de showdown ficam no check-call."
+      )
+    if (L.flushDraw && L.oesd)
+      return CR("Combo draw", "Os combo draws vão de check-raise por bluff.")
+    if (L.nutFlushDraw)
+      return CR(
+        "Flush draw de ás",
+        "O flush draw de ás vai de check-raise por bluff (aula de 25/11/2026)."
+      )
     return null
   }
   if (!size) return null
@@ -495,25 +563,7 @@ function decidirRegras(
           porque:
             "Em board carregado (com sequência) todos os overpairs apostam: não se coloca dinheiro no pote com um par só.",
         }
-      // Overpair sempre entra na divisão de check: os que mais precisam de proteção (os mais baixos)
-      // vão de check-raise e os que menos precisam (os mais altos) de check-call. Regra do dono,
-      // 26/11/2026; no Q-Q-7 bate com o solver (KK check-raise, AA check-call).
-      const topo = Math.max(...board.map(rk))
-      const total = 14 - topo
-      const pos = rk(hero[0]) - topo - 1
-      return pos < Math.floor(total / 2)
-        ? {
-            acao: "Check-raise",
-            classe: "Overpair que mais precisa de proteção",
-            porque:
-              "Os overpairs mais baixos precisam de mais proteção e vão de check-raise por valor.",
-          }
-        : {
-            acao: "Check-call",
-            classe: "Overpair que menos precisa de proteção",
-            porque:
-              "Os overpairs mais altos precisam de menos proteção e ficam no check-call.",
-          }
+      return divisaoOverpair(board, hero)
     }
     case "sequencia":
       // Seguidas: metade aposta e metade vai de check-raise por valor. Nenhuma fonte diz qual

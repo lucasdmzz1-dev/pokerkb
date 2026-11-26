@@ -217,6 +217,12 @@ Esclarecimento do autor aplicado na Prática:
 
 ---
 
+# Versão 1.11 (26/11/2026)
+
+Check range (monotone e conectados consecutivos): a Prática deixou de pôr tudo em check-call e passou a dividir pelas regras gerais, sem bet (Regra 19). Fonte da divisão: decisão do autor, sem detalhe na aula. O print do solver no 9-8-7 mostra um range que vai muito de check-raise.
+
+---
+
 # Próximas atualizações
 
 Adicionar:
