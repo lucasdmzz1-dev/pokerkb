@@ -95,7 +95,7 @@ A Prática do módulo não tem a ação check-fold: só entram mãos com regra d
 
 **Indiferentes entre check-call e check-fold (autor):**
 
-- Os underpairs (par de bolso abaixo do terceiro par) ficam indiferentes em várias situações.
+- Os underpairs (pocket pair abaixo do terceiro par) ficam indiferentes em várias situações.
 - Exemplo do GTO Wizard (CO contra BTN, flop 9-8-4, 43,9bb), em frente à aposta do BTN: fold 46,4%, call 27,8% e raise 25,8%. O 33 e o 22 aparecem misturados entre call e fold, numa situação de 50% de stack restante.
 - Com ICM maior os pares baixos já foldariam mais. O treino não modela ICM.
 

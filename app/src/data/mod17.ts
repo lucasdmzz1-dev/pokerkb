@@ -189,7 +189,7 @@ export const mod17 = {
           ex: [{ classe: "Underpair", hero: ["4h", "4d"] }],
         },
       ],
-      nota: "No B70 a prioridade são as mãos fortes e vulneráveis nas próximas streets: dois pares, overpair e TP forte em 75%. A trinca vai em 25%: bloqueia pares e não ganha nada colocando dinheiro em frequência alta. Underpair é o par de bolso abaixo da carta mais baixa do board.",
+      nota: "No B70 a prioridade são as mãos fortes e vulneráveis nas próximas streets: dois pares, overpair e TP forte em 75%. A trinca vai em 25%: bloqueia pares e não ganha nada colocando dinheiro em frequência alta. Underpair é o pocket pair abaixo da carta mais baixa do board.",
     },
   ] as SplitBB[],
 
@@ -350,7 +350,7 @@ export const mod17 = {
     "Monotone: B25, buckets 25/50/75, frequência perto de 50%.",
     "Dobrado conectado: trinca, full e quadra em 75%, o restante em 50%.",
     "No B70: dois pares, overpair e TP forte em 75%. Trinca em 25%.",
-    "Pares de bolso: acima de todas as cartas é overpair, entre as cartas é segundo ou terceiro par, abaixo de todas é underpair.",
+    "Pocket pairs: acima de todas as cartas é overpair, entre as cartas é segundo ou terceiro par, abaixo de todas é underpair.",
     "Flush draw no board: a mão com carta do naipe aposta mais e a sem carta dá check.",
     "Turn depois de check-check: size alto, B70 no mínimo.",
   ],

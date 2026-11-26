@@ -188,7 +188,7 @@ Por enquanto, os exercícios e as situações do trainer usam **só boards com s
 
 - **Boards secos:** T-7-3, T-7-5, 8-3-2 e 8-7-2 são secos, segundo exemplos do trainer do coach. Isso responde em parte a dúvida 1 (boards intermediários entre semi conectado e seco).
 - **Top set:** a imagem do flop seco (Q-5-3) lista overpair e trincas em 100% e "2 pares, TPs e TS" em 75%. A top trinca (TS) fica em 75%.
-- **Pares de bolso (autor):** overpair é acima de todas as cartas. Entre a primeira e a segunda carta é segundo par, entre a segunda e a terceira é terceiro par, e só abaixo de todas é underpair. No J-9-6, TT é segundo par, 77 é terceiro par e 55 é underpair.
+- **Pocket pairs (autor):** overpair é acima de todas as cartas. Entre a primeira e a segunda carta é segundo par, entre a segunda e a terceira é terceiro par, e só abaixo de todas é underpair. No J-9-6, TT é segundo par, 77 é terceiro par e 55 é underpair.
 - **Range do treino:** a Prática só sorteia mãos que o BTN paga contra o open do CO e do HJ, a 40bb (Poker Academy). Os ranges estão em `theory/tools/ranges-poker-academy.md`. Mãos que o BTN só 3beta (AA, QQ, AKs) ou folda (53s, 96s) ficam fora do treino.
 
 # 10. Exemplos do trainer do coach (03/11/2026)
