@@ -223,6 +223,12 @@ Check range (monotone e conectados consecutivos): a Prática deixou de pôr tudo
 
 ---
 
+# Versão 1.12 (26/11/2026)
+
+A Prática do EP contra o BTN voltou às regras de antes de 26/11/2026 (arquivo `prat05ep.ts`), a pedido do autor: só o CO usa as regras novas (check-fold, overpairs em XR/XC, BDST, board dobrado, check range dividido, seguidas por RNG). Sizes do CO conferidos com o slide "Mapa de estratégia por textura" da aula: todos batem.
+
+---
+
 # Próximas atualizações
 
 Adicionar:
