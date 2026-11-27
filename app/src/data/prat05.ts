@@ -383,7 +383,7 @@ function divisaoOverpair(board: string[], hero: string[]): Decisao {
   const topo = Math.max(...board.map(rk))
   const total = 14 - topo
   const pos = rk(hero[0]) - topo - 1
-  return pos < Math.floor(total / 2)
+  return pos < Math.ceil(total / 2)
     ? {
         acao: "Check-raise",
         classe: "Overpair que mais precisa de proteção",
