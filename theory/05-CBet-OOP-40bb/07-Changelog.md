@@ -229,6 +229,12 @@ A Prática do EP contra o BTN voltou às regras de antes de 26/11/2026 (arquivo 
 
 ---
 
+# Versão 1.13 (26/11/2026)
+
+Material novo do coach (slides "Cbet OOP CO vs BU 40BB" e notas "Cbet OOP COxBU"): o mapa de estratégia por textura confere com a Prática no CO. As notas trazem 11 boards de classificação. A Prática do CO ganhou os que faltavam: A-9-5 (A-high seco), A-9-8 (A-high conectado), K-8-2 e Q-9-4 (K/Q-high), Q-9-8 (High com sequência) e 9-6-2 (Low sem sequência). O EP não foi alterado.
+
+---
+
 # Próximas atualizações
 
 Adicionar:
