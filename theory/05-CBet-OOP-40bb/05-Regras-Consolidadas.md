@@ -264,7 +264,7 @@ Fonte: regras da área Prática do site (corrigidas pelo dono e pelo coach), reg
 
 ## Overpairs
 
-Atualizado em 26/11/2026 por esclarecimento do autor: o overpair **sempre** entra na divisão de check. Os que mais precisam de proteção (os mais baixos) vão de **check-raise** por valor, e os que menos precisam (os mais altos) de **check-call**. Com N overpairs possíveis, a metade de baixo (N dividido por 2, arredondado para baixo) dá check-raise e o resto dá check-call. Exemplo: no Q-Q-7 só há KK e AA, então KK dá check-raise e AA dá check-call, o que bate com o solver (GTO Wizard, CO contra BTN). Num board com K alto só há o AA, e ele dá check-call.
+Atualizado em 26/11/2026 por esclarecimento do autor: o overpair **sempre** entra na divisão de check. Os que mais precisam de proteção (os mais baixos) vão de **check-raise** por valor, e os que menos precisam (os mais altos) de **check-call**. Com N overpairs possíveis, a metade de baixo (N dividido por 2, arredondado para cima) dá check-raise e o resto dá check-call. Exemplo: no Q-Q-7 só há KK e AA, então KK dá check-raise e AA dá check-call, o que bate com o solver (GTO Wizard, CO contra BTN). Num board com K alto só há o AA, e ele dá check-raise (correção do autor, 26/11/2026).
 
 Isso substitui a regra anterior (melhor overpair em check-raise e primeiro overpair em bet), que vinha da Prática e não tinha fonte.
 
