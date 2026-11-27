@@ -4,6 +4,7 @@
 // cobrem de forma clara devolve null e não entra no treino.
 
 import { abre } from "@/data/ranges"
+import { situacoesOop as situacoesEpAntigo } from "./prat05ep"
 
 export type Cenario = "EP" | "CO"
 export type EstrategiaOop = "range" | "split" | "split25" | "check"
@@ -1034,7 +1035,7 @@ function gerar(): SituacaoOop[] {
       variantes.push(["rainbow", o.rainbow])
       variantes.push(["doisNaipes", o.doisNaipes])
     }
-    for (const cenario of ["EP", "CO"] as Cenario[]) {
+    for (const cenario of ["CO"] as Cenario[]) {
       const jogada = t[cenario]
       if (!jogada) continue
       for (const [variante, board] of variantes) {
@@ -1111,4 +1112,8 @@ function gerar(): SituacaoOop[] {
   return lista
 }
 
-export const situacoesOop: SituacaoOop[] = gerar()
+// O EP contra o BTN segue as regras antigas (prat05ep.ts); só o CO usa as regras novas.
+export const situacoesOop: SituacaoOop[] = [
+  ...situacoesEpAntigo.filter((x) => x.cenario === "EP"),
+  ...gerar(),
+]
