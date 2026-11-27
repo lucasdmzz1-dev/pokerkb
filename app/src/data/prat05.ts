@@ -188,6 +188,10 @@ interface Leitura {
     | "underpair"
     | "sequencia"
     | "flush"
+    // Board dobrado: mãos que não têm regra na Prática.
+    | "fullHouse"
+    | "trincaDobrado"
+    | "doisParesDobrado"
     | "nada"
   // Overpair: do menor (primeiro acima do board) ao melhor possível.
   overpairPrimeiro: boolean
@@ -244,10 +248,10 @@ export function ler(board: string[], hero: string[]): Leitura {
   if (Object.values(sc).some((n) => n >= 5)) feita = "flush"
   if (feita === "nada" && dobrado) {
     // Board dobrado: uma carta do par é trinca, e o pocket pair do kicker ou J9 é full house.
-    if (hr.includes(par) && hr.includes(kick)) feita = "doisPares"
-    else if (hr.includes(par)) feita = "setAlto"
-    else if (pocket && h1 === kick) feita = "doisPares"
-    else if (hr.includes(kick)) feita = "topPair"
+    if (hr.includes(par) && hr.includes(kick)) feita = "fullHouse"
+    else if (hr.includes(par)) feita = "trincaDobrado"
+    else if (pocket && h1 === kick) feita = "fullHouse"
+    else if (hr.includes(kick)) feita = "doisParesDobrado"
     else if (pocket)
       feita = h1 > par ? "overpair" : h1 > kick ? "secondPair" : "underpair"
   } else if (feita === "nada") {
@@ -358,6 +362,9 @@ function rotuloGeral(L: Leitura): string {
     underpair: "Underpair",
     sequencia: "Sequência",
     flush: "Flush",
+    fullHouse: "Full house",
+    trincaDobrado: "Trinca",
+    doisParesDobrado: "Dois pares",
     nada: L.flushDraw
       ? "Flush draw"
       : L.oesd
@@ -511,6 +518,11 @@ function decidirRegras(
     return null
   }
   if (!size) return null
+
+  // Board dobrado: full house, trinca e dois pares não têm regra (a aula só define o B40 split
+  // range). Ficam fora do treino até o coach definir.
+  if (["fullHouse", "trincaDobrado", "doisParesDobrado"].includes(L.feita))
+    return null
 
   // Range bet: o range inteiro aposta.
   if (est === "range")
