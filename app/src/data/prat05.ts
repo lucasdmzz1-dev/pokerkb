@@ -769,7 +769,7 @@ function decidirRegras(
       return null
     }
     if (L.feita === "nada" && L.bdfd && L.overcards === 1)
-      return overcardBdfd(L, jogada, doisNaipes, size)
+      return overcardBdfd(L, board, jogada, doisNaipes, size)
     return null
   }
 
@@ -852,7 +852,7 @@ function decidirRegras(
   if (L.gutshot) return BROCA_BET(size)
   if (L.oesd) return XC_DRAW_DIRETO
   if (L.feita === "nada" && L.bdfd && L.overcards === 1)
-    return overcardBdfd(L, jogada, doisNaipes, size)
+    return overcardBdfd(L, board, jogada, doisNaipes, size)
   return null
 }
 
@@ -908,11 +908,23 @@ export function decidir(
 // em board seco, a carta do primeiro naipe do board vai de check-raise (modelo das lacunas, item 7).
 function overcardBdfd(
   L: Leitura,
+  board: string[],
   jogada: Jogada,
   doisNaipes: boolean,
   size: Size
 ): Decisao {
   const seco = !jogada.overpairsBet
+  const dobrado = new Set(board.map(rk)).size < 3
+  // Aula de 25/11/2026: em board seco, a mão solta só aposta com BDFD e BDST juntos (Q7 de ouro e
+  // A6 off no J-6-2 dão check-fold). O ás suited aposta (A7 de ouro). No board dobrado vale a
+  // correção do dono (26/11/2026): K8 de ouro no Q-Q-7 aposta.
+  if (seco && !dobrado && !L.bdst && L.kickerAlto !== 14)
+    return {
+      acao: "Check-fold",
+      classe: "Uma overcard com BDFD sem BDST",
+      porque:
+        "Em board seco, a mão solta só aposta com backdoor flush draw e backdoor de sequência juntos: sem BDST dá check-fold.",
+    }
   if (seco && L.bdst && !doisNaipes && L.naipeDaAlta)
     return {
       acao: "Check-raise",
