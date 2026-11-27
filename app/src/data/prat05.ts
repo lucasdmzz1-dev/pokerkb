@@ -893,12 +893,12 @@ export function decidir(
     !L.flushDraw &&
     !L.oesd &&
     !L.bdfd &&
-    !(L.gutshot && !L.semNaipeBoard) &&
+    !L.gutshot &&
     L.overcards < 2
   )
     return {
       acao: "Check-fold",
-      classe: L.gutshot ? "Broca sem naipe do board" : "Sem par e sem draw",
+      classe: "Sem par e sem draw",
       porque:
         "Sem valor de showdown e sem equity, a mão dá check-fold (modelo, ainda sem validação do coach).",
     }
