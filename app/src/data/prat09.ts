@@ -877,9 +877,9 @@ const extras: Base[] = [
     tipo: T_HIGH,
     board: BF,
     hero: ["6h", "5h"],
-    certa: "B100",
+    certa: "B70",
     classe: "Sem par",
-    porque: MUDA100,
+    porque: "no dinâmico high card, o blefe com low cards usa B70.",
   },
   {
     id: "n38",
@@ -942,9 +942,9 @@ const extras: Base[] = [
     tipo: T_HIGH,
     board: BG,
     hero: ["9h", "7h"],
-    certa: "B100",
+    certa: "B70",
     classe: "Sem par",
-    porque: MUDA100,
+    porque: "no dinâmico high card, o blefe com low cards usa B70.",
   },
   {
     id: "n45",
