@@ -627,7 +627,7 @@ const extras: Base[] = [
     id: "n34",
     tipo: T_HIGH,
     board: BF,
-    hero: ["Qs", "9s"],
+    hero: ["Qs", "8s"],
     certa: "B70",
     classe: "Top pair",
     porque: "top pair com kicker abaixo de T usa B70.",
