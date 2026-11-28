@@ -522,8 +522,6 @@ const AX100 =
 const AX70 = "no Ax dinâmico, top pair com kicker abaixo de T usa B70."
 const MUDA100 =
   "o river mudou a carta alta, e o B100 vale nas mudanças de carta alta."
-const DOBRA100 = "o river dobrou o board, e o B100 vale nas dobras."
-
 const extras: Base[] = [
   // Blank K-8-3-6-2
   {
