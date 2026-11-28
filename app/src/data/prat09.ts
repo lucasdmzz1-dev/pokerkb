@@ -129,16 +129,6 @@ const lista: Base[] = [
     porque: "river blank usa B70.",
   },
   {
-    id: "t09",
-    tipo: T_FLUSH,
-    board: ["8d", "6s", "9c", "3d", "Kd"],
-    hero: ["4h", "7h"],
-    certa: "B100",
-    classe: "Sem par",
-    porque:
-      "o K completa o flush e é carta alta nova, e o B100 vale nos dois casos.",
-  },
-  {
     id: "t10",
     tipo: T_FLUSH,
     board: ["Ad", "3d", "2d", "Ks", "Ts"],
