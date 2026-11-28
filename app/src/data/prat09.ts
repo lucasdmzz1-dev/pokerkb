@@ -587,9 +587,10 @@ const extras: Base[] = [
     tipo: T_BLANK,
     board: BA,
     hero: ["Qh", "Jh"],
-    certa: "CHECK",
+    certa: "B70",
     classe: "Q-high",
-    porque: "o Q-high não blefa num board de K-high, e fica em check.",
+    porque:
+      "sem o ás no board, o Q-high ataca o A-high do BB e blefa; river blank usa B70.",
   },
   {
     id: "n06",
@@ -771,9 +772,10 @@ const extras: Base[] = [
     tipo: T_FLUSH,
     board: BD,
     hero: ["Qd", "Jc"],
-    certa: "CHECK",
+    certa: "B70",
     classe: "Q-high",
-    porque: "o Q-high não blefa num board de K-high, e fica em check.",
+    porque:
+      "sem o ás no board, o Q-high ataca o A-high do BB e blefa; no flush sem blocker bom o blefe usa B70.",
   },
   {
     id: "n26",
@@ -819,9 +821,10 @@ const extras: Base[] = [
     tipo: T_DOBRA,
     board: BE,
     hero: ["Qd", "9d"],
-    certa: "CHECK",
+    certa: "B100",
     classe: "Q-high",
-    porque: "o Q-high não blefa num board de K-high, e fica em check.",
+    porque:
+      "sem o ás no board, o Q-high ataca o A-high do BB e blefa; na dobra do river o blefe vai de B100.",
   },
   {
     id: "n31",
@@ -939,9 +942,10 @@ const extras: Base[] = [
     tipo: T_HIGH,
     board: BG,
     hero: ["Qh", "Th"],
-    certa: "CHECK",
+    certa: "B100",
     classe: "Q-high",
-    porque: "o Q-high não blefa num board de K-high, e fica em check.",
+    porque:
+      "sem o ás no board, o Q-high ataca o A-high do BB e blefa; a carta alta nova no river leva o blefe a B100.",
   },
   {
     id: "n44",
