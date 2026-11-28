@@ -772,10 +772,10 @@ const extras: Base[] = [
     tipo: T_FLUSH,
     board: BD,
     hero: ["Qd", "Jc"],
-    certa: "B70",
+    certa: "B100",
     classe: "Q-high",
     porque:
-      "sem o ás no board, o Q-high ataca o A-high do BB e blefa; no flush sem blocker bom o blefe usa B70.",
+      "no dinâmico flush, broadway com o naipe do board (Q♦) é bom blocker do flush, e o blefe vai de B100.",
   },
   {
     id: "n26",
