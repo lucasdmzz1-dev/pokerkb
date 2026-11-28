@@ -811,18 +811,18 @@ const extras: Base[] = [
     tipo: T_DOBRA,
     board: BE,
     hero: ["9s", "8s"],
-    certa: "B100",
+    certa: "B70",
     classe: "Sem par",
-    porque: DOBRA100,
+    porque: "na dobra do river, o blefe com low cards usa B70.",
   },
   {
     id: "n32",
     tipo: T_DOBRA,
     board: BE,
     hero: ["5c", "3c"],
-    certa: "B100",
+    certa: "B70",
     classe: "Sem par",
-    porque: DOBRA100,
+    porque: "na dobra do river, o blefe com low cards usa B70.",
   },
   // Dama no river 7-4-2-9-Q
   {
